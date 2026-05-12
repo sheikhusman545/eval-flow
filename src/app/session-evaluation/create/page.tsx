@@ -1,40 +1,173 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { Suspense } from 'react'
+import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Breadcrumb from '@/components/layout/Breadcrumb'
-import Button from '@/components/ui/Button'
 import { getTraineeById, TRAINEES } from '@/data/trainees'
 import { cn } from '@/lib/utils'
 import {
-  CloudUpload, X, Plus, Minus, CheckCircle2, CircleCheckBig,
-  FileVideo, Check, AlertCircle, Star
+  Upload, Video, VideoOff, X, Check, AlertCircle,
+  Sparkles, Paperclip, CheckCircle2, ChevronDown,
 } from 'lucide-react'
 
-const STROKES = ['Forehand', 'Backhand', 'Serve', 'Volley', 'Overhead', 'Return', 'Footwork']
+const STROKE_OPTIONS = ['Forehand', 'Backhand', 'Volley', 'Serve', 'Smash']
+const SKILL_OPTIONS = ['Adult Beginner', 'Beginner', 'Intermediate', 'Advanced']
+const ANGLE_OPTIONS = ['Behind Player', 'Side View', 'Front View']
 
-function ScoreSlider({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) {
-  const pct = (value / 10) * 100
-  const trackStyle = {
-    background: `linear-gradient(to right, #fd5303 ${pct}%, #e5e7eb ${pct}%)`,
-  }
+const WHATS_GOOD_ITEMS = ['Early Preparation', 'Smooth Swing', 'Good Follow-Through']
+const NEEDS_ATTENTION_ITEMS = ['Racquet Back Late', 'Flat Swing Path', 'Late Racquet Prep', 'Poor Spacing']
+
+function CustomSelect({
+  options,
+  value,
+  onChange,
+  placeholder = 'Select...',
+}: {
+  options: string[]
+  value: string
+  onChange: (v: string) => void
+  placeholder?: string
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-xs text-gray-500 w-24 shrink-0">{label}</span>
-      <input
-        type="range"
-        min={0}
-        max={10}
-        step={0.1}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="score-slider flex-1"
-        style={trackStyle}
-      />
-      <span className="text-sm font-bold text-[#fd5303] w-10 text-right">{value.toFixed(1)}</span>
+    <div ref={ref} className="relative w-full">
+      <div
+        className="flex items-center justify-between px-4 py-2.5 rounded-lg border border-[#e7e7e7] bg-[#f8f9fb] cursor-pointer hover:border-[#365c8e] transition-colors"
+        onClick={() => setOpen((v) => !v)}
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOpen((v) => !v) }}
+        role="combobox"
+        aria-expanded={open}
+      >
+        <span className={value ? 'text-black font-bold text-sm' : 'text-[#868686] text-sm'}>
+          {value || placeholder}
+        </span>
+        <ChevronDown size={16} className={cn('text-[#868686] transition-transform duration-200', open && 'rotate-180')} />
+      </div>
+      {open && (
+        <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-[#e7e7e7] rounded-xl shadow-lg z-30 py-1 overflow-hidden">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => { onChange(opt); setOpen(false) }}
+              className={cn(
+                'w-full text-left px-4 py-2 text-sm hover:bg-[#f8f9fb] transition-colors',
+                value === opt ? 'font-bold text-[#365c8e]' : 'text-black',
+              )}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
+  )
+}
+
+function AngleGroup({
+  options,
+  value,
+  onChange,
+}: {
+  options: string[]
+  value: string
+  onChange: (v: string) => void
+}) {
+  const idx = Math.max(0, options.indexOf(value))
+  const trackWidth = `${100 / options.length}%`
+  const trackLeft = `${(idx * 100) / options.length}%`
+
+  return (
+    <div className="relative flex rounded-[2rem] bg-[#f8f9fb] w-full h-8">
+      <div
+        className="absolute top-0 h-8 rounded-[2rem] bg-[#6fbf45] shadow-sm transition-all duration-300 pointer-events-none"
+        style={{ width: trackWidth, left: trackLeft }}
+        aria-hidden="true"
+      />
+      {options.map((opt, i) => (
+        <button
+          key={opt}
+          type="button"
+          onClick={() => onChange(opt)}
+          className={cn(
+            'relative flex-1 z-10 text-[0.8125rem] text-center rounded-[2rem] border-0 bg-transparent cursor-pointer transition-colors duration-200 px-2 py-1',
+            value === opt ? 'text-white font-bold' : 'text-black',
+          )}
+        >
+          {opt}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function SeRange({
+  value,
+  onChange,
+  readOnly = false,
+}: {
+  value: number
+  onChange?: (v: number) => void
+  readOnly?: boolean
+}) {
+  const fillPct = (value / 10) * 100
+  return (
+    <input
+      type="range"
+      className={cn('se-range', readOnly && 'se-range--preview')}
+      min={0}
+      max={10}
+      step={0.5}
+      value={value}
+      onChange={onChange ? (e) => onChange(parseFloat(e.target.value)) : undefined}
+      readOnly={readOnly}
+      tabIndex={readOnly ? -1 : undefined}
+      aria-hidden={readOnly}
+      style={{ '--fill': `${fillPct}%` } as React.CSSProperties}
+    />
+  )
+}
+
+function SeCheck({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string
+  checked: boolean
+  onChange: (v: boolean) => void
+}) {
+  return (
+    <label className="flex items-center gap-3 cursor-pointer select-none">
+      <input
+        type="checkbox"
+        className="sr-only"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <div
+        className={cn(
+          'w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-colors',
+          checked ? 'bg-[#365c8e] border-[#365c8e]' : 'bg-white border-[#c8c8c8]',
+        )}
+      >
+        {checked && <Check size={12} className="text-white" strokeWidth={2.5} />}
+      </div>
+      <span className="text-sm text-black">{label}</span>
+    </label>
   )
 }
 
@@ -45,46 +178,48 @@ function SessionCreateInner() {
   const trainee = getTraineeById(traineeId) ?? TRAINEES[0]
 
   const [videoFile, setVideoFile] = useState<File | null>(null)
+  const [videoObjectUrl, setVideoObjectUrl] = useState<string | null>(null)
   const [dragActive, setDragActive] = useState(false)
-  const [selectedStroke, setSelectedStroke] = useState('Forehand')
+  const [strokeType, setStrokeType] = useState('')
+  const [cameraAngle, setCameraAngle] = useState('Behind Player')
+  const [generalRate, setGeneralRate] = useState(5)
+  const [skillLevel, setSkillLevel] = useState('Adult Beginner')
+  const [goodChecks, setGoodChecks] = useState<Record<string, boolean>>({ 'Good Follow-Through': true })
+  const [attentionChecks, setAttentionChecks] = useState<Record<string, boolean>>({ 'Racquet Back Late': true })
   const [coachNotes, setCoachNotes] = useState('')
-  const [whatsWorking, setWhatsWorking] = useState([''])
-  const [improvements, setImprovements] = useState([''])
-  const [overallScore, setOverallScore] = useState(7.5)
-  const [coachRating, setCoachRating] = useState(7.5)
   const [submitted, setSubmitted] = useState(false)
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault()
     setDragActive(false)
     const file = e.dataTransfer.files[0]
-    if (file && file.type.startsWith('video/')) setVideoFile(file)
+    if (file?.type.startsWith('video/')) {
+      setVideoFile(file)
+      setVideoObjectUrl(URL.createObjectURL(file))
+    }
   }
 
   function handleFileInput(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
-    if (file) setVideoFile(file)
+    if (file) {
+      setVideoFile(file)
+      setVideoObjectUrl(URL.createObjectURL(file))
+    }
   }
 
-  function addListItem(list: string[], setList: (v: string[]) => void) {
-    setList([...list, ''])
+  function removeVideo() {
+    if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl)
+    setVideoFile(null)
+    setVideoObjectUrl(null)
   }
 
-  function removeListItem(list: string[], setList: (v: string[]) => void, idx: number) {
-    setList(list.filter((_, i) => i !== idx))
-  }
-
-  function updateListItem(list: string[], setList: (v: string[]) => void, idx: number, val: string) {
-    const next = [...list]
-    next[idx] = val
-    setList(next)
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  function handleSave() {
     setSubmitted(true)
     setTimeout(() => router.push(`/trainees/${traineeId}`), 2000)
   }
+
+  const selectedGood = WHATS_GOOD_ITEMS.filter((k) => goodChecks[k])
+  const selectedAttention = NEEDS_ATTENTION_ITEMS.filter((k) => attentionChecks[k])
 
   if (submitted) {
     return (
@@ -92,8 +227,8 @@ function SessionCreateInner() {
         <div className="w-16 h-16 rounded-full bg-[#6fbf45] flex items-center justify-center">
           <CheckCircle2 size={32} className="text-white" />
         </div>
-        <h2 className="text-xl font-bold text-gray-900">Evaluation Saved!</h2>
-        <p className="text-sm text-gray-500">Redirecting to player profile...</p>
+        <h2 className="text-xl font-bold text-black">Evaluation Saved!</h2>
+        <p className="text-sm text-[#868686]">Redirecting to player profile...</p>
       </div>
     )
   }
@@ -104,193 +239,325 @@ function SessionCreateInner() {
         items={[
           { label: 'Trainees', href: '/' },
           { label: trainee.name, href: `/trainees/${traineeId}` },
-          { label: 'New Session Evaluation' },
+          { label: 'Create Evaluation' },
         ]}
       />
 
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">New Session Evaluation</h1>
-        <p className="text-sm text-gray-500 mt-1">Create a video evaluation for {trainee.name}</p>
+      <div className="flex flex-col md:flex-row justify-between items-start gap-3 mb-4">
+        <h1 className="text-[2.5rem] font-bold text-black" style={{ letterSpacing: '-0.03em' }}>
+          Create Evaluation
+        </h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Step 1: Video Upload */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-base font-bold text-gray-900 mb-4">1. Upload Session Video</h2>
+      {/* Segmented control */}
+      <div className="inline-flex rounded-[2rem] bg-[#f8f9fb] overflow-hidden mb-10">
+        <button
+          type="button"
+          className="rounded-[2rem] border-0 bg-[#6fbf45] text-white font-bold px-6 py-2.5 text-base cursor-pointer"
+        >
+          Session Evaluation
+        </button>
+        <Link
+          href={`/full-evaluation/create?traineeId=${traineeId}`}
+          className="flex items-center justify-center rounded-[2rem] bg-transparent text-black px-6 py-2.5 text-base hover:text-black transition-colors"
+        >
+          Full Evaluation
+        </Link>
+      </div>
 
-          {videoFile ? (
-            <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-200">
-              <FileVideo size={20} className="text-[#6fbf45]" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 truncate">{videoFile.name}</p>
-                <p className="text-xs text-gray-500">{(videoFile.size / 1024 / 1024).toFixed(1)} MB</p>
+      {/* Two-column layout */}
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+
+        {/* ===== LEFT COLUMN ===== */}
+        <div className="w-full lg:flex-[7] min-w-0">
+
+          {/* Upload Trainee Video */}
+          <section className="mb-10">
+            <h2 className="font-bold text-base text-black mb-3">Upload Trainee Video</h2>
+            {videoFile ? (
+              <div className="relative border-none rounded-lg bg-[#f8f9fb] p-6">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <Video size={48} className="text-[#868686] shrink-0" />
+                    <div className="flex flex-col gap-1 min-w-0 flex-1">
+                      <span className="block font-bold text-base text-black truncate">{videoFile.name}</span>
+                      <span className="text-sm text-[#868686]">{(videoFile.size / 1024 / 1024).toFixed(1)} MB</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={removeVideo}
+                    className="flex items-center justify-center px-3 py-1.5 border border-[#365c8e] text-[#365c8e] bg-white rounded-[2rem] text-sm font-bold hover:bg-[#f8f9fb] transition-colors shrink-0"
+                    aria-label="Remove file"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
               </div>
-              <button type="button" onClick={() => setVideoFile(null)} className="p-1 hover:bg-green-100 rounded-lg">
-                <X size={16} className="text-gray-500" />
-              </button>
+            ) : (
+              <label
+                className={cn(
+                  'relative border-2 border-dashed border-[#6fbf45] rounded-lg bg-[#f8f9fb] py-6 px-4 text-center cursor-pointer block transition-all',
+                  dragActive ? 'border-solid bg-[#edf2f7]' : '',
+                )}
+                onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
+                onDragLeave={() => setDragActive(false)}
+                onDrop={handleDrop}
+              >
+                <div className="flex flex-col items-center gap-2">
+                  <Upload size={28} className="text-[#365c8e] block mx-auto mb-2" />
+                  <p className="font-bold text-base mb-1">Drag Your File To Start Uploading</p>
+                  <p className="text-sm text-[#868686] mb-2">OR</p>
+                  <span className="inline-flex items-center justify-center gap-2 px-4 py-1.5 border border-[#365c8e] text-[#365c8e] bg-white rounded-[2rem] text-sm font-bold hover:bg-[#f8f9fb] transition-colors">
+                    Browse files
+                  </span>
+                </div>
+                <input type="file" accept="video/*" className="absolute w-0 h-0 opacity-0 pointer-events-none" onChange={handleFileInput} />
+              </label>
+            )}
+          </section>
+
+          {/* Stroke Type / Camera Angle / General Rate / Skill Level */}
+          <section className="flex flex-col gap-7 mb-10">
+
+            {/* Stroke Type */}
+            <div className="flex flex-col md:flex-row md:items-center gap-3">
+              <label className="font-bold text-[1.25rem] text-black md:min-w-[10rem] md:w-[10rem] shrink-0">
+                Stroke Type
+              </label>
+              <div className="flex-1">
+                <CustomSelect
+                  options={STROKE_OPTIONS}
+                  value={strokeType}
+                  onChange={setStrokeType}
+                  placeholder="Select Stroke"
+                />
+              </div>
             </div>
-          ) : (
-            <label
-              className={cn(
-                'flex flex-col items-center justify-center gap-3 p-10 rounded-xl border-2 border-dashed cursor-pointer transition-colors',
-                dragActive ? 'border-[#365c8e] bg-[#eef3fa]' : 'border-gray-300 hover:border-[#365c8e]/50 hover:bg-gray-50',
-              )}
-              onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
-              onDragLeave={() => setDragActive(false)}
-              onDrop={handleDrop}
-            >
-              <CloudUpload size={36} className={dragActive ? 'text-[#365c8e]' : 'text-gray-400'} />
-              <div className="text-center">
-                <p className="text-sm font-semibold text-gray-700">Drag & drop video here</p>
-                <p className="text-xs text-gray-400 mt-1">or click to browse — MP4, MOV, AVI up to 500MB</p>
-              </div>
-              <input type="file" accept="video/*" className="hidden" onChange={handleFileInput} />
-            </label>
-          )}
-        </div>
 
-        {/* Step 2: Session Details */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-base font-bold text-gray-900 mb-4">2. Session Details</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-gray-700">Trainee</label>
-              <select className="px-4 py-2.5 rounded-xl border border-gray-300 text-sm outline-none focus:border-[#365c8e] bg-white">
-                {TRAINEES.map((t) => (
-                  <option key={t.id} value={t.id} selected={t.id === traineeId}>{t.name}</option>
+            {/* Camera Angle */}
+            <div className="flex flex-col md:flex-row md:items-center gap-3">
+              <label className="font-bold text-[1.25rem] text-black md:min-w-[10rem] md:w-[10rem] shrink-0">
+                Camera Angle
+              </label>
+              <div className="flex-1">
+                <AngleGroup options={ANGLE_OPTIONS} value={cameraAngle} onChange={setCameraAngle} />
+              </div>
+            </div>
+
+            {/* General Rate */}
+            <div className="flex flex-col md:flex-row gap-3">
+              <label className="font-bold text-[1.25rem] text-black md:min-w-[10rem] md:w-[10rem] shrink-0 md:pt-2">
+                General Rate
+              </label>
+              <div className="flex-1">
+                <div className="flex justify-end mb-1">
+                  <span className="font-bold text-sm text-[#0a2a35]">{generalRate.toFixed(1)}</span>
+                </div>
+                <SeRange value={generalRate} onChange={setGeneralRate} />
+                <div className="flex items-center justify-between mt-1">
+                  <span className="text-xs text-[#868686] uppercase tracking-widest">Needs Focus</span>
+                  <span className="text-xs text-[#868686] uppercase tracking-widest">Excellent</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Skill Level */}
+            <div className="flex flex-col md:flex-row md:items-center gap-3">
+              <label className="font-bold text-[1.25rem] text-black md:min-w-[10rem] md:w-[10rem] shrink-0">
+                Skill Level
+              </label>
+              <div className="flex-1">
+                <CustomSelect
+                  options={SKILL_OPTIONS}
+                  value={skillLevel}
+                  onChange={setSkillLevel}
+                  placeholder="Select Skill Level"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* What's Good / Needs Attention */}
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10">
+            <div>
+              <h3 className="text-lg font-bold flex items-center gap-2 mb-4">
+                <Check size={24} strokeWidth={2} className="text-[#41a945]" />
+                What's Good
+              </h3>
+              <div className="flex flex-col gap-3">
+                {WHATS_GOOD_ITEMS.map((item) => (
+                  <SeCheck
+                    key={item}
+                    label={item}
+                    checked={!!goodChecks[item]}
+                    onChange={(v) => setGoodChecks((prev) => ({ ...prev, [item]: v }))}
+                  />
                 ))}
-              </select>
+              </div>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-gray-700">Session Date</label>
-              <input
-                type="date"
-                defaultValue={new Date().toISOString().split('T')[0]}
-                className="px-4 py-2.5 rounded-xl border border-gray-300 text-sm outline-none focus:border-[#365c8e]"
-              />
+            <div>
+              <h3 className="text-lg font-bold flex items-center gap-2 mb-4">
+                <AlertCircle size={24} strokeWidth={2} className="text-[#fd5303]" />
+                Needs Attention
+              </h3>
+              <div className="flex flex-col gap-3">
+                {NEEDS_ATTENTION_ITEMS.map((item) => (
+                  <SeCheck
+                    key={item}
+                    label={item}
+                    checked={!!attentionChecks[item]}
+                    onChange={(v) => setAttentionChecks((prev) => ({ ...prev, [item]: v }))}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          </section>
 
-          {/* Stroke selection */}
-          <div className="mt-4">
-            <label className="text-sm font-semibold text-gray-700 block mb-2">Primary Stroke Focus</label>
-            <div className="flex flex-wrap gap-2">
-              {STROKES.map((stroke) => (
-                <button
-                  key={stroke}
-                  type="button"
-                  onClick={() => setSelectedStroke(stroke)}
-                  className={cn(
-                    'px-3 py-1.5 rounded-full text-sm font-medium border-2 transition-all',
-                    selectedStroke === stroke
-                      ? 'border-[#365c8e] bg-[#365c8e] text-white'
-                      : 'border-gray-300 text-gray-600 hover:border-[#365c8e]/50',
-                  )}
-                >
-                  {stroke}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Step 3: Coaching Notes */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-base font-bold text-gray-900 mb-4">3. Coaching Notes</h2>
-
-          <div className="flex flex-col gap-4">
-            {/* Coach body */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-gray-700">Overall Feedback</label>
+          {/* Coach's Notes */}
+          <section className="mb-10">
+            <h2 className="font-bold text-base text-black mb-3">Coach's Notes</h2>
+            <div className="relative">
               <textarea
                 value={coachNotes}
                 onChange={(e) => setCoachNotes(e.target.value)}
-                rows={4}
-                placeholder="Describe the session, player's performance, key observations..."
-                className="px-4 py-3 rounded-xl border border-gray-300 text-sm outline-none focus:border-[#365c8e] resize-none"
+                placeholder="Enter Your Notes Here....."
+                className="w-full min-h-[10rem] px-6 py-6 rounded-[1.5rem] bg-[#f8f9fb] border border-[#f0f0f0] text-base text-black outline-none resize-none focus:border-[#365c8e]/40 focus:shadow-[0_0_0_3px_rgba(54,92,142,0.15)] transition-shadow"
               />
-            </div>
-
-            {/* What's working */}
-            <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-sm font-bold text-[#6fbf45]">
-                <Check size={14} strokeWidth={2.5} />
-                What's Working
-              </label>
-              {whatsWorking.map((item, i) => (
-                <div key={i} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={item}
-                    onChange={(e) => updateListItem(whatsWorking, setWhatsWorking, i, e.target.value)}
-                    placeholder="e.g. Excellent racket preparation timing"
-                    className="flex-1 px-4 py-2 rounded-xl border border-gray-300 text-sm outline-none focus:border-[#6fbf45]"
-                  />
-                  {whatsWorking.length > 1 && (
-                    <button type="button" onClick={() => removeListItem(whatsWorking, setWhatsWorking, i)}
-                      className="p-2 rounded-xl hover:bg-red-50 text-red-400 border border-gray-200">
-                      <Minus size={14} />
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button type="button" onClick={() => addListItem(whatsWorking, setWhatsWorking)}
-                className="flex items-center gap-2 text-sm text-[#6fbf45] font-medium hover:underline w-fit">
-                <Plus size={14} /> Add item
+              <button
+                type="button"
+                className="absolute bottom-5 right-5 flex items-center gap-2 px-3 py-1.5 border border-[#e7e7e7] bg-white text-black rounded-[2rem] text-sm shadow-sm hover:bg-[#f8f9fb] transition-colors"
+              >
+                <Sparkles size={18} />
+                Generate with AI
               </button>
             </div>
+          </section>
 
-            {/* Needs improvement */}
-            <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-sm font-bold text-[#fd5303]">
-                <AlertCircle size={14} strokeWidth={2.5} />
-                Needs Improvement
-              </label>
-              {improvements.map((item, i) => (
-                <div key={i} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={item}
-                    onChange={(e) => updateListItem(improvements, setImprovements, i, e.target.value)}
-                    placeholder="e.g. Racquet back late on backhand"
-                    className="flex-1 px-4 py-2 rounded-xl border border-gray-300 text-sm outline-none focus:border-[#fd5303]"
-                  />
-                  {improvements.length > 1 && (
-                    <button type="button" onClick={() => removeListItem(improvements, setImprovements, i)}
-                      className="p-2 rounded-xl hover:bg-red-50 text-red-400 border border-gray-200">
-                      <Minus size={14} />
-                    </button>
-                  )}
+          {/* Reference Clips */}
+          <section className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3">
+            <div>
+              <h2 className="text-lg font-bold mb-1">Reference Clips</h2>
+              <p className="text-[#868686] text-sm mb-0">
+                Attach clips from Pro Library, Coach Clips, or Player Library
+              </p>
+            </div>
+            <button
+              type="button"
+              className="flex items-center gap-2 px-4 py-2 border border-[#fd5303] text-[#fd5303] bg-white rounded-lg font-bold text-sm hover:bg-[#f8f9fb] transition-colors shrink-0"
+            >
+              <Paperclip size={20} />
+              Add Clip
+            </button>
+          </section>
+          <div className="mb-10 pb-10 border-b border-[#e7e7e7]" />
+        </div>
+
+        {/* ===== RIGHT COLUMN ===== */}
+        <div className="w-full lg:flex-[5] min-w-0">
+          <h2 className="text-[1.625rem] font-bold text-black mb-4">Trainee Preview</h2>
+
+          <div className="bg-[#f8f9fb] rounded-[2.5rem] p-6 lg:p-10 flex flex-col gap-5 shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+
+            {/* Video preview */}
+            <div
+              className="relative rounded-[1.5rem] overflow-hidden bg-[#0a2a35]"
+              style={{ aspectRatio: '16/9' }}
+            >
+              {videoObjectUrl ? (
+                <video
+                  src={videoObjectUrl}
+                  controls
+                  playsInline
+                  className="w-full h-full object-contain bg-[#0a2a35] rounded-[1.5rem]"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center w-full h-full text-[#868686] text-center p-8">
+                  <VideoOff size={40} />
+                  <p className="mt-2 font-bold">Upload a video to preview</p>
                 </div>
-              ))}
-              <button type="button" onClick={() => addListItem(improvements, setImprovements)}
-                className="flex items-center gap-2 text-sm text-[#fd5303] font-medium hover:underline w-fit">
-                <Plus size={14} /> Add item
-              </button>
+              )}
+            </div>
+
+            {/* Trainer Evaluation */}
+            <div>
+              <h3 className="text-lg font-bold mb-2">Trainer Evaluation</h3>
+              <div className="flex justify-end mb-1">
+                <span className="font-bold text-sm text-[#0a2a35]">{generalRate.toFixed(1)}</span>
+              </div>
+              <SeRange value={generalRate} readOnly />
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-xs text-[#868686] uppercase tracking-widest">Needs Focus</span>
+                <span className="text-xs text-[#868686] uppercase tracking-widest">Excellent</span>
+              </div>
+            </div>
+
+            {/* What's Good / Needs Attention preview */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="font-bold text-base text-black flex items-center gap-1.5 mb-2">
+                  <Check size={20} strokeWidth={2} className="text-[#41a945]" />
+                  What's Good
+                </h4>
+                <ul className="list-none pl-4 space-y-1">
+                  {selectedGood.length > 0
+                    ? selectedGood.map((g) => <li key={g} className="text-sm text-[#868686]">{g}</li>)
+                    : <li className="text-sm text-[#868686]">—</li>
+                  }
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold text-base text-black flex items-center gap-1.5 mb-2">
+                  <AlertCircle size={20} strokeWidth={2} className="text-[#fd5303]" />
+                  Needs Attention
+                </h4>
+                <ul className="list-none pl-4 space-y-1">
+                  {selectedAttention.length > 0
+                    ? selectedAttention.map((a) => <li key={a} className="text-sm text-[#868686]">{a}</li>)
+                    : <li className="text-sm text-[#868686]">—</li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            {/* Coach's Notes preview */}
+            <div>
+              <h3 className="font-bold text-base text-black mb-1">Coach's Notes</h3>
+              <p className="text-sm text-[#868686]">{coachNotes || '—'}</p>
+            </div>
+
+            {/* Example Clips */}
+            <div>
+              <h3 className="font-bold text-base text-black mb-1">Example Clips</h3>
+              <span className="text-sm text-[#868686]">No clips selected</span>
+            </div>
+
+            {/* Recommended Classes */}
+            <div>
+              <h3 className="font-bold text-base text-black mb-1">Recommended Classes</h3>
+              <span className="text-sm text-[#868686]">None selected</span>
+            </div>
+
+            {/* Recommended Coaches */}
+            <div>
+              <h3 className="font-bold text-base text-black mb-1">Recommended Coaches</h3>
+              <span className="text-sm text-[#868686]">None selected</span>
             </div>
           </div>
-        </div>
 
-        {/* Step 4: Scores */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-base font-bold text-gray-900 mb-4">4. Scores</h2>
-          <div className="flex flex-col gap-4">
-            <ScoreSlider value={overallScore} onChange={setOverallScore} label="Overall Score" />
-            <ScoreSlider value={coachRating} onChange={setCoachRating} label="Coach Rating" />
+          {/* Sticky Save */}
+          <div className="sticky bottom-0 z-20 flex justify-end mt-8 pt-4 bg-white w-full">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="flex items-center justify-center gap-2.5 bg-[#6fbf45] text-white font-bold px-6 py-3 rounded-lg hover:bg-[#5aaa36] transition-colors w-full lg:w-auto"
+            >
+              <CheckCircle2 size={24} strokeWidth={2} />
+              Save Evaluation
+            </button>
           </div>
         </div>
-
-        {/* Submit */}
-        <div className="flex justify-end gap-3">
-          <Button type="button" variant="outline-primary" onClick={() => router.back()}>
-            Cancel
-          </Button>
-          <Button type="submit" variant="secondary">
-            <CircleCheckBig size={18} />
-            Save Evaluation
-          </Button>
-        </div>
-      </form>
+      </div>
     </>
   )
 }
@@ -299,7 +566,7 @@ export default function SessionCreatePage() {
   return (
     <>
       <Header />
-      <main className="container mx-auto px-4 max-w-3xl py-8">
+      <main className="container mx-auto px-4 max-w-[1200px] py-8 mb-8">
         <Suspense fallback={<div>Loading...</div>}>
           <SessionCreateInner />
         </Suspense>

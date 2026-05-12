@@ -76,7 +76,7 @@ body {
   background-color: #eef3fa;
 }
 
-/* ── Range slider ── */
+/* ── Range slider (score) ── */
 input[type='range'].score-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -101,4 +101,76 @@ input[type='range'].score-slider::-moz-range-thumb {
   border-radius: 50%;
   cursor: pointer;
   border: none;
+}
+
+/* ── se-range (session-evaluation gradient slider) ── */
+input[type='range'].se-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.625rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #365c8e 0%, #6fbf45 50%, #fd5303 100%);
+  outline: none;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type='range'].se-range::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: calc(100% - var(--fill, 50%));
+  background: #f0f0f0;
+  border-radius: 0 2rem 2rem 0;
+  pointer-events: none;
+}
+
+input[type='range'].se-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #6fbf45;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+input[type='range'].se-range::-moz-range-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #6fbf45;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+input[type='range'].se-range[readonly],
+input[type='range'].se-range.se-range--preview {
+  pointer-events: none;
+  cursor: default;
+}
+
+input[type='range'].se-range[readonly]::-webkit-slider-thumb,
+input[type='range'].se-range.se-range--preview::-webkit-slider-thumb {
+  width: 0;
+  height: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+input[type='range'].se-range[readonly]::-moz-range-thumb,
+input[type='range'].se-range.se-range--preview::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
