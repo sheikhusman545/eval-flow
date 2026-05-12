@@ -14,6 +14,7 @@ export default function CoachClipsPage() {
           title="Coach Clips"
           subtitle="Your Personal Library Of Drills, Patterns, And Teaching Clips."
           showUpload
+          variant="coach"
         />
       </main>
     </>

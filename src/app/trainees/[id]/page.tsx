@@ -125,7 +125,7 @@ export default async function TraineePage({ params }: { params: Promise<{ id: st
               </Link>
             </div>
           ) : (
-            <div className="relative">
+            <div className="relative pl-11 before:content-[''] before:absolute before:left-[2.3125rem] before:top-0 before:bottom-0 before:w-0.5 before:bg-[#eeeeee]">
               {evaluations.map((evaluation) => (
                 <TimelineItem key={evaluation.id} evaluation={evaluation} traineeId={trainee.id} />
               ))}

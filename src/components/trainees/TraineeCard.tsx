@@ -17,18 +17,18 @@ export default function TraineeCard({ trainee }: TraineeCardProps) {
   return (
     <Link
       href={`/trainees/${trainee.id}`}
-      className="flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 p-4 gap-3 min-h-[160px]"
+      className="flex flex-col bg-white rounded-[2rem] border border-transparent shadow-[0_1.4rem_3.063rem_0_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-200 p-8 gap-3 min-h-[160px]"
     >
       {/* Top row: avatar + info */}
       <div className="flex gap-3 flex-1">
         <div className="relative shrink-0">
-          <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
+          <div className="w-[91px] h-[96px] rounded-[1rem] overflow-hidden bg-gray-100 flex-shrink-0">
             {trainee.avatarUrl ? (
               <Image
                 src={trainee.avatarUrl}
                 alt={trainee.name}
-                width={56}
-                height={56}
+                width={91}
+                height={96}
                 className="object-cover w-full h-full"
               />
             ) : (
@@ -50,7 +50,7 @@ export default function TraineeCard({ trainee }: TraineeCardProps) {
       </div>
 
       {/* Bottom row: joined date */}
-      <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+      <div className="flex justify-between items-center pt-2 border-t border-[#f8f9fb]">
         <span className="text-xs text-gray-400">Joined</span>
         <span className="text-xs text-gray-600 font-semibold">{formatDate(trainee.joinedAt)}</span>
       </div>

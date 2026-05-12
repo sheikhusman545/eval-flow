@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Users, Video, LibraryBig, Trophy, LineChart, Menu, X, Activity } from 'lucide-react'
+import { Users, Video, LibraryBig, Trophy, LineChart, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -42,12 +42,11 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-white/90 border-b border-gray-200 sticky top-0 z-40 backdrop-blur-sm">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex items-center justify-between h-16 gap-6">
+          <div className="flex items-center justify-between h-[6.25rem] gap-6">
             {/* Brand */}
-            <Link href="/" className="font-bold text-lg text-[#365c8e] flex items-center gap-2 shrink-0">
-              <Activity size={22} className="text-[#6fbf45]" />
+            <Link href="/" className="font-bold text-lg text-gray-900 flex items-center gap-2 shrink-0">
               Performance Coach
             </Link>
 

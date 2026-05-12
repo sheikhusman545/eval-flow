@@ -13,6 +13,8 @@ export default function ProLibraryPage() {
           clips={clips}
           title="Pro Library"
           subtitle="Professional Reference Footage For Teaching And Comparison."
+          showUpload
+          variant="pro"
         />
       </main>
     </>

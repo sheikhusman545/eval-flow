@@ -14,6 +14,7 @@ export default function PlayerLibraryPage() {
           title="Player Library"
           subtitle="Reference Clips Of Player Performances And Sessions."
           showUpload
+          variant="player"
         />
       </main>
     </>

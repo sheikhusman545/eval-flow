@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Search, ArrowUpDown, Filter, CloudUpload } from 'lucide-react'
+import { Search, ArrowUpDown, CloudUpload } from 'lucide-react'
 import { Clip } from '@/types'
 import ClipCard from './ClipCard'
+import UploadClipModal from './UploadClipModal'
 import Button from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 
@@ -20,12 +21,14 @@ interface ClipsClientProps {
   title: string
   subtitle: string
   showUpload?: boolean
+  variant?: 'coach' | 'player' | 'pro'
 }
 
-export default function ClipsClient({ clips, title, subtitle, showUpload }: ClipsClientProps) {
+export default function ClipsClient({ clips, title, subtitle, showUpload, variant = 'coach' }: ClipsClientProps) {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<SortKey>('newest')
   const [showSortMenu, setShowSortMenu] = useState(false)
+  const [showUploadModal, setShowUploadModal] = useState(false)
 
   const filtered = useMemo(() => {
     let list = [...clips]
@@ -63,7 +66,7 @@ export default function ClipsClient({ clips, title, subtitle, showUpload }: Clip
           <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
         </div>
         {showUpload && (
-          <Button variant="secondary" className="shrink-0">
+          <Button variant="secondary" className="shrink-0" onClick={() => setShowUploadModal(true)}>
             <CloudUpload size={18} />
             Upload Clip
           </Button>
@@ -125,6 +128,12 @@ export default function ClipsClient({ clips, title, subtitle, showUpload }: Clip
           No clips match your search.
         </p>
       )}
+
+      <UploadClipModal
+        open={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        variant={variant}
+      />
     </>
   )
 }
