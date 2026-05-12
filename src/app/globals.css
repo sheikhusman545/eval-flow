@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Century Gothic font ── */
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/assets/fonts/centurygothic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/assets/fonts/centurygothic_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── CSS Variables ── */
+:root {
+  --color-primary: #365c8e;
+  --color-secondary: #6fbf45;
+  --color-orange: #fd5303;
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-surface: #f9fafb;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 32px;
+}
+
+/* ── Base ── */
+body {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+/* ── Timeline line ── */
+.tl-line::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+/* ── Score gradient color ── */
+.score-high { color: #6fbf45; }
+.score-mid  { color: #fd5303; }
+.score-low  { color: #ef4444; }
+
+/* ── Video dropzone ── */
+.dropzone-active {
+  border-color: var(--color-primary);
+  background-color: #eef3fa;
+}
+
+/* ── Range slider ── */
+input[type='range'].score-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+input[type='range'].score-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+input[type='range'].score-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}

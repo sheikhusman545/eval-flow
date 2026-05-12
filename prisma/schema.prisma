@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SkillLevel {
+  BEGINNER
+  ADULT_BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum TrainingGroup {
+  MON_THU
+  SUN_WED
+  SAT_TUE
+}
+
+enum EvaluationType {
+  SESSION
+  FULL
+}
+
+enum ClipType {
+  COACH
+  PLAYER
+  PRO
+}
+
+model Trainee {
+  id            Int           @id @default(autoincrement())
+  name          String
+  email         String        @unique
+  phone         String
+  age           Int
+  level         SkillLevel
+  levelRank     Int
+  trainingGroup TrainingGroup
+  joinedAt      DateTime      @default(now())
+  lastEvalAt    DateTime?
+  avatarUrl     String?
+  searchTags    String[]
+  rating        Float         @default(0)
+  evaluations   Evaluation[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Evaluation {
+  id               Int            @id @default(autoincrement())
+  type             EvaluationType
+  traineeId        Int
+  trainee          Trainee        @relation(fields: [traineeId], references: [id], onDelete: Cascade)
+  title            String
+  date             DateTime
+  overallScore     Float
+  coachRating      Float
+  coachFeedback    String
+  whatsWorking     String[]
+  needsImprovement String[]
+  thumbnailUrl     String?
+  videoUrl         String?
+  refClipCount     Int            @default(0)
+  strokes          StrokeScore[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model StrokeScore {
+  id           Int        @id @default(autoincrement())
+  evaluationId Int
+  evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  name         String
+  score        Float
+  notes        String?
+  color        String?
+  createdAt    DateTime   @default(now())
+}
+
+model Clip {
+  id           Int      @id @default(autoincrement())
+  type         ClipType
+  title        String
+  category     String
+  thumbnailUrl String?
+  videoUrl     String?
+  duration     String?
+  coachName    String?
+  tags         String[]
+  skillLevel   String?
+  viewAngle    String?
+  strokeType   String?
+  views        Int      @default(0)
+  rating       Float    @default(0)
+  uploadedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Coach {
+  id        Int      @id @default(autoincrement())
+  name      String
+  avatarUrl String?
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
