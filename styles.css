@@ -1,0 +1,47 @@
+/************************************************** Components — components.html **************************************************/
+
+.components-alert {
+  max-width: 48rem;
+}
+
+.components-alert-text {
+  color: var(--color-info-text);
+}
+
+.components-sliders {
+  max-width: 28rem;
+}
+
+.components-trainee-grid {
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+}
+
+.components-eval-row {
+  max-width: 52rem;
+}
+
+.components-eval-thumb {
+  width: 7.5rem;
+  height: 5.25rem;
+}
+
+.components-pill-count-pos {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.components-tag-tight {
+  font-size: 0.6rem;
+}
+
+.components-dropzone {
+  max-width: 36rem;
+}
+
+.components-slider-fill-half {
+  width: 50%;
+}
+
+.components-slider-fill-full {
+  width: 100%;
+}

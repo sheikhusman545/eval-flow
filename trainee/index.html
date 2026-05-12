@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player Profile - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/styles/global.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-trainee">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill is-active" href="../index.html">
+            <i data-lucide="users" width="18" height="18"></i>
+            Trainees
+          </a>
+          <a class="app-nav-pill" href="../coach-clips/index.html">
+            <i data-lucide="video" width="18" height="18"></i>
+            Coach Clips
+          </a>
+          <a class="app-nav-pill" href="../player-library/index.html">
+            <i data-lucide="library-big" width="18" height="18"></i>
+            Player Library
+          </a>
+          <a class="app-nav-pill" href="../pro-library/index.html">
+            <i data-lucide="trophy" width="18" height="18"></i>
+            Pro Library
+          </a>
+          <a class="app-nav-pill" href="../performance-comparison/index.html">
+            <i data-lucide="line-chart" width="18" height="18"></i>
+            Compare
+          </a>
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill is-active" href="../index.html">
+          <i data-lucide="users" width="18" height="18"></i>
+          Trainees
+        </a>
+        <a class="app-nav-pill" href="../coach-clips/index.html">
+          <i data-lucide="video" width="18" height="18"></i>
+          Coach Clips
+        </a>
+        <a class="app-nav-pill" href="../player-library/index.html">
+          <i data-lucide="library-big" width="18" height="18"></i>
+          Player Library
+        </a>
+        <a class="app-nav-pill" href="../pro-library/index.html">
+          <i data-lucide="trophy" width="18" height="18"></i>
+          Pro Library
+        </a>
+        <a class="app-nav-pill" href="../performance-comparison/index.html">
+          <i data-lucide="line-chart" width="18" height="18"></i>
+          Compare
+        </a>
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <nav class="app-breadcrumb mb-2" aria-label="Breadcrumb">
+        <a href="../index.html">Players</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <span class="current">Player Profile</span>
+      </nav>
+
+      <!-- ====== Profile Card ====== -->
+      <div class="app-profile-card">
+        <div class="row g-4 align-items-start">
+          <div class="col-auto">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=256&amp;q=80"
+              alt="Sarah Johnson"
+              class="rounded-circle shadow-sm trainee-avatar"
+            />
+          </div>
+          <div class="col">
+            <div
+              class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-start gap-3"
+            >
+              <div>
+                <h1 class="app-page-title mb-2">Sarah Johnson</h1>
+                <p class="trainee-profile-age mb-3">Age : 14</p>
+                <span class="badge-tag badge-tag--blue">Intermediate</span>
+              </div>
+              <div
+                class="d-flex flex-wrap gap-4 flex-shrink-0 trainee-profile-actions"
+              >
+                <a
+                  id="btnCompare"
+                  class="btn btn-primary"
+                  href="../performance-comparison/index.html?from=trainee&amp;traineeId=1"
+                >
+                  <i data-lucide="line-chart" width="18" height="18"></i>
+                  Compare Progress
+                </a>
+                <a
+                  class="btn btn-secondary"
+                  href="../session-evaluation/create.html"
+                >
+                  <i data-lucide="circle-plus" width="18" height="18"></i>
+                  New Evaluation
+                </a>
+              </div>
+            </div>
+            <div
+              class="row row-cols-1 row-cols-lg-3 g-4 mt-2 trainee-profile-meta"
+            >
+              <div class="col d-flex align-items-center gap-2">
+                <i
+                  data-lucide="phone"
+                  width="20"
+                  height="20"
+                  class="trainee-profile-meta__icon"
+                ></i>
+                <span class="trainee-profile-meta__text">0000000000</span>
+              </div>
+              <div class="col d-flex align-items-center gap-2 text-break">
+                <i
+                  data-lucide="mail"
+                  width="20"
+                  height="20"
+                  class="trainee-profile-meta__icon"
+                ></i>
+                <span class="trainee-profile-meta__text"
+                  >Sarah Johnson@Gmail.Com</span
+                >
+              </div>
+              <div class="col d-flex align-items-center gap-2">
+                <i
+                  data-lucide="calendar"
+                  width="20"
+                  height="20"
+                  class="trainee-profile-meta__icon"
+                ></i>
+                <span class="trainee-profile-meta__text"
+                  >Training Group (Mon &amp; Thu, 3–5 PM)</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="app-joined-corner">
+          Joined <span class="fw-bold ms-2">9/10/2025</span>
+        </p>
+      </div>
+
+      <!-- ====== Performance Timeline ====== -->
+      <section
+        class="trainee-timeline-section"
+        aria-labelledby="timelineHeading"
+      >
+        <h2 id="timelineHeading" class="app-section-title mb-4 mb-md-5">
+          Performance Timeline
+        </h2>
+
+        <!-- Empty state (toggle via ?empty=1 or script) -->
+        <div id="timelineEmptyState" class="app-empty-panel d-none">
+          <div
+            class="trainee-empty-icon mx-auto mb-4 d-flex align-items-center justify-content-center"
+          >
+            <i
+              data-lucide="video"
+              width="40"
+              height="40"
+              stroke-width="1.25"
+            ></i>
+          </div>
+          <h3 class="trainee-empty-title mb-3">No Evaluations Yet</h3>
+          <p class="trainee-empty-lead text-muted-app mx-auto mb-4">
+            Start Tracking Sarah Johnson's Progress By Creating The First
+            Evaluation.
+          </p>
+
+          <a
+            class="trainee-empty-cta btn btn-secondary"
+            href="../session-evaluation/create.html"
+          >
+            <i data-lucide="circle-plus" width="18" height="18"></i>
+            New Evaluation
+          </a>
+        </div>
+
+        <!-- Populated timeline -->
+        <div id="timelinePopulated" class="tl">
+          <!-- Session evaluation -->
+          <article class="tl__item" data-eval-type="session">
+            <div class="tl__dot" aria-hidden="true">
+              <img
+                src="../assets/images/icons/mdi_check-outline.svg"
+                alt="Full Evaluation"
+                width="24"
+                height="24"
+              />
+            </div>
+            <a
+              href="../session-evaluation/index.html?detail=1&amp;session=1"
+              class="tl__card tl__card--session tl__card--link"
+              aria-label="Open Forehand Evaluation — session details"
+            >
+              <div class="tl__card-top">
+                <div class="tl__media">
+                  <img
+                    src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                    alt=""
+                  />
+                  <span class="tl__play" aria-hidden="true">
+                    <i data-lucide="play" width="22" height="22"></i>
+                  </span>
+                </div>
+                <div class="tl__card-head">
+                  <h3 class="tl__title">Forehand Evaluation</h3>
+                  <time class="tl__date">
+                    <i data-lucide="calendar" width="14" height="14"></i>
+                    3/5/2026
+                  </time>
+                </div>
+                <div class="tl__score">
+                  <span class="tl__score-label">Overall Score</span>
+                  <span class="tl__score-val tl__score-val--orange">8.0</span>
+                </div>
+              </div>
+              <div class="tl__coach-line">
+                <span class="tl__meta-label">Coach Feedback</span>
+                <span class="tl__coach-rate">8.8/10</span>
+              </div>
+              <p class="tl__body">
+                Lorem Ipsum Dolor Sit Amet Consectetur. Malesuada Ac Condimentum
+                Curabitur Vel Odio Tortor Egestas Eius. Cursus Volutpat
+                Tincidunt Tellus In Blandit Sociis Nunc Eu Scelerisque Purus
+                Morbi Vel Phasellus Dolor Vel Proin Sed.
+              </p>
+              <div class="row g-4 mb-0 tl__columns">
+                <div class="col-sm-6">
+                  <h4 class="tl__sub-heading tl__sub-heading--green">
+                    <i
+                      data-lucide="check"
+                      width="16"
+                      height="16"
+                      stroke-width="2.5"
+                    ></i>
+                    What's Working
+                  </h4>
+                  <p class="tl__sub-text">
+                    Excellent Racket Preparation Timing
+                  </p>
+                </div>
+                <div class="col-sm-6">
+                  <h4 class="tl__sub-heading tl__sub-heading--orange">
+                    <i
+                      data-lucide="alert-circle"
+                      width="16"
+                      height="16"
+                      stroke-width="2.5"
+                    ></i>
+                    Needs Improvement
+                  </h4>
+                  <p class="tl__sub-text">Racquet Back Late</p>
+                  <p class="tl__sub-text">Poor Spacing</p>
+                </div>
+              </div>
+              <div class="tl__footer">
+                <i data-lucide="paperclip" width="14" height="14"></i>
+                Reference Clip(s) Attached
+              </div>
+            </a>
+          </article>
+
+          <!-- Full player evaluation -->
+          <article class="tl__item" data-eval-type="full">
+            <div class="tl__dot" aria-hidden="true">
+              <img
+                src="../assets/images/icons/mdi_check-outline.svg"
+                alt="Full Evaluation"
+                width="24"
+                height="24"
+              />
+            </div>
+            <a
+              href="../full-evaluation/index.html?detail=1"
+              class="tl__card tl__card--full tl__card--link"
+              id="tlLinkFullEval"
+              aria-label="Open Full Player Evaluation details"
+            >
+              <div class="tl__full-layout">
+                <div class="tl__full-main">
+                  <div class="tl__card-top">
+                    <div class="tl__media">
+                      <img
+                        src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                        alt=""
+                      />
+                      <span class="tl__play" aria-hidden="true">
+                        <i data-lucide="play" width="22" height="22"></i>
+                      </span>
+                    </div>
+                    <div class="tl__card-head">
+                      <h3 class="tl__title">Full Player Evaluation</h3>
+                      <time class="tl__date">
+                        <i data-lucide="calendar" width="14" height="14"></i>
+                        3/5/2026
+                      </time>
+                    </div>
+                    <div class="tl__score">
+                      <span class="tl__score-label">Overall Score</span>
+                      <span class="tl__score-val tl__score-val--orange"
+                        >8.5</span
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-9">
+                      <div class="tl__coach-line">
+                        <span class="tl__meta-label">Coach Feedback</span>
+                      </div>
+                      <p class="tl__body">
+                        Lorem Ipsum Dolor Sit Amet Consectetur. Netus In Maximus
+                        In Venenatis Efficitur. Dignissim Ac Consequat Morbi
+                        Tellus. Fusce Vel A Posuere Viverra Vestibulum Ac At
+                        Amet Commodo Ut Odio.
+                      </p>
+                      <div class="row g-4 mb-0 tl__columns">
+                        <div class="col-sm-6">
+                          <h4 class="tl__sub-heading tl__sub-heading--green">
+                            <i
+                              data-lucide="check"
+                              width="16"
+                              height="16"
+                              stroke-width="2.5"
+                            ></i>
+                            What's Working
+                          </h4>
+                          <p class="tl__sub-text">
+                            Excellent Racket Preparation Timing
+                          </p>
+                        </div>
+                        <div class="col-sm-6">
+                          <h4 class="tl__sub-heading tl__sub-heading--orange">
+                            <i
+                              data-lucide="alert-circle"
+                              width="16"
+                              height="16"
+                              stroke-width="2.5"
+                            ></i>
+                            Needs Improvement
+                          </h4>
+                          <p class="tl__sub-text">Racquet Back Late</p>
+                          <p class="tl__sub-text">Poor Spacing</p>
+                        </div>
+                      </div>
+                    </div>
+                    <aside
+                      class="tl__stroke-panel col-12 col-md-3"
+                      aria-label="Stroke scores"
+                    >
+                      <div class="tl__stroke-row">
+                        <span class="tl__stroke-name tl__stroke-name--green"
+                          >Forehand</span
+                        >
+                        <span class="badge-tag badge-tag--green">8.0</span>
+                      </div>
+                      <div class="tl__stroke-row">
+                        <span class="tl__stroke-name tl__stroke-name--blue"
+                          >Backhand</span
+                        >
+                        <span class="badge-tag badge-tag--blue">7.5</span>
+                      </div>
+                      <div class="tl__stroke-row">
+                        <span class="tl__stroke-name tl__stroke-name--orange"
+                          >Serve</span
+                        >
+                        <span class="badge-tag badge-tag--orange">8.2</span>
+                      </div>
+                      <div class="tl__stroke-row">
+                        <span class="tl__stroke-name tl__stroke-name--red"
+                          >Volly</span
+                        >
+                        <span class="badge-tag badge-tag--red">7.8</span>
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+              <div class="tl__footer tl__footer--full">
+                <i data-lucide="paperclip" width="14" height="14"></i>
+                Reference Clip(s) Attached
+              </div>
+            </a>
+          </article>
+
+          <!-- Session evaluation -->
+          <article class="tl__item" data-eval-type="session">
+            <div class="tl__dot" aria-hidden="true">
+              <img
+                src="../assets/images/icons/mdi_check-outline.svg"
+                alt="Full Evaluation"
+                width="24"
+                height="24"
+              />
+            </div>
+            <a
+              href="../session-evaluation/index.html?detail=1&amp;session=2"
+              class="tl__card tl__card--session tl__card--link"
+              aria-label="Open Forehand Evaluation — session details"
+            >
+              <div class="tl__card-top">
+                <div class="tl__media">
+                  <img
+                    src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                    alt=""
+                  />
+                  <span class="tl__play" aria-hidden="true">
+                    <i data-lucide="play" width="22" height="22"></i>
+                  </span>
+                </div>
+                <div class="tl__card-head">
+                  <h3 class="tl__title">Forehand Evaluation</h3>
+                  <time class="tl__date">
+                    <i data-lucide="calendar" width="14" height="14"></i>
+                    8/3/2026
+                  </time>
+                </div>
+                <div class="tl__score">
+                  <span class="tl__score-label">Overall Score</span>
+                  <span class="tl__score-val tl__score-val--orange">8.0</span>
+                </div>
+              </div>
+              <div class="tl__coach-line">
+                <span class="tl__meta-label">Coach Feedback</span>
+                <span class="tl__coach-rate">8.6/10</span>
+              </div>
+              <p class="tl__body">
+                Lorem Ipsum Dolor Sit Amet Consectetur. Malesuada Ac Condimentum
+                Curabitur Vel Odio Tortor Egestas Eius.
+              </p>
+              <div class="row g-4 mb-0 tl__columns">
+                <div class="col-sm-6">
+                  <h4 class="tl__sub-heading tl__sub-heading--green">
+                    <i
+                      data-lucide="check"
+                      width="16"
+                      height="16"
+                      stroke-width="2.5"
+                    ></i>
+                    What's Working
+                  </h4>
+                  <p class="tl__sub-text">
+                    Excellent Racket Preparation Timing
+                  </p>
+                </div>
+                <div class="col-sm-6">
+                  <h4 class="tl__sub-heading tl__sub-heading--orange">
+                    <i
+                      data-lucide="alert-circle"
+                      width="16"
+                      height="16"
+                      stroke-width="2.5"
+                    ></i>
+                    Needs Improvement
+                  </h4>
+                  <p class="tl__sub-text">Racquet Back Late</p>
+                  <p class="tl__sub-text">Poor Spacing</p>
+                </div>
+              </div>
+              <div class="tl__footer">
+                <i data-lucide="paperclip" width="14" height="14"></i>
+                Reference Clip(s) Attached
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

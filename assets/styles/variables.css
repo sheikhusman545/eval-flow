@@ -1,0 +1,104 @@
+@font-face {
+  font-family: "centurygothic";
+  src: url("../fonts/centurygothic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "centurygothic_bold";
+  src: url("../fonts/centurygothic_bold.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Colors */
+  --color-primary: #365c8e;
+  --color-secondary: #6fbf45;
+  --color-dark-green: #41a945;
+  --color-orange: #fd5303;
+  --color-light-orange: #fcf0dc;
+  --color-dark-blue: #0a2a35;
+  --color-black: #000000;
+  --color-gray: #868686;
+  --color-gray-2: #e7e7e7;
+  --color-light-gray-1: #eeeeee;
+  --color-light-gray-2: #f0f0f0;
+  --color-light-gray: #f8f9fb;
+  --color-white: #ffffff;
+  --color-black-opacity: rgba(0, 0, 0, 0.04);
+
+  /* Surfaces & borders (used across forms, cards, session evaluation) */
+  --color-border-strong: #c8c8c8;
+  --color-gray-strong: #5c5c5c;
+
+  /* Slider gradient midpoint (orange → green) */
+  --color-slider-mid: #efbf20;
+
+  /* Accent chips (evaluation UI) */
+  --color-info-bg: #dbeafe;
+  --color-info-text: #1d4ed8;
+  --color-success-chip-bg: #dcfce7;
+  --color-success-chip-text: #166534;
+  --color-warning-chip-bg: #fef9c3;
+  --color-warning-chip-text: #a16207;
+  --color-danger-chip-bg: #fff1f2;
+  --color-danger-chip-text: #e11d48;
+  --color-purple-chip-bg: #e8eaf6;
+  --color-purple-chip-text: #5c6bc0;
+  --color-green-chip-text: #26a69a;
+  --color-green-chip-bg: #e0f2f1;
+
+  /* alerts */
+  --color-alert-info-bg: #eaf6ff;
+  --color-alert-info-text: #2196f3;
+
+  /* Stars & slider gradient midpoint */
+  --color-star: #efbf20;
+
+  /* Radii & shadows */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
+  --radius-3xl: 2rem; /* 32px */
+  --radius-btn: 0.5rem; /* 8px */
+
+  --shadow-card: 0 1.4rem 3.063rem 0 var(--color-black-opacity);
+  --shadow-card-hover: 0 20px 40px rgb(0 0 0 / 0.08);
+
+  /* Typography (rem = 16px root) */
+  --font-size-h1: 3.4375rem; /* 55px */
+  --font-size-h2: 3.125rem; /* 50px */
+  --font-size-h3: 2.5rem; /* 40px */
+  --font-size-subtitle: 1.625rem; /* 26px */
+  --font-size-body: 1.25rem; /* 20px */
+  --font-size-caption: 1rem; /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+
+  --font-family: "centurygothic", system-ui, sans-serif;
+  --font-family-bold: "centurygothic_bold", system-ui, sans-serif;
+
+  /* bootstrap variables */
+  --bs-primary: var(--color-primary);
+  --bs-secondary: var(--color-secondary);
+  --bs-dark-green: var(--color-dark-green);
+  --bs-orange: var(--color-orange);
+  --bs-dark-blue: var(--color-dark-blue);
+  --bs-black: var(--color-black);
+  --bs-gray: var(--color-gray);
+  --bs-light-gray-1: var(--color-light-gray-1);
+
+  --bs-body-bg: var(--color-white);
+  --bs-body-color: var(--color-black);
+  --bs-secondary-color: var(--color-gray);
+
+  /*  breakpoints */
+  /* --breakpoint-xs: 576px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1400px;
+  --breakpoint-xxl: 1600px; */
+}

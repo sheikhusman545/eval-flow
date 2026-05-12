@@ -1,0 +1,3673 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create Full Evaluation - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/styles/global.css" />
+    <link rel="stylesheet" href="../assets/styles/clip-library.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-full-eval">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill is-active" href="../index.html"
+            ><i data-lucide="users" width="18" height="18"></i> Trainees</a
+          >
+          <a class="app-nav-pill" href="../coach-clips/index.html"
+            ><i data-lucide="video" width="18" height="18"></i> Coach Clips</a
+          >
+          <a class="app-nav-pill" href="../player-library/index.html"
+            ><i data-lucide="library-big" width="18" height="18"></i> Player
+            Library</a
+          >
+          <a class="app-nav-pill" href="../pro-library/index.html"
+            ><i data-lucide="trophy" width="18" height="18"></i> Pro Library</a
+          >
+          <a class="app-nav-pill" href="../performance-comparison/index.html"
+            ><i data-lucide="line-chart" width="18" height="18"></i> Compare</a
+          >
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill is-active" href="../index.html"
+          ><i data-lucide="users" width="18" height="18"></i> Trainees</a
+        >
+        <a class="app-nav-pill" href="../coach-clips/index.html"
+          ><i data-lucide="video" width="18" height="18"></i> Coach Clips</a
+        >
+        <a class="app-nav-pill" href="../player-library/index.html"
+          ><i data-lucide="library-big" width="18" height="18"></i> Player
+          Library</a
+        >
+        <a class="app-nav-pill" href="../pro-library/index.html"
+          ><i data-lucide="trophy" width="18" height="18"></i> Pro Library</a
+        >
+        <a class="app-nav-pill" href="../performance-comparison/index.html"
+          ><i data-lucide="line-chart" width="18" height="18"></i> Compare</a
+        >
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <nav class="app-breadcrumb mb-2" aria-label="Breadcrumb">
+        <a href="../index.html">Trainees</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <a href="../trainee/index.html">Player Profile</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <span class="current">Create Evaluation</span>
+      </nav>
+
+      <h1 class="app-page-title mb-4">Create Full Evaluation</h1>
+
+      <div class="app-segmented mb-5">
+        <a href="../session-evaluation/create.html">Session Evaluation</a>
+        <a class="is-active" href="./create.html">Full Evaluation</a>
+      </div>
+
+      <!-- ==================== STEPPER FORM ==================== -->
+      <div class="app-eval-stepper app-eval-stepper--view-nav">
+        <div class="app-eval-stepper__line"></div>
+
+        <!-- ====== STROKE EVALUATION ====== -->
+        <section
+          id="feStepStroke"
+          class="app-eval-stepper__section app-eval-stepper__section--view"
+        >
+          <div class="app-eval-stepper__track">
+            <button
+              type="button"
+              class="app-eval-stepper__dot app-eval-stepper__dot--nav app-eval-stepper__dot--hollow"
+              data-fe-step="0"
+              aria-current="step"
+              aria-label="Go to stroke evaluation"
+            >
+              1
+            </button>
+          </div>
+          <div class="app-eval-stepper__main">
+            <h2 class="app-eval-section-title">Stroke Evaluation</h2>
+            <p class="text-muted-app mb-4 fs-6">
+              Evaluate each stroke type with video, rating, and feedback
+            </p>
+
+            <!-- Forehands -->
+            <h3 class="app-eval-stroke-card__title">Forehands</h3>
+            <div class="app-eval-stroke-card" data-stroke="forehands">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div>
+                    <h3 class="app-eval-stroke-card__stroke">
+                      Stroke Evaluation
+                    </h3>
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Ball Toss</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Arm Swing</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Follow Through</span
+                        ></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Leg Drive</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Toss Position</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Contact Point</span
+                        ></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Backhands -->
+            <h3 class="app-eval-stroke-card__title">Backhands</h3>
+            <div class="app-eval-stroke-card" data-stroke="backhands">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div>
+                    <h3 class="app-eval-stroke-card__stroke">
+                      Stroke Evaluation
+                    </h3>
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Follow Through</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Grip</span></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Racquet Back Late</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Contact Point</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Hip Rotation</span
+                        ></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Volleys -->
+            <h3 class="app-eval-stroke-card__title">Volleys</h3>
+            <div class="app-eval-stroke-card" data-stroke="volleys">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div>
+                    <h3 class="app-eval-stroke-card__stroke">
+                      Stroke Evaluation
+                    </h3>
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Net Position</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Reaction Time</span
+                        ></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Split Step</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Soft Hands</span></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Serves -->
+            <h3 class="app-eval-stroke-card__title">Serves</h3>
+            <div class="app-eval-stroke-card" data-stroke="serves">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div>
+                    <h3 class="app-eval-stroke-card__stroke">
+                      Stroke Evaluation
+                    </h3>
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Ball Toss</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Arm Swing</span></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Leg Drive</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Follow Through</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Pronation</span></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Footwork -->
+            <h3 class="app-eval-stroke-card__title">Footwork</h3>
+            <div class="app-eval-stroke-card" data-stroke="footwork">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div>
+                    <h3 class="app-eval-stroke-card__stroke">
+                      Stroke Evaluation
+                    </h3>
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Recovery Steps</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Split Step</span></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Lateral Movement</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Court Coverage</span
+                        ></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Fitness -->
+            <h3 class="app-eval-stroke-card__title">Fitness</h3>
+            <div class="app-eval-stroke-card" data-stroke="fitness">
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div class="mb-3">
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold">Speed</span>
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold">Explosiveness</span>
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="se-rate-head mb-1">
+                      <span class="fw-bold">Endurances</span>
+                      <span class="fw-bold se-rate-head__right">5.0</span>
+                    </div>
+                    <input
+                      type="range"
+                      class="se-range"
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      value="5"
+                    />
+                    <div
+                      class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                    >
+                      <span class="se-rate-labels text-muted-app"
+                        >Needs Focus</span
+                      >
+                      <span class="se-rate-labels text-muted-app"
+                        >Excellent</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cc-dropzone mb-3 mt-3">
+                    <input type="file" accept="video/*,image/*" />
+                    <div class="cc-dropzone__content">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button type="button" class="btn btn-primary-outline">
+                        Browse files
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__done d-none text-start">
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span class="upload-file-name"></span>
+                            <span class="upload-file-size"></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          aria-label="Remove file"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                      <video
+                        class="cc-dropzone__preview-video d-none mt-2"
+                        controls
+                        playsinline
+                      ></video>
+                    </div>
+                    <div class="cc-dropzone__uploading d-none">
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span class="cc-dropzone__drag-badge-name"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--green"
+                      >
+                        <i data-lucide="check" width="16" height="16"></i>
+                        What's Good
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Endurance</span></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Speed</span></label
+                      >
+                    </div>
+                    <div class="col-sm-6">
+                      <h4
+                        class="app-eval-check-label app-eval-check-label--orange"
+                      >
+                        <i
+                          data-lucide="alert-circle"
+                          width="16"
+                          height="16"
+                        ></i>
+                        Needs Attention
+                      </h4>
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label"
+                          >Core Stability</span
+                        ></label
+                      >
+                      <label class="se-check mb-2"
+                        ><input type="checkbox" /><span class="se-check__box"
+                          ><div class="icon-check">
+                            <i
+                              data-lucide="check"
+                              width="14"
+                              height="14"
+                            ></i></div></span
+                        ><span class="se-check__label">Flexibility</span></label
+                      >
+                    </div>
+                  </div>
+                  <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                  <div class="position-relative">
+                    <textarea
+                      class="app-textarea"
+                      rows="3"
+                      placeholder="Enter Your Notes Here....."
+                    ></textarea>
+                    <button type="button" class="btn btn-white se-ai-btn">
+                      <i data-lucide="sparkles" width="18" height="18"></i>
+                      Generate with AI
+                    </button>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold fs-6">Reference Clips</span>
+                  <button type="button" class="btn btn-orange-outline btn-sm fe-stroke-add-clip">
+                    <i data-lucide="paperclip" width="16" height="16"></i>
+                    Add Clip
+                  </button>
+                </div>
+                <div class="clip-row fe-stroke-clips-row"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== OVERALL FEEDBACK ====== -->
+        <section
+          id="feStepFeedback"
+          class="app-eval-stepper__section app-eval-stepper__section--view"
+        >
+          <div class="app-eval-stepper__track">
+            <button
+              type="button"
+              class="app-eval-stepper__dot app-eval-stepper__dot--nav"
+              data-fe-step="1"
+              aria-label="Go to overall feedback"
+            >
+              2
+            </button>
+          </div>
+          <div class="app-eval-stepper__main">
+            <h2 class="app-eval-section-title">Overall Feedback</h2>
+            <p class="text-muted-app mb-4 fs-6">
+              Summarize the player&apos;s overall performance and highlight key
+              strengths and areas for improvement.
+            </p>
+
+            <h3 class="app-eval-stroke-card__title">Coach Feedback</h3>
+            <div class="app-eval-feedback-block mb-4">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub">Observation</h4>
+                  <label class="visually-hidden" for="feCoachObservation"
+                    >Observation</label
+                  >
+                  <textarea
+                    id="feCoachObservation"
+                    class="app-textarea fe-suggest-textarea"
+                    rows="7"
+                    placeholder="Start Typing....."
+                  ></textarea>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub">Suggestions</h4>
+                  <div
+                    class="fe-suggest-panel"
+                    data-textarea-target="#feCoachObservation"
+                  >
+                    <div class="fe-suggest-scroll" id="feCoachSuggestScroll">
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Marked improvements especially in the progress of
+                          footwork and court coverage.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Marked improvements especially in the progress of footwork and court coverage."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Very impressed with new confidence in approaching the
+                          net.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Very impressed with new confidence in approaching the net."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Stronger serve placement under pressure this
+                          session.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Stronger serve placement under pressure this session."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Consider focusing on second serve consistency in
+                          future drills.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Consider focusing on second serve consistency in future drills."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Excellent attitude and responsiveness to coaching
+                          cues.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Excellent attitude and responsiveness to coaching cues."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Recovery between points improved noticeably
+                          throughout the lesson.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Recovery between points improved noticeably throughout the lesson."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Recommend continuing ladder drills for lateral
+                          quickness.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Recommend continuing ladder drills for lateral quickness."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Ball depth on groundstrokes was a standout
+                          improvement today.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Ball depth on groundstrokes was a standout improvement today."
+                          aria-label="Add to observation"
+                        >
+                          <i
+                            data-lucide="circle-plus"
+                            width="16"
+                            height="16"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="fe-suggest-toggle d-block text-end btn btn-link text-muted-app p-0 text-decoration-underline small"
+                      aria-expanded="false"
+                      aria-controls="feCoachSuggestScroll"
+                    >
+                      View more
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="app-eval-stroke-card__title">Class Recommendations</h3>
+            <div class="app-eval-feedback-block mb-4">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub">Based On Performance</h4>
+                  <label class="visually-hidden" for="feClassBasedOn"
+                    >Based on performance</label
+                  >
+                  <textarea
+                    id="feClassBasedOn"
+                    class="app-textarea fe-suggest-textarea"
+                    rows="7"
+                    placeholder="Start Typing....."
+                  ></textarea>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub">Suggestions</h4>
+                  <div
+                    class="fe-suggest-panel"
+                    data-textarea-target="#feClassBasedOn"
+                  >
+                    <div class="fe-suggest-scroll" id="feClassSuggestScroll">
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Intermediate footwork clinic would reinforce recent
+                          gains.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Intermediate footwork clinic would reinforce recent gains."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Group session on serve mechanics recommended next
+                          month.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Group session on serve mechanics recommended next month."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Match-play block to build on new net
+                          confidence.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Match-play block to build on new net confidence."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Private lesson bundle for second serve
+                          development.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Private lesson bundle for second serve development."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Cardio tennis class to sustain endurance
+                          improvements.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Cardio tennis class to sustain endurance improvements."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Doubles tactics workshop when ready for team
+                          formats.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Doubles tactics workshop when ready for team formats."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Youth progression path if moving to competitive
+                          leagues.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Youth progression path if moving to competitive leagues."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                      <div class="fe-suggest-row">
+                        <span class="fe-suggest-row__text"
+                          >Video review session to lock in stroke
+                          adjustments.</span
+                        >
+                        <button
+                          type="button"
+                          class="fe-suggest-row__add"
+                          data-append-text="Video review session to lock in stroke adjustments."
+                          aria-label="Add to based on performance"
+                        >
+                          <i data-lucide="plus" width="16" height="16"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="fe-suggest-toggle d-block text-end btn btn-link text-muted-app p-0 text-decoration-underline small text-end"
+                      aria-expanded="false"
+                      aria-controls="feClassSuggestScroll"
+                    >
+                      View more
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="app-eval-stroke-card__title">Add A Certificate</h3>
+            <div class="app-eval-feedback-block">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub" id="fe-cert-type-label">
+                    Select The Type You Want To Issue
+                  </h4>
+                  <div
+                    class="app-eval-radio-stack"
+                    role="radiogroup"
+                    aria-labelledby="fe-cert-type-label"
+                  >
+                    <label class="app-eval-radio">
+                      <input
+                        type="radio"
+                        name="fe_certificate_type"
+                        value="none"
+                        checked
+                      />
+                      <span
+                        class="app-eval-radio__ui"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="app-eval-radio__text">None</span>
+                    </label>
+                    <label class="app-eval-radio">
+                      <input
+                        type="radio"
+                        name="fe_certificate_type"
+                        value="graduation"
+                      />
+                      <span
+                        class="app-eval-radio__ui"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="app-eval-radio__text">Graduation</span>
+                    </label>
+                    <label class="app-eval-radio">
+                      <input
+                        type="radio"
+                        name="fe_certificate_type"
+                        value="progress"
+                      />
+                      <span
+                        class="app-eval-radio__ui"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="app-eval-radio__text">Progress</span>
+                    </label>
+                    <label class="app-eval-radio">
+                      <input
+                        type="radio"
+                        name="fe_certificate_type"
+                        value="custom"
+                      />
+                      <span
+                        class="app-eval-radio__ui"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="app-eval-radio__text">Custom</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="app-eval-feedback-sub">Notes</h4>
+                  <textarea
+                    class="app-textarea"
+                    rows="4"
+                    placeholder="Certificate notes..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== RECOMMENDATIONS ====== -->
+        <section
+          id="feStepRecommendations"
+          class="app-eval-stepper__section app-eval-stepper__section--view"
+        >
+          <div class="app-eval-stepper__track">
+            <button
+              type="button"
+              class="app-eval-stepper__dot app-eval-stepper__dot--nav"
+              data-fe-step="2"
+              aria-label="Go to recommendations"
+            >
+              3
+            </button>
+          </div>
+          <div class="app-eval-stepper__main">
+            <h2 class="app-eval-section-title mb-4">Recommendations</h2>
+            <p class="text-muted-app mb-4 fs-6">
+              Suggested classes for the trainee based on their performance and
+              preferences
+            </p>
+            <div class="recommendations-row">
+              <div class="row">
+                <section class="col-xl-6 col-12">
+                  <h2 class="recommendations-title">Recommended Classes</h2>
+                  <div class="row gap-3 mb-4">
+                    <div
+                      class="col-12 col-md-6 app-search-field app-search-field--fluid"
+                    >
+                      <i
+                        data-lucide="search"
+                        class="icon-primary"
+                        width="20"
+                        height="20"
+                      ></i>
+                      <input
+                        id="feRecClassSearch"
+                        type="text"
+                        placeholder="Search Classes"
+                        autocomplete="off"
+                        aria-label="Search classes"
+                      />
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="feRecClassSearchBtn"
+                      >
+                        Search
+                      </button>
+                    </div>
+                    <div class="col-12 col-md-6 se-location-minw flex-shrink-0">
+                      <div class="cc-stroke-dd mb-0">
+                        <div
+                          class="app-multiselect app-multiselect--single app-multiselect--single-plain"
+                          id="feRecLocationSelect"
+                        >
+                          <div
+                            class="app-multiselect__trigger"
+                            id="feRecLocationTrigger"
+                            tabindex="0"
+                          >
+                            <i
+                              data-lucide="map-pin"
+                              width="18"
+                              height="18"
+                              class="app-multiselect__option-icon icon-primary"
+                            ></i>
+                            <span class="app-multiselect__placeholder"
+                              >Select Location</span
+                            >
+                          </div>
+                          <i
+                            data-lucide="chevron-down"
+                            width="16"
+                            height="16"
+                            class="app-multiselect__chevron"
+                          ></i>
+                          <div class="app-multiselect__menu">
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Manhattan, NY"
+                            >
+                              Manhattan, NY
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Brooklyn, NY"
+                            >
+                              Brooklyn, NY
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Queens, NY"
+                            >
+                              Queens, NY
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row g-4" id="classCards">
+                    <div
+                      class="col-md-6 col-12"
+                      data-fe-class-location="Manhattan, NY"
+                    >
+                      <article
+                        class="app-class-card h-100 se-selectable"
+                        data-group="classes"
+                      >
+                        <span class="app-pill-count se-order-badge d-none"
+                          >0</span
+                        >
+                        <div class="app-class-card__media se-class-media-round">
+                          <img
+                            src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="app-class-card__body">
+                          <h4 class="fw-bold h6 mb-3">
+                            Advanced Footwork Drills
+                          </h4>
+                          <p class="small text-muted-app mb-2">
+                            <i
+                              data-lucide="map-pin"
+                              width="14"
+                              height="14"
+                              class="icon-secondary"
+                            ></i>
+                            Manhattan, NY
+                          </p>
+                          <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge-tag badge-tag--green"
+                              >Intermediate</span
+                            >
+                            <span class="badge-tag badge-tag--orange"
+                              >Footwork</span
+                            >
+                          </div>
+                          <div class="row app-class-card__coach mb-3">
+                            <p
+                              class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                            >
+                              <span
+                                class="fw-bold mb-0 app-class-card__coach-label"
+                                >Coach</span
+                              >
+                              <span class="mb-0 app-class-card__coach-name"
+                                >Mike R.</span
+                              >
+                            </p>
+                            <div
+                              class="app-stars col-md-6 col-4"
+                              aria-label="4 out of 5 stars"
+                            >
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-off"
+                                stroke-width="1.5"
+                              ></i>
+                            </div>
+                          </div>
+                          <div
+                            class="mt-auto small text-muted-app d-flex justify-content-between"
+                          >
+                            <p class="d-flex align-items-center gap-2 mb-0">
+                              <i
+                                data-lucide="clock"
+                                class="icon-secondary"
+                                width="16"
+                                height="16"
+                              ></i>
+                              <span class="app-class-card__time"
+                                >4:00-5:30 PM</span
+                              >
+                            </p>
+                            <p class="d-flex align-items-center gap-2 mb-0">
+                              <i
+                                data-lucide="calendar"
+                                class="icon-secondary"
+                                width="16"
+                                height="16"
+                              ></i>
+                              <span class="app-class-card__time"
+                                >2026-03-17</span
+                              >
+                            </p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div
+                      class="col-md-6 col-12"
+                      data-fe-class-location="Brooklyn, NY"
+                    >
+                      <article
+                        class="app-class-card h-100 se-selectable"
+                        data-group="classes"
+                      >
+                        <span class="app-pill-count se-order-badge d-none"
+                          >0</span
+                        >
+                        <div class="app-class-card__media se-class-media-round">
+                          <img
+                            src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="app-class-card__body">
+                          <h4 class="fw-bold h6 mb-3">Net Play Masterclass</h4>
+                          <p class="small text-muted-app mb-2">
+                            <i
+                              data-lucide="map-pin"
+                              width="14"
+                              height="14"
+                              class="icon-secondary"
+                            ></i>
+                            Brooklyn, NY
+                          </p>
+                          <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge-tag badge-tag--green"
+                              >Advanced</span
+                            >
+                            <span class="badge-tag badge-tag--orange"
+                              >Volley</span
+                            >
+                          </div>
+                          <div class="row app-class-card__coach mb-3">
+                            <p
+                              class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                            >
+                              <span
+                                class="fw-bold mb-0 app-class-card__coach-label"
+                                >Coach</span
+                              >
+                              <span class="mb-0 app-class-card__coach-name"
+                                >Sarah L.</span
+                              >
+                            </p>
+                            <div
+                              class="app-stars col-md-6 col-4"
+                              aria-label="5 out of 5 stars"
+                            >
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                              <i
+                                data-lucide="star"
+                                class="star-on"
+                                stroke-width="1.5"
+                              ></i>
+                            </div>
+                          </div>
+                          <div
+                            class="mt-auto small text-muted-app d-flex justify-content-between"
+                          >
+                            <p class="d-flex align-items-center gap-2 mb-0">
+                              <i
+                                data-lucide="clock"
+                                class="icon-secondary"
+                                width="16"
+                                height="16"
+                              ></i>
+                              <span class="app-class-card__time"
+                                >6:00-7:30 PM</span
+                              >
+                            </p>
+                            <p class="d-flex align-items-center gap-2 mb-0">
+                              <i
+                                data-lucide="calendar"
+                                class="icon-secondary"
+                                width="16"
+                                height="16"
+                              ></i>
+                              <span class="app-class-card__time"
+                                >2026-03-18</span
+                              >
+                            </p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                  <p
+                    class="text-end text-muted-app mt-4 mb-0 small"
+                    id="classCount"
+                  >
+                    0 Added
+                  </p>
+                </section>
+
+                <section class="col-xl-6 col-12">
+                  <h2 class="recommendations-title">Recommended Coaches</h2>
+                  <div class="app-search-field app-search-field--fluid mb-4">
+                    <i
+                      data-lucide="search"
+                      class="icon-primary"
+                      width="20"
+                      height="20"
+                    ></i>
+                    <input
+                      id="feRecCoachSearch"
+                      type="text"
+                      placeholder="Search Coach"
+                      autocomplete="off"
+                      aria-label="Search coaches"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="feRecCoachSearchBtn"
+                    >
+                      Search
+                    </button>
+                  </div>
+                  <div id="coachCards">
+                    <article
+                      class="app-coach-compact se-selectable mb-3"
+                      data-group="coaches"
+                    >
+                      <span
+                        class="app-pill-count se-coach-badge se-order-badge d-none"
+                        >0</span
+                      >
+                      <img
+                        src="../assets/images/coaches/miles.png"
+                        alt="Miles B."
+                      />
+                      <div class="app-recommended-coach">
+                        <h4 class="text-truncate coach-name">Miles B.</h4>
+                        <p class="coach-description">Footwork Specialist</p>
+                        <div class="app-stars coach-rating">
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                        </div>
+                      </div>
+                    </article>
+                    <article
+                      class="app-coach-compact se-selectable"
+                      data-group="coaches"
+                    >
+                      <span
+                        class="app-pill-count se-coach-badge se-order-badge d-none"
+                        >0</span
+                      >
+                      <img
+                        src="../assets/images/coaches/vijay.png"
+                        alt="Coach Vijay"
+                      />
+                      <div class="app-recommended-coach">
+                        <h4 class="text-truncate coach-name">Coach Vijay</h4>
+                        <p class="coach-description">
+                          Serve &amp; Volley Expert
+                        </p>
+                        <div class="app-stars coach-rating">
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                  <p
+                    class="text-end text-muted-app mt-4 mb-0 small"
+                    id="coachCount"
+                  >
+                    0 Added
+                  </p>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Save Button -->
+      <div class="app-eval-sticky-actions">
+        <button type="button" class="btn btn-secondary" id="btnSave">
+          <i data-lucide="circle-check-big" width="20" height="20"></i>
+          Submit
+        </button>
+      </div>
+    </main>
+
+    <!-- ====== Reference Clips Modal (shared app-modal layout like index / coach-clips) ====== -->
+    <div class="app-overlay" id="clipsOverlay">
+      <div class="app-modal se-clips-modal">
+        <div class="app-modal__header">
+          <button
+            type="button"
+            class="app-modal-back-btn d-none"
+            id="rcBackBtn"
+            aria-label="Back"
+          >
+            <i data-lucide="chevron-left" width="18" height="18"></i>
+            Back
+          </button>
+          <button
+            type="button"
+            class="app-modal-close-btn"
+            id="clipsClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title" id="seClipsModalTitle">Add Clip</h2>
+        </div>
+        <div>
+          <div class="app-modal__content">
+            <div id="rcMainView">
+              <!-- Library source (shared app-segmented-tabs) + sort/filter -->
+              <div
+                class="rc-header-row d-flex flex-wrap align-items-center gap-2 justify-content-between"
+              >
+                <div
+                  class="app-segmented-tabs se-rc-lib-tabs flex-grow-1 min-w-0"
+                  id="rcLibSourceTabs"
+                  role="tablist"
+                  aria-label="Clip library source"
+                >
+                  <div
+                    class="app-segmented-tabs__track"
+                    aria-hidden="true"
+                  ></div>
+                  <button
+                    type="button"
+                    class="app-segmented-tabs__tab is-active"
+                    data-tab="pro"
+                  >
+                    Pro Library
+                  </button>
+                  <button
+                    type="button"
+                    class="app-segmented-tabs__tab"
+                    data-tab="coach"
+                  >
+                    Coach Clips
+                  </button>
+                  <button
+                    type="button"
+                    class="app-segmented-tabs__tab"
+                    data-tab="player"
+                  >
+                    Player Library
+                  </button>
+                </div>
+                <div
+                  class="rc-header-actions d-flex flex-shrink-0 align-items-center justify-content-end gap-2"
+                >
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-primary-outline filter-btns"
+                      id="rcSortBtn"
+                      data-bs-toggle="dropdown"
+                      data-bs-auto-close="true"
+                      aria-expanded="false"
+                      aria-label="Sort"
+                    >
+                      <i data-lucide="arrow-up-down" width="20" height="20"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end app-sort-menu"
+                      id="rcSortMenu"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item active"
+                          type="button"
+                          data-sort="newest"
+                        >
+                          Newest
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          type="button"
+                          data-sort="oldest"
+                        >
+                          Oldest
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          type="button"
+                          data-sort="views"
+                        >
+                          Most Viewed
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          type="button"
+                          data-sort="rating"
+                        >
+                          Highest Rated
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="rc-filter-wrap">
+                    <button
+                      type="button"
+                      class="btn btn-primary filter-btns"
+                      id="rcFilterBtn"
+                      aria-label="Filter"
+                    >
+                      <i data-lucide="filter" width="20" height="20"></i>
+                    </button>
+                    <!-- Filter for Pro Library / Player Library -->
+                    <div
+                      class="rc-filter-dropdown rc-filter-dropdown--pro"
+                      id="rcFilterPro"
+                    >
+                      <div class="rc-filter-group">
+                        <label class="app-form-label">Skill Level</label>
+                        <div class="app-multiselect" id="rcFProSkill">
+                          <div class="app-multiselect__trigger" tabindex="0">
+                            <span class="app-multiselect__placeholder"
+                              >Select level...</span
+                            >
+                          </div>
+                          <i
+                            data-lucide="chevron-down"
+                            width="14"
+                            height="14"
+                            class="app-multiselect__chevron"
+                          ></i>
+                          <div class="app-multiselect__menu">
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Advanced"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Advanced
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Intermediate"
+                              data-tag="blue"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Intermediate
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Beginner"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Beginner
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="rc-filter-group">
+                        <label class="app-form-label">Camera Angle</label>
+                        <div class="app-multiselect" id="rcFProAngle">
+                          <div class="app-multiselect__trigger" tabindex="0">
+                            <span class="app-multiselect__placeholder"
+                              >Select angle...</span
+                            >
+                          </div>
+                          <i
+                            data-lucide="chevron-down"
+                            width="14"
+                            height="14"
+                            class="app-multiselect__chevron"
+                          ></i>
+                          <div class="app-multiselect__menu">
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Side View"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Side View
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Front View"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Front View
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Behind Player"
+                              data-tag="blue"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Behind Player
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="rc-filter-group">
+                        <span class="app-form-label d-block">Tags</span>
+                        <div
+                          class="cc-tags-added mb-2"
+                          id="rcProTagsAdded"
+                        ></div>
+                        <div class="cc-tags-search-field app-search-field">
+                          <i
+                            data-lucide="search"
+                            class="icon-primary"
+                            width="20"
+                            height="20"
+                          ></i>
+                          <input
+                            type="text"
+                            id="rcTagInput"
+                            placeholder="Search By Tags...."
+                            autocomplete="off"
+                            aria-label="Search tags"
+                          />
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="rcTagAddBtn"
+                          >
+                            Add
+                            <i
+                              data-lucide="plus-circle"
+                              width="14"
+                              height="14"
+                            ></i>
+                          </button>
+                        </div>
+                        <p class="cc-tags-sub">Sugeested Tags</p>
+                        <div
+                          class="cc-tags-suggested mb-2"
+                          id="rcTagsSuggested"
+                        >
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Forehand"
+                            data-tag-color="green"
+                          >
+                            Forehand
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Volley"
+                            data-tag-color="red"
+                          >
+                            Volley
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Backhand"
+                            data-tag-color="blue"
+                          >
+                            Backhand
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Smash"
+                            data-tag-color="orange"
+                          >
+                            Smash
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Serve"
+                            data-tag-color="purple"
+                          >
+                            Serve
+                          </button>
+                        </div>
+                      </div>
+                      <div class="rc-filter-actions">
+                        <button
+                          type="button"
+                          class="btn btn-secondary px-3 rc-apply-btn"
+                        >
+                          <i data-lucide="check" width="14" height="14"></i>
+                          Apply
+                        </button>
+                        <button type="button" class="btn px-3 rc-reset-btn">
+                          <i
+                            data-lucide="refresh-cw"
+                            width="14"
+                            height="14"
+                          ></i>
+                          Reset
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Filter for Coach Clips (3 multiselects) -->
+                    <div
+                      class="rc-filter-dropdown rc-filter-dropdown--coach"
+                      id="rcFilterCoach"
+                    >
+                      <div class="rc-filter-group">
+                        <label class="app-form-label">Skill Level</label>
+                        <div class="app-multiselect" id="rcFCoachSkill">
+                          <div class="app-multiselect__trigger" tabindex="0">
+                            <span class="app-multiselect__placeholder"
+                              >Select level...</span
+                            >
+                          </div>
+                          <i
+                            data-lucide="chevron-down"
+                            width="14"
+                            height="14"
+                            class="app-multiselect__chevron"
+                          ></i>
+                          <div class="app-multiselect__menu">
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Advanced"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Advanced
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Intermediate"
+                              data-tag="blue"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Intermediate
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Beginner"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Beginner
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="rc-filter-group">
+                        <label class="app-form-label">Camera Angle</label>
+                        <div class="app-multiselect" id="rcFCoachAngle">
+                          <div class="app-multiselect__trigger" tabindex="0">
+                            <span class="app-multiselect__placeholder"
+                              >Select angle...</span
+                            >
+                          </div>
+                          <i
+                            data-lucide="chevron-down"
+                            width="14"
+                            height="14"
+                            class="app-multiselect__chevron"
+                          ></i>
+                          <div class="app-multiselect__menu">
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Side View"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Side View
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Front View"
+                              data-tag="green"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Front View
+                            </button>
+                            <button
+                              type="button"
+                              class="app-multiselect__option"
+                              data-value="Behind Player"
+                              data-tag="blue"
+                            >
+                              <span class="app-multiselect__option-check"
+                                ><i
+                                  data-lucide="check"
+                                  width="12"
+                                  height="12"
+                                ></i
+                              ></span>
+                              Behind Player
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="rc-filter-group">
+                        <span class="app-form-label d-block">Tags</span>
+                        <div
+                          class="cc-tags-added mb-2"
+                          id="rcCoachTagsAdded"
+                        ></div>
+                        <div class="cc-tags-search-field app-search-field">
+                          <i
+                            data-lucide="search"
+                            class="icon-primary"
+                            width="20"
+                            height="20"
+                          ></i>
+                          <input
+                            type="text"
+                            id="rcCoachTagInput"
+                            placeholder="Search By Tags...."
+                            autocomplete="off"
+                            aria-label="Search tags"
+                          />
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="rcCoachTagAddBtn"
+                          >
+                            Add
+                            <i
+                              data-lucide="plus-circle"
+                              width="14"
+                              height="14"
+                            ></i>
+                          </button>
+                        </div>
+                        <p class="cc-tags-sub">Sugeested Tags</p>
+                        <div
+                          class="cc-tags-suggested mb-2"
+                          id="rcCoachTagsSuggested"
+                        >
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Forehand"
+                            data-tag-color="green"
+                          >
+                            Forehand
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Volley"
+                            data-tag-color="red"
+                          >
+                            Volley
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Backhand"
+                            data-tag-color="blue"
+                          >
+                            Backhand
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Smash"
+                            data-tag-color="orange"
+                          >
+                            Smash
+                          </button>
+                          <button
+                            type="button"
+                            class="badge-tag app-tag-suggest"
+                            data-tag="Serve"
+                            data-tag-color="purple"
+                          >
+                            Serve
+                          </button>
+                        </div>
+                      </div>
+                      <div class="rc-filter-actions">
+                        <button
+                          type="button"
+                          class="btn btn-secondary px-3 rc-apply-btn"
+                        >
+                          <i data-lucide="check" width="14" height="14"></i>
+                          Apply
+                        </button>
+                        <button type="button" class="btn px-3 rc-reset-btn">
+                          <i
+                            data-lucide="refresh-cw"
+                            width="14"
+                            height="14"
+                          ></i>
+                          Reset
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search row with autocomplete -->
+              <div class="rc-toolbar">
+                <div class="rc-search-wrap position-relative flex-grow-1">
+                  <div class="app-search-field app-search-field--fluid">
+                    <i
+                      data-lucide="search"
+                      class="icon-primary"
+                      width="20"
+                      height="20"
+                    ></i>
+                    <input
+                      type="text"
+                      id="rcSearch"
+                      placeholder="Search Here"
+                      autocomplete="off"
+                      aria-label="Search clips"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="rcSearchBtn"
+                    >
+                      Search
+                    </button>
+                  </div>
+                  <div class="rc-autocomplete" id="rcAutocomplete"></div>
+                </div>
+                <button
+                  type="button"
+                  class="rc-add-btn-lg d-none"
+                  id="rcAddNew"
+                  title="Add New"
+                >
+                  <i data-lucide="plus-circle" width="20" height="20"></i>
+                </button>
+              </div>
+
+              <!-- Clip list -->
+              <div class="rc-clip-list" id="rcClipList">
+                <div class="rc-card" data-clip="1" data-tab-src="pro">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Forehand Evaluation</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      3/5/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Smash</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div class="rc-card" data-clip="2" data-tab-src="pro">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Forehand Evaluation</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      3/5/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Smash</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div class="rc-card" data-clip="3" data-tab-src="pro">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Forehand Evaluation</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      3/5/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Smash</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div class="rc-card" data-clip="4" data-tab-src="pro">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Forehand Evaluation</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      3/5/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Smash</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+
+                <div
+                  class="rc-card"
+                  data-clip="5"
+                  data-tab-src="coach"
+                  data-skill="Advanced"
+                  data-stroke="Backhand"
+                  data-angle="Side View"
+                  data-tags=""
+                >
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Backhand Drill</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      2/18/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--orange">Backhand</span>
+                      <span class="badge-tag badge-tag--blue">Side View</span>
+                      <span class="badge-tag badge-tag--green">Advanced</span>
+                      <span class="badge-tag badge-tag--blue">Coach Clips</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div
+                  class="rc-card"
+                  data-clip="6"
+                  data-tab-src="coach"
+                  data-skill="Intermediate"
+                  data-stroke="Volley"
+                  data-angle="Front View"
+                  data-tags=""
+                >
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Volley Technique</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      2/10/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--red">Volley</span>
+                      <span class="badge-tag badge-tag--blue">Front View</span>
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue">Coach Clips</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div
+                  class="rc-card"
+                  data-clip="7"
+                  data-tab-src="coach"
+                  data-skill="Advanced"
+                  data-stroke="Serve"
+                  data-angle="Behind Player"
+                  data-tags="power"
+                >
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Serve Power</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      1/28/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--orange">Serve</span>
+                      <span class="badge-tag badge-tag--blue"
+                        >Behind Player</span
+                      >
+                      <span class="badge-tag badge-tag--green">Advanced</span>
+                      <span class="badge-tag badge-tag--blue">Coach Clips</span>
+                      <span class="badge-tag badge-tag--green">Power</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+
+                <div class="rc-card" data-clip="8" data-tab-src="player">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Match Play Analysis</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      3/1/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+                <div class="rc-card" data-clip="9" data-tab-src="player">
+                  <div class="rc-card__thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="rc-card__body">
+                    <h4 class="rc-card__title">Forehand Comparison</h4>
+                    <p class="rc-card__date">
+                      <i data-lucide="calendar" width="15" height="15"></i>
+                      2/22/2026
+                    </p>
+                    <div class="rc-card__tags">
+                      <span class="badge-tag badge-tag--green">Advanced</span>
+                      <span class="badge-tag badge-tag--blue"
+                        >Player Library</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Smash</span>
+                    </div>
+                  </div>
+                  <span class="rc-card__badge d-none">0</span>
+                </div>
+              </div>
+            </div>
+            <!-- /rcMainView -->
+
+            <!-- ====== Add New Video (same modal body + shared footer pattern) ====== -->
+            <div class="d-none w-100 min-h-0 flex-grow-1" id="rcAddView">
+              <div class="w-100" id="rcAddFormPanel">
+                <div class="d-flex w-100 mb-3">
+                  <div
+                    class="app-segmented-tabs"
+                    id="rcAddMediaTabs"
+                    role="tablist"
+                  >
+                    <div
+                      class="app-segmented-tabs__track"
+                      aria-hidden="true"
+                    ></div>
+                    <button
+                      type="button"
+                      class="app-segmented-tabs__tab is-active"
+                      id="rcAddTabVideos"
+                      data-add-source="videos"
+                      role="tab"
+                      aria-selected="true"
+                      aria-controls="rcAddPanelVideos"
+                    >
+                      Videos
+                    </button>
+                    <button
+                      type="button"
+                      class="app-segmented-tabs__tab"
+                      id="rcAddTabYoutube"
+                      data-add-source="youtube"
+                      role="tab"
+                      aria-selected="false"
+                      aria-controls="rcAddPanelYoutube"
+                    >
+                      YouTube
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  id="rcAddPanelVideos"
+                  class="rc-add-source-panel"
+                  role="tabpanel"
+                  aria-labelledby="rcAddTabVideos"
+                >
+                  <label class="cc-form-label" for="rcUploadInput"
+                    >Upload Pro Video</label
+                  >
+                  <div class="cc-dropzone mb-3" id="rcUploadZone">
+                    <input type="file" id="rcUploadInput" accept="video/*" />
+                    <div class="cc-dropzone__content" id="rcUploadDefault">
+                      <i
+                        data-lucide="upload"
+                        width="28"
+                        height="28"
+                        class="icon-primary d-block mx-auto mb-2"
+                      ></i>
+                      <p class="fw-bold mb-1">
+                        Drag Your File To Start Uploading
+                      </p>
+                      <p class="cc-dropzone__or-text small mb-2">OR</p>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline"
+                        id="rcUploadBrowse"
+                      >
+                        Browse files
+                      </button>
+                    </div>
+                    <div
+                      id="rcUploadDone"
+                      class="cc-dropzone__done d-none text-start"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-2"
+                      >
+                        <div class="d-flex align-items-center gap-2">
+                          <i
+                            class="upload-icon"
+                            data-lucide="video"
+                            width="48"
+                            height="48"
+                          ></i>
+                          <div class="upload-file-info">
+                            <span
+                              class="upload-file-name"
+                              id="rcUploadName"
+                            ></span>
+                            <span
+                              class="upload-file-size"
+                              id="rcUploadSize"
+                            ></span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline"
+                          id="rcUploadRemove"
+                        >
+                          <i data-lucide="x" width="14" height="14"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      id="rcDropUploading"
+                      class="cc-dropzone__uploading d-none"
+                    >
+                      <p class="cc-dropzone__uploading-title">Uploading...</p>
+                      <div class="cc-dropzone__progress-row">
+                        <div
+                          class="cc-dropzone__progress-track"
+                          role="progressbar"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="0"
+                          aria-label="Upload progress"
+                        >
+                          <div
+                            class="cc-dropzone__progress-bar"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="cc-dropzone__progress-pct">0%</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                      <div class="cc-dropzone__drag-badge">
+                        <i data-lucide="file-text" width="16" height="16"></i>
+                        <span
+                          class="cc-dropzone__drag-badge-name"
+                          id="rcAddDragBadgeName"
+                          >Drop video</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="rcAddPanelYoutube"
+                  class="rc-add-source-panel d-none"
+                  role="tabpanel"
+                  aria-labelledby="rcAddTabYoutube"
+                >
+                  <label class="cc-form-label" for="rcVideoUrl"
+                    >Video URL</label
+                  >
+                  <input
+                    type="url"
+                    class="app-form-input mb-3"
+                    placeholder="Https://Www.Youtube.Com/"
+                    id="rcVideoUrl"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <span class="cc-form-label d-block mt-3">Choose Library</span>
+                <div class="rc-add-seg" id="rcAddLibrarySeg">
+                  <div class="rc-add-seg__track"></div>
+                  <button
+                    type="button"
+                    class="rc-add-seg__btn is-active"
+                    data-val="Pro Library"
+                  >
+                    Pro Library
+                  </button>
+                  <button
+                    type="button"
+                    class="rc-add-seg__btn"
+                    data-val="Coach Clips"
+                  >
+                    Coach Clips
+                  </button>
+                  <button
+                    type="button"
+                    class="rc-add-seg__btn"
+                    data-val="Player Library"
+                  >
+                    Player Library
+                  </button>
+                </div>
+
+                <label
+                  class="cc-form-label d-block mt-3"
+                  for="rcAddStrokeTrigger"
+                  >Stroke Type</label
+                >
+                <div class="cc-stroke-dd mb-3">
+                  <div
+                    class="app-multiselect app-multiselect--single"
+                    id="rcAddStroke"
+                  >
+                    <div
+                      class="app-multiselect__trigger"
+                      id="rcAddStrokeTrigger"
+                      tabindex="0"
+                    >
+                      <img
+                        src="../assets/images/icons/solar_tennis-line-duotone.svg"
+                        alt="tennis stroke icon"
+                        class="app-multiselect__option-icon"
+                      />
+                      <span class="app-multiselect__placeholder"
+                        >Select Stroke</span
+                      >
+                    </div>
+                    <i
+                      data-lucide="chevron-down"
+                      width="16"
+                      height="16"
+                      class="app-multiselect__chevron"
+                    ></i>
+                    <div class="app-multiselect__menu">
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Forehand"
+                        data-tag="green"
+                      >
+                        Forehand
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Backhand"
+                        data-tag="blue"
+                      >
+                        Backhand
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Volley"
+                        data-tag="red"
+                      >
+                        Volley
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Serve"
+                        data-tag="purple"
+                      >
+                        Serve
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Smash"
+                        data-tag="orange"
+                      >
+                        Smash
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <span class="cc-form-label">Camera Angle</span>
+                <div class="cc-angle-group mb-3" id="rcAddCameraSeg">
+                  <div class="cc-angle__track" aria-hidden="true"></div>
+                  <button
+                    type="button"
+                    class="cc-angle-btn is-active"
+                    data-val="Behind Player"
+                  >
+                    Behind Player
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-angle-btn"
+                    data-val="Side View"
+                  >
+                    Side View
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-angle-btn"
+                    data-val="Front View"
+                  >
+                    Front View
+                  </button>
+                </div>
+
+                <span class="cc-form-label d-block mt-3">Tags</span>
+                <div class="cc-tags-search-field app-search-field">
+                  <i
+                    data-lucide="search"
+                    class="icon-primary"
+                    width="20"
+                    height="20"
+                  ></i>
+                  <input
+                    type="text"
+                    id="rcAddTagInput"
+                    placeholder="Search By Tags...."
+                    autocomplete="off"
+                    aria-label="Search tags"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="rcAddTagBtn"
+                  >
+                    Add
+                    <i data-lucide="plus-circle" width="14" height="14"></i>
+                  </button>
+                </div>
+                <div class="cc-tags-added mb-2" id="rcAddTagsAdded"></div>
+                <p class="cc-tags-sub">Sugeested Tags</p>
+                <div class="cc-tags-suggested mb-2" id="rcAddTagsSuggested">
+                  <button
+                    type="button"
+                    class="badge-tag app-tag-suggest"
+                    data-tag="Forehand"
+                    data-tag-color="green"
+                  >
+                    Forehand
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag app-tag-suggest"
+                    data-tag="Volley"
+                    data-tag-color="red"
+                  >
+                    Volley
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag app-tag-suggest"
+                    data-tag="Backhand"
+                    data-tag-color="blue"
+                  >
+                    Backhand
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag app-tag-suggest"
+                    data-tag="Smash"
+                    data-tag-color="orange"
+                  >
+                    Smash
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag app-tag-suggest"
+                    data-tag="Serve"
+                    data-tag-color="purple"
+                  >
+                    Serve
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="app-modal__footer" id="clipsModalFooter">
+            <button
+              type="button"
+              class="btn btn-orange px-4 add-btn"
+              id="clipsConfirm"
+            >
+              Add <span class="rc-count-badge" id="rcCountBadge">0</span>
+            </button>
+          </div>
+          <div class="app-modal__footer d-none" id="rcAddVideoFooter">
+            <button
+              type="button"
+              class="btn btn-orange add-btn px-4"
+              id="rcAddVideoSubmit"
+            >
+              Add
+              <i
+                data-lucide="chevron-right"
+                class="add-btn-icon"
+                width="20"
+                height="20"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video / clip added confirmation (Reference Clips + Add New Video) -->
+    <div class="app-overlay" id="clipVideoSuccessOverlay">
+      <div class="app-toast se-clip-video-success" role="alert">
+        <div class="app-toast__icon">
+          <i data-lucide="check" width="28" height="28"></i>
+        </div>
+        <p class="app-toast__text mb-0">Video Added Successfully!</p>
+      </div>
+    </div>
+
+    <!-- ==================== SUCCESS MODAL ==================== -->
+    <div class="app-overlay" id="successOverlay">
+      <div class="app-toast app-eval-success-toast">
+        <div
+          class="app-toast__icon app-toast__icon--solid-success"
+          aria-hidden="true"
+        >
+          <i data-lucide="check" width="28" height="28"></i>
+        </div>
+        <p class="app-toast__text mb-0">Evaluation Added Successfully!</p>
+        <a href="./index.html" class="btn btn-primary px-4"
+          >See Full Evaluation</a
+        >
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="../assets/scripts/fe-reference-clips.js"></script>
+    <script src="./create-script.js"></script>
+  </body>
+</html>

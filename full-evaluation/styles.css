@@ -1,0 +1,534 @@
+/**************************************************
+ * Full evaluation — create.html & index.html only.
+ * Loaded after ../assets/styles/global.css (variables + shared UI).
+ **************************************************/
+
+/*
+ * Global `overflow-x: hidden` on html/body (ui-shared) breaks fixed/sticky
+ * alignment; `clip` avoids horizontal scroll without that side effect.
+ */
+html:has(body.page-full-eval),
+body.page-full-eval {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  html:has(body.page-full-eval),
+  body.page-full-eval {
+    overflow-x: visible;
+  }
+}
+
+/************************************************** start full evaluation flow (create + view) **************************************************/
+.app-eval-stepper {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.app-eval-stepper__line {
+  position: absolute;
+  left: 1.0625rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-primary);
+}
+
+.app-eval-stepper__section {
+  position: relative;
+  padding-bottom: 3rem;
+}
+
+.app-eval-stepper__section:last-child {
+  padding-bottom: 0;
+}
+
+.app-eval-stepper__dot {
+  position: absolute;
+  left: -3rem;
+  top: 0;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border: 3px solid var(--color-white);
+  font-family: var(--font-family-bold);
+  font-size: 0.8125rem;
+  line-height: 1;
+}
+
+.app-eval-stepper__dot--hollow {
+  outline: 1px solid var(--color-primary);
+}
+
+/* Index eval view: one dot per section; each sticks when that section reaches the header */
+.app-eval-stepper--view-nav {
+  --fe-rail-sticky-top: 6.75rem;
+
+  position: relative;
+  padding-left: 0;
+  overflow: visible;
+}
+
+.app-eval-stepper--view-nav > .app-eval-stepper__line {
+  left: calc(1.0625rem - 1px);
+}
+
+.app-eval-stepper--view-nav .app-eval-stepper__section--view {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.875rem;
+  scroll-margin-top: 6.75rem;
+  overflow: visible;
+}
+
+.app-eval-stepper--view-nav .app-eval-stepper__track {
+  flex: 0 0 2.125rem;
+  width: 2.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  align-self: stretch;
+  overflow: visible;
+}
+
+.app-eval-stepper--view-nav .app-eval-stepper__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-eval-stepper--view-nav .app-eval-stepper__dot--nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: var(--fe-rail-sticky-top);
+  left: auto;
+  align-self: flex-start;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin: 0;
+  font: inherit;
+  flex-shrink: 0;
+  z-index: 3;
+}
+
+.app-eval-stepper--view-nav .app-eval-stepper__dot--nav:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+.app-eval-stepper--view-nav
+  .app-eval-stepper__dot--nav.app-eval-stepper__dot--hollow {
+  outline: 1px solid var(--color-primary);
+}
+
+.app-eval-section-title {
+  font-family: var(--font-family-bold);
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  color: var(--color-black);
+  margin-bottom: 0.25rem;
+}
+
+.app-eval-stroke-card {
+  background: var(--color-white);
+  border-radius: var(--radius-3xl);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease;
+}
+
+.app-eval-stroke-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.app-eval-stroke-card:last-child {
+  margin-bottom: 0;
+}
+
+.app-eval-stroke-card__title {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-subtitle);
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
+}
+
+.app-eval-score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 1.75rem;
+  padding: 0 0.5rem;
+  border-radius: var(--radius-3xl);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-small);
+}
+
+.app-eval-video-thumb {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: var(--color-dark-blue);
+}
+
+.app-eval-video-thumb__player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.app-eval-video-thumb__name {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-light-gray);
+  font-family: var(--font-family-bold);
+  font-size: 0.75rem;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+/* Completed upload row (eval view) + video popup */
+.app-eval-video-done {
+  background: var(--color-light-gray);
+  border-radius: var(--radius-2xl);
+  padding: 1rem 1.125rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+}
+
+.app-eval-video-done__lucide {
+  color: var(--color-gray);
+  flex-shrink: 0;
+}
+
+.app-eval-video-done__name {
+  font-family: var(--font-family-bold);
+  font-size: 0.875rem;
+  color: var(--color-black);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.app-eval-video-done__status {
+  font-size: 0.75rem;
+  color: var(--color-gray);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  line-height: 1.35;
+}
+
+.app-eval-video-done__sep {
+  opacity: 0.85;
+}
+
+.app-eval-video-done__complete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.app-eval-video-done__complete svg {
+  color: var(--color-dark-green);
+}
+
+.app-eval-video-modal.app-modal {
+  max-width: 56rem;
+}
+
+.app-eval-video-modal .app-modal__content.app-eval-video-modal__content {
+  padding: 0 1rem 1.5rem;
+  margin-top: 0;
+}
+
+.app-eval-video-modal__player {
+  width: 100%;
+  max-height: min(70vh, 36rem);
+  border-radius: var(--radius-xl);
+  background: var(--color-dark-blue);
+  vertical-align: middle;
+}
+
+.app-eval-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-small);
+  margin-bottom: 0.75rem;
+}
+
+.app-eval-check-label--green {
+  color: var(--color-dark-green);
+}
+
+.app-eval-check-label--orange {
+  color: var(--color-orange);
+}
+
+.app-eval-points {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: var(--font-size-small);
+  color: var(--color-black);
+  list-style: none;
+}
+
+.app-eval-points li {
+  margin-bottom: 0.35rem;
+}
+
+.app-eval-points li:last-child {
+  margin-bottom: 0;
+}
+
+.app-eval-body-text {
+  font-size: var(--font-size-small);
+  color: var(--color-gray);
+  line-height: 1.6;
+}
+
+@keyframes appEvalSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.app-eval-spin {
+  animation: appEvalSpin 1s linear infinite;
+}
+
+.app-eval-feedback-block {
+  background: var(--color-white);
+  border-radius: var(--radius-3xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.app-eval-feedback-heading {
+  font-family: var(--font-family-bold);
+  font-size: 1.125rem;
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
+}
+
+.app-eval-feedback-sub {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-small);
+  color: var(--color-black);
+  margin-bottom: 0.75rem;
+}
+
+/* Overall feedback: suggestion pills + scrollable “View more” */
+.fe-suggest-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fe-suggest-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 15rem;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.fe-suggest-panel.is-expanded .fe-suggest-scroll {
+  max-height: 18rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fe-suggest-scroll {
+    transition: none;
+  }
+}
+
+.fe-suggest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  padding: 0.6rem;
+  background: var(--color-light-gray);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-light-gray-2);
+  min-height: 2.75rem;
+  flex-shrink: 0;
+}
+
+.fe-suggest-row__text {
+  font-size: 0.8125rem;
+  color: var(--color-black);
+  line-height: 1.35;
+}
+
+.fe-suggest-row__add {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-gray);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.fe-suggest-row__add:hover {
+  background: var(--color-light-gray-1);
+  border-color: var(--color-border-strong);
+}
+
+.fe-suggest-row__add:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.fe-suggest-toggle {
+  font-family: var(--font-family);
+  width: fit-content;
+  margin-inline-start: auto;
+  padding: 0.5rem !important;
+}
+
+/* Certificate type: custom radios (orange selected ring + dot, grey unselected) */
+.app-eval-radio-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.app-eval-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  color: var(--color-black);
+  line-height: 1.3;
+}
+
+.app-eval-radio input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.app-eval-radio__ui {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-strong);
+  background: var(--color-white);
+  display: grid;
+  place-items: center;
+  transition:
+    border-color 0.15s ease,
+    border-width 0.15s ease;
+}
+
+.app-eval-radio input:checked + .app-eval-radio__ui {
+  border-color: var(--color-orange);
+  border-width: 3px;
+}
+
+.app-eval-radio input:checked + .app-eval-radio__ui::after {
+  content: "";
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+.app-eval-radio:has(input:focus-visible) .app-eval-radio__ui {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+.app-eval-select {
+  border-radius: var(--radius-xl);
+  font-family: var(--font-family-bold);
+  padding: 0.75rem 1.25rem;
+  color: var(--color-black);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-light-gray-2);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.app-eval-select:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-secondary) 15%, transparent);
+}
+
+.app-eval-select--narrow {
+  max-width: 12rem;
+}
+
+.app-eval-sticky-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  bottom: 0;
+  padding: 1.5rem;
+  z-index: 20;
+  background: var(--color-white);
+}
+.app-eval-sticky-actions button {
+  width: 100%;
+}
+
+.app-eval-success-toast {
+  max-width: 28rem;
+}
+@media (min-width: 992px) {
+  .app-eval-sticky-actions button {
+    width: 13rem;
+  }
+}
+
+/************************************************** end full evaluation flow **************************************************/
+
+.app-eval-stroke-card__stroke {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-body);
+  color: var(--color-black);
+  margin-bottom: 0.5rem;
+}
+
+/* .recommendations-row / .recommendations-title → ui-shared.css */

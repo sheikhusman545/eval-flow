@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player Library - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/styles/global.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../assets/styles/clip-library.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-player-library">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill" href="../index.html">
+            <i data-lucide="users" width="18" height="18"></i>
+            Trainees
+          </a>
+          <a class="app-nav-pill" href="../coach-clips/index.html">
+            <i data-lucide="video" width="18" height="18"></i>
+            Coach Clips
+          </a>
+          <a class="app-nav-pill is-active" href="./index.html">
+            <i data-lucide="library-big" width="18" height="18"></i>
+            Player Library
+          </a>
+          <a class="app-nav-pill" href="../pro-library/index.html">
+            <i data-lucide="trophy" width="18" height="18"></i>
+            Pro Library
+          </a>
+          <a class="app-nav-pill" href="../performance-comparison/index.html">
+            <i data-lucide="line-chart" width="18" height="18"></i>
+            Compare
+          </a>
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill" href="../index.html">
+          <i data-lucide="users" width="18" height="18"></i>
+          Trainees
+        </a>
+        <a class="app-nav-pill" href="../coach-clips/index.html">
+          <i data-lucide="video" width="18" height="18"></i>
+          Coach Clips
+        </a>
+        <a class="app-nav-pill is-active" href="./index.html">
+          <i data-lucide="library-big" width="18" height="18"></i>
+          Player Library
+        </a>
+        <a class="app-nav-pill" href="../pro-library/index.html">
+          <i data-lucide="trophy" width="18" height="18"></i>
+          Pro Library
+        </a>
+        <a class="app-nav-pill" href="../performance-comparison/index.html">
+          <i data-lucide="line-chart" width="18" height="18"></i>
+          Compare
+        </a>
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <div
+        class="d-flex flex-row align-items-center justify-content-between gap-4"
+      >
+        <div>
+          <h1 class="app-page-title">Player Library</h1>
+          <p class="app-page-subtitle mb-0">
+            Clips From Your Trainees That Can Be Used As Examples For Other
+            Players
+          </p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-secondary add-btn"
+          id="btnOpenUpload"
+        >
+          <i data-lucide="cloud-upload" width="20" height="20"></i>
+          Upload Clip
+        </button>
+      </div>
+
+      <div class="app-search-strip">
+        <div class="app-search-field">
+          <i
+            data-lucide="search"
+            class="icon-primary"
+            width="20"
+            height="20"
+          ></i>
+          <input
+            type="text"
+            id="plSearchInput"
+            placeholder="Search By Name Or Tags...."
+            autocomplete="off"
+            aria-label="Search clips"
+          />
+          <button type="button" class="btn btn-primary" id="plSearchBtn">
+            Search
+          </button>
+        </div>
+        <div
+          class="d-flex flex-shrink-0 align-items-center justify-content-end gap-2 ms-md-auto"
+        >
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn btn-primary-outline filter-btns"
+              aria-label="Sort"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i data-lucide="arrow-up-down" width="20" height="20"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end app-sort-menu">
+              <li>
+                <button
+                  class="dropdown-item active"
+                  type="button"
+                  data-sort="newest"
+                >
+                  Newest
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" data-sort="oldest">
+                  Oldest
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" data-sort="views">
+                  Most Viewed
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" data-sort="rating">
+                  Highest Rated
+                </button>
+              </li>
+            </ul>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary filter-btns"
+            aria-label="Filter"
+            id="plFilterOpen"
+          >
+            <i data-lucide="filter" width="20" height="20"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="cc-clip-grid" id="plClipGrid">
+        <article
+          class="cc-card"
+          data-title="michael - serve progression week 1"
+          data-player="michael chen"
+          data-skill="Intermediate"
+          data-angle="Side View"
+          data-stroke="Smash"
+          data-tags=""
+          data-date="2026-02-10"
+          data-views="88"
+          data-rating="8"
+        >
+          <div class="cc-card__media">
+            <video
+              src="../assets/videos/milesahead.mp4"
+              poster="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=640&q=80"
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+            <button
+              type="button"
+              class="cc-card__expand"
+              aria-label="Expand video"
+            >
+              <i data-lucide="maximize-2" width="18" height="18"></i>
+            </button>
+            <div class="cc-card__controls">
+              <button
+                type="button"
+                class="cc-skip-back"
+                aria-label="Back 15 seconds"
+              >
+                <i data-lucide="rotate-ccw" width="16" height="16"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-card__play cc-play-toggle"
+                aria-label="Play"
+              >
+                <i data-lucide="play" width="22" height="22"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-skip-fwd"
+                aria-label="Forward 15 seconds"
+              >
+                <i data-lucide="rotate-cw" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+          <div class="cc-card__body">
+            <h2 class="cc-card__title">Michael - Serve Progression Week 1</h2>
+            <p class="cc-card__player mb-0">Michael Chen</p>
+            <div class="cc-card__tags">
+              <span class="badge-tag badge-tag--blue">Intermediate</span>
+              <span class="badge-tag badge-tag--purple">Player Library</span>
+              <span class="badge-tag badge-tag--orange">Smash</span>
+            </div>
+            <div class="d-flex justify-content-between mt-auto pt-3 border-top">
+              <span class="app-trainee-card__joined">Uploaded</span>
+              <span class="app-trainee-card__joined-date">2/10/2026</span>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="cc-card"
+          data-title="emma - forehand rally drill"
+          data-player="emma rodriguez"
+          data-skill="Beginner"
+          data-angle="Front View"
+          data-stroke="Forehand"
+          data-tags="consistency"
+          data-date="2026-02-05"
+          data-views="42"
+          data-rating="7"
+        >
+          <div class="cc-card__media">
+            <video
+              src="../assets/videos/milesahead.mp4"
+              poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=640&q=80"
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+            <button
+              type="button"
+              class="cc-card__expand"
+              aria-label="Expand video"
+            >
+              <i data-lucide="maximize-2" width="18" height="18"></i>
+            </button>
+            <div class="cc-card__controls">
+              <button
+                type="button"
+                class="cc-skip-back"
+                aria-label="Back 15 seconds"
+              >
+                <i data-lucide="rotate-ccw" width="16" height="16"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-card__play cc-play-toggle"
+                aria-label="Play"
+              >
+                <i data-lucide="play" width="22" height="22"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-skip-fwd"
+                aria-label="Forward 15 seconds"
+              >
+                <i data-lucide="rotate-cw" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+          <div class="cc-card__body">
+            <h2 class="cc-card__title">Emma - Forehand Rally Drill</h2>
+            <p class="cc-card__player mb-0">Emma Rodriguez</p>
+            <div class="cc-card__tags">
+              <span class="badge-tag badge-tag--yellow">Beginner</span>
+              <span class="badge-tag badge-tag--purple">Player Library</span>
+              <span class="badge-tag badge-tag--orange">Forehand</span>
+              <span class="badge-tag badge-tag--dark-green">Front View</span>
+              <span class="badge-tag">Consistency</span>
+            </div>
+            <div class="d-flex justify-content-between mt-auto pt-3 border-top">
+              <span class="app-trainee-card__joined">Uploaded</span>
+              <span class="app-trainee-card__joined-date">2/5/2026</span>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="cc-card"
+          data-title="james - backhand slice analysis"
+          data-player="james wilson"
+          data-skill="Advanced"
+          data-angle="Behind Player"
+          data-stroke="Backhand"
+          data-tags=""
+          data-date="2026-01-20"
+          data-views="156"
+          data-rating="9"
+        >
+          <div class="cc-card__media">
+            <video
+              src="../assets/videos/milesahead.mp4"
+              poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=640&q=80"
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+            <button
+              type="button"
+              class="cc-card__expand"
+              aria-label="Expand video"
+            >
+              <i data-lucide="maximize-2" width="18" height="18"></i>
+            </button>
+            <div class="cc-card__controls">
+              <button
+                type="button"
+                class="cc-skip-back"
+                aria-label="Back 15 seconds"
+              >
+                <i data-lucide="rotate-ccw" width="16" height="16"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-card__play cc-play-toggle"
+                aria-label="Play"
+              >
+                <i data-lucide="play" width="22" height="22"></i>
+              </button>
+              <button
+                type="button"
+                class="cc-skip-fwd"
+                aria-label="Forward 15 seconds"
+              >
+                <i data-lucide="rotate-cw" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+          <div class="cc-card__body">
+            <h2 class="cc-card__title">James - Backhand Slice Analysis</h2>
+            <p class="cc-card__player mb-0">James Wilson</p>
+            <div class="cc-card__tags">
+              <span class="badge-tag badge-tag--green">Advanced</span>
+              <span class="badge-tag badge-tag--purple">Player Library</span>
+              <span class="badge-tag badge-tag--orange">Backhand</span>
+              <span class="badge-tag badge-tag--dark-green">Behind Player</span>
+            </div>
+            <div class="d-flex justify-content-between mt-auto pt-3 border-top">
+              <span class="app-trainee-card__joined">Uploaded</span>
+              <span class="app-trainee-card__joined-date">1/20/2026</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <div class="app-side-panel__backdrop" id="plFilterBackdrop"></div>
+    <aside class="app-side-panel" id="plFilterPanel" aria-label="Filter clips">
+      <div class="app-side-panel__header">
+        <button
+          class="app-side-panel__close app-modal-close-btn"
+          id="plFilterClose"
+          type="button"
+          aria-label="Close filter"
+        >
+          <i data-lucide="x" width="18" height="18"></i>
+        </button>
+        <h2 class="app-side-panel__title">Filter</h2>
+      </div>
+
+      <div class="app-side-panel__content">
+        <div class="app-form-group">
+          <label class="app-form-label">Skill Level</label>
+          <div class="app-multiselect" id="plFilterSkill">
+            <div class="app-multiselect__trigger" tabindex="0">
+              <span class="app-multiselect__placeholder">Select level...</span>
+            </div>
+            <i
+              data-lucide="chevron-down"
+              width="16"
+              height="16"
+              class="app-multiselect__chevron"
+            ></i>
+            <div class="app-multiselect__menu">
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Advanced"
+                data-tag="green"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Advanced
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Intermediate"
+                data-tag="blue"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Intermediate
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Beginner"
+                data-tag="green"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Beginner
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">Camera Angle</label>
+          <div class="app-multiselect" id="plFilterAngle">
+            <div class="app-multiselect__trigger" tabindex="0">
+              <span class="app-multiselect__placeholder">Select angle...</span>
+            </div>
+            <i
+              data-lucide="chevron-down"
+              width="16"
+              height="16"
+              class="app-multiselect__chevron"
+            ></i>
+            <div class="app-multiselect__menu">
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Behind Player"
+                data-tag="blue"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Behind Player
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Side View"
+                data-tag="green"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Side View
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Front View"
+                data-tag="orange"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Front View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">Tags</label>
+          <div class="cc-tags-search-field app-search-field">
+            <i
+              data-lucide="search"
+              class="icon-primary"
+              width="20"
+              height="20"
+            ></i>
+            <input
+              type="text"
+              id="plFilterTagInput"
+              placeholder="Search By Tags...."
+              autocomplete="off"
+              aria-label="Search tags"
+            />
+            <button type="button" class="btn btn-primary" id="plFilterTagAdd">
+              Add <i data-lucide="plus-circle" width="14" height="14"></i>
+            </button>
+          </div>
+          <div class="cc-tags-added" id="plFilterTagsAdded"></div>
+
+          <p class="cc-tags-sub">Sugeested Tags</p>
+          <div class="cc-tags-suggested" id="plFilterTagSuggest">
+            <button
+              type="button"
+              class="badge-tag app-tag-suggest"
+              data-tag="Forehand"
+              data-tag-color="green"
+            >
+              Forehand
+            </button>
+            <button
+              type="button"
+              class="badge-tag app-tag-suggest"
+              data-tag="Volley"
+              data-tag-color="red"
+            >
+              Volley
+            </button>
+            <button
+              type="button"
+              class="badge-tag app-tag-suggest"
+              data-tag="Backhand"
+              data-tag-color="blue"
+            >
+              Backhand
+            </button>
+            <button
+              type="button"
+              class="badge-tag app-tag-suggest"
+              data-tag="Smash"
+              data-tag-color="orange"
+            >
+              Smash
+            </button>
+            <button
+              type="button"
+              class="badge-tag app-tag-suggest"
+              data-tag="Serve"
+              data-tag-color="purple"
+            >
+              Serve
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column gap-3">
+        <button
+          type="button"
+          class="btn btn-secondary w-100"
+          id="plFilterApply"
+        >
+          <span class="btn-text">Apply</span>
+          <i
+            data-lucide="circle-check-big"
+            class="add-btn-icon"
+            width="20"
+            height="20"
+          ></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-orange-outline w-100"
+          id="plFilterReset"
+        >
+          <span class="btn-text">Reset</span>
+          <i data-lucide="refresh-cw" width="18" height="18"></i>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-overlay" id="plUploadOverlay">
+      <div class="app-modal">
+        <div class="app-modal__header">
+          <button
+            class="app-modal-close-btn"
+            type="button"
+            id="plUploadClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title">Upload Clip</h2>
+        </div>
+        <form id="plUploadForm" autocomplete="off">
+          <div class="app-modal__content">
+            <div class="cc-upload-scroll">
+              <label class="cc-form-label" for="plFileInput"
+                >Upload Player Video</label
+              >
+              <div class="cc-dropzone mb-3" id="plDropzone">
+                <input type="file" id="plFileInput" accept="video/*" />
+                <div class="cc-dropzone__content" id="plDropDefault">
+                  <i
+                    data-lucide="upload"
+                    width="28"
+                    height="28"
+                    class="icon-primary d-block mx-auto mb-2"
+                  ></i>
+                  <p class="fw-bold mb-1">Drag Your File To Start Uploading</p>
+                  <p class="cc-dropzone__or-text small mb-2">OR</p>
+                  <button
+                    type="button"
+                    class="btn btn-primary-outline"
+                    id="plBrowseBtn"
+                  >
+                    Browse files
+                  </button>
+                </div>
+                <div
+                  id="plDropDone"
+                  class="cc-dropzone__done d-none text-start"
+                >
+                  <div
+                    class="d-flex align-items-center justify-content-between gap-2"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i
+                        class="upload-icon"
+                        data-lucide="video"
+                        width="48"
+                        height="48"
+                      ></i>
+                      <div class="upload-file-info">
+                        <span class="upload-file-name" id="plFileName"></span>
+                        <span class="upload-file-size" id="plFileSize"></span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-primary-outline"
+                      id="plFileRemove"
+                    >
+                      <i data-lucide="x" width="14" height="14"></i>
+                    </button>
+                  </div>
+                </div>
+                <div id="plDropUploading" class="cc-dropzone__uploading d-none">
+                  <p class="cc-dropzone__uploading-title">Uploading...</p>
+                  <div class="cc-dropzone__progress-row">
+                    <div
+                      class="cc-dropzone__progress-track"
+                      id="plProgressTrack"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="0"
+                      aria-label="Upload progress"
+                    >
+                      <div
+                        class="cc-dropzone__progress-bar"
+                        id="plProgressBar"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+                    <span class="cc-dropzone__progress-pct" id="plProgressPct"
+                      >0%</span
+                    >
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-primary-outline cc-dropzone__cancel-upload"
+                    id="plUploadCancel"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div class="cc-dropzone__drag-layer" aria-hidden="true">
+                  <div class="cc-dropzone__drag-badge">
+                    <i data-lucide="file-text" width="16" height="16"></i>
+                    <span
+                      class="cc-dropzone__drag-badge-name"
+                      id="plDragBadgeName"
+                      >Drop video</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <label class="cc-form-label" for="plModalTitle"
+                >Video Title</label
+              >
+              <input
+                type="text"
+                class="app-form-input mb-3"
+                id="plModalTitle"
+                name="plModalTitle"
+                required
+                data-invalid-msg="Please enter a video title."
+                placeholder="Enter Video Title"
+                autocomplete="off"
+              />
+
+              <label class="cc-form-label" for="plModalPlayerName"
+                >Player Name</label
+              >
+              <input
+                type="text"
+                class="app-form-input mb-3"
+                id="plModalPlayerName"
+                name="plModalPlayerName"
+                required
+                data-invalid-msg="Please enter the player name."
+                placeholder="Enter Player Name"
+                autocomplete="off"
+              />
+
+              <label class="cc-form-label" for="plModalStrokeTrigger"
+                >Stroke Type</label
+              >
+              <div class="cc-stroke-dd mb-3">
+                <div
+                  class="app-multiselect app-multiselect--single"
+                  id="plModalStroke"
+                >
+                  <div
+                    class="app-multiselect__trigger"
+                    id="plModalStrokeTrigger"
+                    tabindex="0"
+                  >
+                    <img
+                      src="../assets/images/icons/solar_tennis-line-duotone.svg"
+                      alt="tennis stroke icon"
+                      class="app-multiselect__option-icon"
+                    />
+                    <span class="app-multiselect__placeholder"
+                      >Select Stroke</span
+                    >
+                  </div>
+                  <i
+                    data-lucide="chevron-down"
+                    width="16"
+                    height="16"
+                    class="app-multiselect__chevron"
+                  ></i>
+                  <div class="app-multiselect__menu">
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Forehand"
+                      data-tag="green"
+                    >
+                      Forehand
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Backhand"
+                      data-tag="blue"
+                    >
+                      Backhand
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Volley"
+                      data-tag="red"
+                    >
+                      Volley
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Serve"
+                      data-tag="purple"
+                    >
+                      Serve
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Smash"
+                      data-tag="orange"
+                    >
+                      Smash
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <span class="cc-form-label">Camera Angle</span>
+              <div class="cc-angle-group mb-3" id="plModalAngles">
+                <span class="cc-angle__track" aria-hidden="true"></span>
+                <button
+                  type="button"
+                  class="cc-angle-btn is-active"
+                  data-val="Behind Player"
+                >
+                  Behind Player
+                </button>
+                <button type="button" class="cc-angle-btn" data-val="Side View">
+                  Side View
+                </button>
+                <button
+                  type="button"
+                  class="cc-angle-btn"
+                  data-val="Front View"
+                >
+                  Front View
+                </button>
+              </div>
+
+              <div class="cc-skill-row mb-3">
+                <span class="cc-form-label">Skill Level</span>
+                <div
+                  class="app-multiselect flex-grow-1"
+                  id="plModalSkill"
+                  style="max-width: 16rem"
+                >
+                  <div class="app-multiselect__trigger" tabindex="0">
+                    <span class="app-multiselect__placeholder"
+                      >Select level...</span
+                    >
+                  </div>
+                  <i
+                    data-lucide="chevron-down"
+                    width="16"
+                    height="16"
+                    class="app-multiselect__chevron"
+                  ></i>
+                  <div class="app-multiselect__menu">
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Advanced"
+                      data-tag="green"
+                    >
+                      <span class="app-multiselect__option-check"
+                        ><i data-lucide="check" width="12" height="12"></i
+                      ></span>
+                      Advanced
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Intermediate"
+                      data-tag="blue"
+                    >
+                      <span class="app-multiselect__option-check"
+                        ><i data-lucide="check" width="12" height="12"></i
+                      ></span>
+                      Intermediate
+                    </button>
+                    <button
+                      type="button"
+                      class="app-multiselect__option"
+                      data-value="Beginner"
+                      data-tag="green"
+                    >
+                      <span class="app-multiselect__option-check"
+                        ><i data-lucide="check" width="12" height="12"></i
+                      ></span>
+                      Beginner
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <span class="cc-form-label">Tags</span>
+              <div class="cc-tags-search-field app-search-field">
+                <i
+                  data-lucide="search"
+                  class="icon-primary"
+                  width="20"
+                  height="20"
+                ></i>
+                <input
+                  type="text"
+                  id="plModalTagInput"
+                  placeholder="Search By Tags...."
+                  autocomplete="off"
+                  aria-label="Search tags"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="plModalTagAdd"
+                >
+                  Add <i data-lucide="plus-circle" width="14" height="14"></i>
+                </button>
+              </div>
+              <div class="cc-tags-added mb-2" id="plModalTagsAdded"></div>
+
+              <p class="cc-tags-sub">Sugeested Tags</p>
+              <div class="cc-tags-suggested mb-2" id="plModalTagSuggest">
+                <button
+                  type="button"
+                  class="badge-tag app-tag-suggest"
+                  data-tag="Forehand"
+                  data-tag-color="green"
+                >
+                  Forehand
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag app-tag-suggest"
+                  data-tag="Volley"
+                  data-tag-color="red"
+                >
+                  Volley
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag app-tag-suggest"
+                  data-tag="Backhand"
+                  data-tag-color="blue"
+                >
+                  Backhand
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag app-tag-suggest"
+                  data-tag="Smash"
+                  data-tag-color="orange"
+                >
+                  Smash
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag app-tag-suggest"
+                  data-tag="Serve"
+                  data-tag-color="purple"
+                >
+                  Serve
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="app-modal__footer">
+            <button
+              type="button"
+              class="btn btn-orange add-btn"
+              id="plModalSave"
+            >
+              <i
+                data-lucide="circle-check-big"
+                class="add-btn-icon"
+                width="20"
+                height="20"
+              ></i>
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="app-overlay" id="clipVideoExpandOverlay" aria-hidden="true">
+      <div
+        class="app-modal app-eval-video-modal clip-expand-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="clipVideoExpandTitle"
+      >
+        <div class="app-modal__header">
+          <button
+            type="button"
+            class="app-modal-close-btn"
+            id="clipVideoExpandClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title" id="clipVideoExpandTitle">Video</h2>
+        </div>
+        <div class="app-modal__content app-eval-video-modal__content">
+          <video
+            id="clipVideoExpandPlayer"
+            class="app-eval-video-modal__player"
+            controls
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-overlay" id="plSuccessOverlay">
+      <div class="app-toast se-clip-video-success" role="alert">
+        <div class="app-toast__icon">
+          <i data-lucide="check" width="28" height="28"></i>
+        </div>
+        <p class="app-toast__text mb-0 fw-bold">Video Added Successfully!</p>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Evaluation - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/styles/global.css" />
+    <link rel="stylesheet" href="../assets/styles/clip-library.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="bg-white page-session-evaluation page-se-view">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill is-active" href="../index.html">
+            <i data-lucide="users" width="18" height="18"></i>
+            Trainees
+          </a>
+          <a class="app-nav-pill" href="../coach-clips/index.html">
+            <i data-lucide="video" width="18" height="18"></i>
+            Coach Clips
+          </a>
+          <a class="app-nav-pill" href="../player-library/index.html">
+            <i data-lucide="library-big" width="18" height="18"></i>
+            Player Library
+          </a>
+          <a class="app-nav-pill" href="../pro-library/index.html">
+            <i data-lucide="trophy" width="18" height="18"></i>
+            Pro Library
+          </a>
+          <a class="app-nav-pill" href="../performance-comparison/index.html">
+            <i data-lucide="line-chart" width="18" height="18"></i>
+            Compare
+          </a>
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill is-active" href="../index.html">
+          <i data-lucide="users" width="18" height="18"></i>
+          Trainees
+        </a>
+        <a class="app-nav-pill" href="../coach-clips/index.html">
+          <i data-lucide="video" width="18" height="18"></i>
+          Coach Clips
+        </a>
+        <a class="app-nav-pill" href="../player-library/index.html">
+          <i data-lucide="library-big" width="18" height="18"></i>
+          Player Library
+        </a>
+        <a class="app-nav-pill" href="../pro-library/index.html">
+          <i data-lucide="trophy" width="18" height="18"></i>
+          Pro Library
+        </a>
+        <a class="app-nav-pill" href="../performance-comparison/index.html">
+          <i data-lucide="line-chart" width="18" height="18"></i>
+          Compare
+        </a>
+      </div>
+    </div>
+
+    <main class="app-main container mb-5">
+      <nav class="app-breadcrumb mb-2" aria-label="Breadcrumb">
+        <a href="../index.html">Trainees</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <a href="../trainee/index.html">Player Profile</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <span class="current">Video Evaluation</span>
+      </nav>
+
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3 mb-4"
+      >
+        <div>
+          <h1 class="app-page-title">Video Evaluation</h1>
+          <p class="app-page-subtitle mb-0" id="seViewPageSubtitle">
+            Forehand session review
+          </p>
+        </div>
+        <a
+          href="./create.html"
+          class="btn btn-primary-outline d-none border-0 text-nowrap"
+          id="btnSeViewEdit"
+        >
+          <i data-lucide="square-pen" width="18" height="18"></i> Edit
+        </a>
+      </div>
+
+      <!-- ========== Empty (no saved session eval) ========== -->
+      <section id="seEmptyState" class="app-empty-panel mx-auto mt-5">
+        <i
+          data-lucide="video"
+          width="48"
+          height="48"
+          class="text-muted-app d-block mx-auto mb-3"
+        ></i>
+        <h2 class="h4 fw-bold mb-2">No Session Evaluation Yet</h2>
+        <p class="text-muted-app fw-bold mb-4">
+          Create a focused stroke or session evaluation for this player
+        </p>
+        <a href="./create.html" class="btn btn-secondary px-4 mx-auto">
+          <i data-lucide="plus" width="18" height="18"></i> Create Session
+          Evaluation
+        </a>
+      </section>
+
+      <!-- ========== Populated view ========== -->
+      <section id="seEvalView" class="d-none">
+        <div class="app-segmented mb-4">
+          <a class="is-active" href="./index.html">Session Evaluation</a>
+          <a href="../full-evaluation/index.html">Full Evaluation</a>
+        </div>
+
+        <div class="row g-4 g-xl-5 align-items-start mb-5">
+          <div class="col-lg-7">
+            <div class="se-view-video-card">
+              <video
+                class="se-view-video"
+                controls
+                playsinline
+                poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                src="./../assets/videos/milesahead.mp4"
+              ></video>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="se-view-eval-card h-100">
+              <h2 class="h5 fw-bold mb-1">Trainer Evaluation</h2>
+              <p class="small text-muted-app mb-3" id="seViewCoachRateLine">
+                Coach feedback: 8.6/10
+              </p>
+
+              <div class="se-rate-head mb-1">
+                <span class="fw-bold se-rate-head__right" id="seViewRateVal"
+                  >8.0</span
+                >
+              </div>
+              <input
+                type="range"
+                class="se-range se-range--preview mb-1"
+                id="seViewRateRange"
+                min="0"
+                max="10"
+                step="0.5"
+                value="8"
+                aria-hidden="true"
+                tabindex="-1"
+              />
+              <div
+                class="se-rate-labels-container d-flex align-items-center justify-content-between mb-4"
+              >
+                <span class="se-rate-labels text-muted-app">Needs Focus</span>
+                <span class="se-rate-labels text-muted-app">Excellent</span>
+              </div>
+              <div class="row g-4">
+                <div class="col-sm-6">
+                  <h3 class="previw-subtitle mb-2">
+                    <i
+                      data-lucide="check"
+                      class="se-heading-icon--good"
+                      width="20"
+                      height="20"
+                      stroke-width="2"
+                    ></i>
+                    What's Good
+                  </h3>
+                  <ul
+                    class="list-unstyled small text-muted-app mb-0 ps-1"
+                    id="seViewGoodList"
+                  >
+                    <li>Good Follow-Through</li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <h3 class="previw-subtitle mb-2">
+                    <i
+                      data-lucide="alert-circle"
+                      class="se-heading-icon--attention"
+                      width="20"
+                      height="20"
+                      stroke-width="2"
+                    ></i>
+                    Needs Attention
+                  </h3>
+                  <ul
+                    class="list-unstyled small text-muted-app mb-0 ps-1"
+                    id="seViewAttentionList"
+                  >
+                    <li>Racquet Back Late</li>
+                    <li>Poor Spacing</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="mb-5">
+          <h2 class="app-section-title">Coach's Notes</h2>
+          <p
+            class="text-muted-app mb-0 fs-6 se-view-coach-notes"
+            id="seViewCoachNotes"
+          >
+            Lorem ipsum dolor sit amet consectetur. Netus in maximus in
+            venenatis efficitur. Dignissim ac consequat morbi tellus. Fusce vel
+            a posuere viverra vestibulum ac at amet commodo ut odio.
+          </p>
+        </section>
+
+        <section class="mb-5">
+          <h2 class="app-section-title">Improvement Guide</h2>
+          <div class="clip-row clip-row--cc-cards">
+            <article class="cc-card">
+              <div class="cc-card__media">
+                <video
+                  src="../assets/videos/milesahead.mp4"
+                  poster="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&amp;fit=crop&amp;w=640&amp;q=80"
+                  muted
+                  playsinline
+                  preload="metadata"
+                ></video>
+                <button
+                  type="button"
+                  class="cc-card__expand"
+                  aria-label="Expand video"
+                >
+                  <i data-lucide="maximize-2" width="18" height="18"></i>
+                </button>
+                <div class="cc-card__controls">
+                  <button
+                    type="button"
+                    class="cc-skip-back"
+                    aria-label="Back 10 seconds"
+                  >
+                    <i data-lucide="rotate-ccw" width="16" height="16"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-card__play cc-play-toggle"
+                    aria-label="Play"
+                  >
+                    <i data-lucide="play" width="22" height="22"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-skip-fwd"
+                    aria-label="Forward 10 seconds"
+                  >
+                    <i data-lucide="rotate-cw" width="16" height="16"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="cc-card__body">
+                <h2 class="cc-card__title">Topspin Forehand Follow Through</h2>
+                <div class="cc-card__tags">
+                  <span class="badge-tag badge-tag--blue">Intermediate</span>
+                  <span class="badge-tag badge-tag--orange">Pro</span>
+                  <span class="badge-tag badge-tag--green">Forehand</span>
+                </div>
+                <div class="cc-card__footer">
+                  <span></span>
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-muted-app"
+                  >
+                    <i data-lucide="video" width="14" height="14"></i>
+                    Pro Demo
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article class="cc-card">
+              <div class="cc-card__media">
+                <video
+                  src="../assets/videos/milesahead.mp4"
+                  poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=640&amp;q=80"
+                  muted
+                  playsinline
+                  preload="metadata"
+                ></video>
+                <button
+                  type="button"
+                  class="cc-card__expand"
+                  aria-label="Expand video"
+                >
+                  <i data-lucide="maximize-2" width="18" height="18"></i>
+                </button>
+                <div class="cc-card__controls">
+                  <button
+                    type="button"
+                    class="cc-skip-back"
+                    aria-label="Back 10 seconds"
+                  >
+                    <i data-lucide="rotate-ccw" width="16" height="16"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-card__play cc-play-toggle"
+                    aria-label="Play"
+                  >
+                    <i data-lucide="play" width="22" height="22"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-skip-fwd"
+                    aria-label="Forward 10 seconds"
+                  >
+                    <i data-lucide="rotate-cw" width="16" height="16"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="cc-card__body">
+                <h2 class="cc-card__title">Spacing on the Run</h2>
+                <div class="cc-card__tags">
+                  <span class="badge-tag badge-tag--orange">Beginner</span>
+                  <span class="badge-tag badge-tag--blue">Player Demo</span>
+                </div>
+                <div class="cc-card__footer">
+                  <span></span>
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-muted-app"
+                  >
+                    <i data-lucide="video" width="14" height="14"></i>
+                    Player Demo
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article class="cc-card">
+              <div class="cc-card__media">
+                <video
+                  src="../assets/videos/milesahead.mp4"
+                  poster="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?auto=format&amp;fit=crop&amp;w=640&amp;q=80"
+                  muted
+                  playsinline
+                  preload="metadata"
+                ></video>
+                <button
+                  type="button"
+                  class="cc-card__expand"
+                  aria-label="Expand video"
+                >
+                  <i data-lucide="maximize-2" width="18" height="18"></i>
+                </button>
+                <div class="cc-card__controls">
+                  <button
+                    type="button"
+                    class="cc-skip-back"
+                    aria-label="Back 10 seconds"
+                  >
+                    <i data-lucide="rotate-ccw" width="16" height="16"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-card__play cc-play-toggle"
+                    aria-label="Play"
+                  >
+                    <i data-lucide="play" width="22" height="22"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cc-skip-fwd"
+                    aria-label="Forward 10 seconds"
+                  >
+                    <i data-lucide="rotate-cw" width="16" height="16"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="cc-card__body">
+                <h2 class="cc-card__title">Coach Breakdown: Unit Turn</h2>
+                <div class="cc-card__tags">
+                  <span class="badge-tag badge-tag--green">Advanced</span>
+                  <span class="badge-tag badge-tag--red">Coach Demo</span>
+                </div>
+                <div class="cc-card__footer">
+                  <span></span>
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-muted-app"
+                  >
+                    <i data-lucide="video" width="14" height="14"></i>
+                    Coach Demo
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <div class="row recommendations-row mb-5">
+          <section class="col-lg-6 col-12 mb-5 mb-lg-0">
+            <h2 class="recommendations-title">Recommended Classes</h2>
+            <div class="row gap-3 mb-4">
+              <div
+                class="col-12 col-md-6 app-search-field app-search-field--fluid"
+              >
+                <i
+                  data-lucide="search"
+                  class="icon-primary"
+                  width="20"
+                  height="20"
+                ></i>
+                <input
+                  id="seViewRecClassSearch"
+                  type="text"
+                  placeholder="Search Classes"
+                  autocomplete="off"
+                  aria-label="Search classes"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="seViewRecClassSearchBtn"
+                >
+                  Search
+                </button>
+              </div>
+              <div class="col-12 col-md-6 se-location-minw flex-shrink-0">
+                <div class="cc-stroke-dd mb-0">
+                  <div
+                    class="app-multiselect app-multiselect--single app-multiselect--single-plain"
+                    id="seViewRecLocationSelect"
+                  >
+                    <div
+                      class="app-multiselect__trigger"
+                      id="seViewRecLocationTrigger"
+                      tabindex="0"
+                    >
+                      <i
+                        data-lucide="map-pin"
+                        width="18"
+                        height="18"
+                        class="app-multiselect__option-icon icon-primary"
+                      ></i>
+                      <span class="app-multiselect__placeholder"
+                        >Select Location</span
+                      >
+                    </div>
+                    <i
+                      data-lucide="chevron-down"
+                      width="16"
+                      height="16"
+                      class="app-multiselect__chevron"
+                    ></i>
+                    <div class="app-multiselect__menu">
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Wheaton Indoor Tennis"
+                      >
+                        Wheaton Indoor Tennis
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Bethesda Tennis Center"
+                      >
+                        Bethesda Tennis Center
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__option"
+                        data-value="Manhattan, NY"
+                      >
+                        Manhattan, NY
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-4" id="seViewClassCards">
+              <div
+                class="col-md-6 col-12"
+                data-fe-class-location="Wheaton Indoor Tennis"
+              >
+                <article
+                  class="app-class-card h-100 se-selectable"
+                  data-group="classes"
+                >
+                  <span class="app-pill-count se-order-badge d-none">0</span>
+                  <div class="app-class-card__media se-class-media-round">
+                    <img
+                      src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="app-class-card__body">
+                    <h4 class="fw-bold h6 mb-3">
+                      Thursday 4.0+ Liveball Clinic 7pm-8pm
+                    </h4>
+                    <p class="small text-muted-app mb-2">
+                      <i
+                        data-lucide="map-pin"
+                        width="14"
+                        height="14"
+                        class="icon-secondary"
+                      ></i>
+                      Wheaton Indoor Tennis
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      <span class="badge-tag badge-tag--orange">Beginner</span>
+                      <span class="badge-tag badge-tag--red">Volley</span>
+                    </div>
+                    <div class="row app-class-card__coach mb-3">
+                      <p
+                        class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                      >
+                        <span class="fw-bold mb-0 app-class-card__coach-label"
+                          >Coach</span
+                        >
+                        <span class="mb-0 app-class-card__coach-name"
+                          >Miles B.</span
+                        >
+                      </p>
+                      <div
+                        class="app-stars col-md-6 col-4"
+                        aria-label="4 out of 5 stars"
+                      >
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-off"
+                          stroke-width="1.5"
+                        ></i>
+                      </div>
+                    </div>
+                    <div
+                      class="mt-auto small text-muted-app d-flex justify-content-between"
+                    >
+                      <p class="d-flex align-items-center gap-2 mb-0">
+                        <i
+                          data-lucide="clock"
+                          class="icon-secondary"
+                          width="16"
+                          height="16"
+                        ></i>
+                        <span class="app-class-card__time">7:00-8:00 PM</span>
+                      </p>
+                      <p class="d-flex align-items-center gap-2 mb-0">
+                        <i
+                          data-lucide="calendar"
+                          class="icon-secondary"
+                          width="16"
+                          height="16"
+                        ></i>
+                        <span class="app-class-card__time"
+                          >Feb 12 – Mar 12</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div
+                class="col-md-6 col-12"
+                data-fe-class-location="Bethesda Tennis Center"
+              >
+                <article
+                  class="app-class-card h-100 se-selectable"
+                  data-group="classes"
+                >
+                  <span class="app-pill-count se-order-badge d-none">0</span>
+                  <div class="app-class-card__media se-class-media-round">
+                    <img
+                      src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div class="app-class-card__body">
+                    <h4 class="fw-bold h6 mb-3">
+                      Saturday Footwork &amp; Transitions 9am
+                    </h4>
+                    <p class="small text-muted-app mb-2">
+                      <i
+                        data-lucide="map-pin"
+                        width="14"
+                        height="14"
+                        class="icon-secondary"
+                      ></i>
+                      Bethesda Tennis Center
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      <span class="badge-tag badge-tag--green"
+                        >Intermediate</span
+                      >
+                      <span class="badge-tag badge-tag--orange">Forehand</span>
+                    </div>
+                    <div class="row app-class-card__coach mb-3">
+                      <p
+                        class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                      >
+                        <span class="fw-bold mb-0 app-class-card__coach-label"
+                          >Coach</span
+                        >
+                        <span class="mb-0 app-class-card__coach-name"
+                          >Sarah L.</span
+                        >
+                      </p>
+                      <div
+                        class="app-stars col-md-6 col-4"
+                        aria-label="5 out of 5 stars"
+                      >
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                        <i
+                          data-lucide="star"
+                          class="star-on"
+                          stroke-width="1.5"
+                        ></i>
+                      </div>
+                    </div>
+                    <div
+                      class="mt-auto small text-muted-app d-flex justify-content-between"
+                    >
+                      <p class="d-flex align-items-center gap-2 mb-0">
+                        <i
+                          data-lucide="clock"
+                          class="icon-secondary"
+                          width="16"
+                          height="16"
+                        ></i>
+                        <span class="app-class-card__time">9:00-10:30 AM</span>
+                      </p>
+                      <p class="d-flex align-items-center gap-2 mb-0">
+                        <i
+                          data-lucide="calendar"
+                          class="icon-secondary"
+                          width="16"
+                          height="16"
+                        ></i>
+                        <span class="app-class-card__time">Mar 1 – Apr 1</span>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <p
+              class="text-end text-muted-app mt-4 mb-0 small"
+              id="seViewClassCount"
+            >
+              0 Added
+            </p>
+          </section>
+
+          <section class="col-lg-6 col-12">
+            <h2 class="recommendations-title">Recommended Coaches</h2>
+            <div class="app-search-field app-search-field--fluid mb-4">
+              <i
+                data-lucide="search"
+                class="icon-primary"
+                width="20"
+                height="20"
+              ></i>
+              <input
+                id="seViewRecCoachSearch"
+                type="text"
+                placeholder="Search Coach"
+                autocomplete="off"
+                aria-label="Search coaches"
+              />
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="seViewRecCoachSearchBtn"
+              >
+                Search
+              </button>
+            </div>
+            <div id="seViewCoachCards">
+              <article
+                class="app-coach-compact se-selectable mb-3"
+                data-group="coaches"
+              >
+                <span
+                  class="app-pill-count se-coach-badge se-order-badge d-none"
+                  >0</span
+                >
+                <img src="../assets/images/coaches/miles.png" alt="Miles B." />
+                <div class="app-recommended-coach">
+                  <h4 class="text-truncate coach-name">Miles B.</h4>
+                  <p class="coach-description">
+                    PTR certified · junior &amp; adult development
+                  </p>
+                  <div
+                    class="app-stars coach-rating"
+                    aria-label="4 out of 5 stars"
+                  >
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                  </div>
+                </div>
+              </article>
+              <article
+                class="app-coach-compact se-selectable mb-3"
+                data-group="coaches"
+              >
+                <span
+                  class="app-pill-count se-coach-badge se-order-badge d-none"
+                  >0</span
+                >
+                <img
+                  src="../assets/images/coaches/reggie.png"
+                  alt="Reggie M."
+                />
+                <div class="app-recommended-coach">
+                  <h4 class="text-truncate coach-name">Reggie M.</h4>
+                  <p class="coach-description">
+                    College player · technique &amp; match tactics
+                  </p>
+                  <div
+                    class="app-stars coach-rating"
+                    aria-label="5 out of 5 stars"
+                  >
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                  </div>
+                </div>
+              </article>
+              <article
+                class="app-coach-compact se-selectable"
+                data-group="coaches"
+              >
+                <span
+                  class="app-pill-count se-coach-badge se-order-badge d-none"
+                  >0</span
+                >
+                <img src="../assets/images/coaches/vijay.png" alt="Vijay G." />
+                <div class="app-recommended-coach">
+                  <h4 class="text-truncate coach-name">Vijay G.</h4>
+                  <p class="coach-description">Serve &amp; return specialist</p>
+                  <div
+                    class="app-stars coach-rating"
+                    aria-label="4 out of 5 stars"
+                  >
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                    <i
+                      data-lucide="star"
+                      class="star-on"
+                      width="14"
+                      height="14"
+                    ></i>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <p
+              class="text-end text-muted-app mt-4 mb-0 small"
+              id="seViewCoachCount"
+            >
+              0 Added
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="app-overlay" id="clipVideoExpandOverlay" aria-hidden="true">
+      <div
+        class="app-modal app-eval-video-modal clip-expand-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="clipVideoExpandTitle"
+      >
+        <div class="app-modal__header">
+          <button
+            type="button"
+            class="app-modal-close-btn"
+            id="clipVideoExpandClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title" id="clipVideoExpandTitle">Video</h2>
+        </div>
+        <div class="app-modal__content app-eval-video-modal__content">
+          <video
+            id="clipVideoExpandPlayer"
+            class="app-eval-video-modal__player"
+            controls
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="./view.js"></script>
+  </body>
+</html>

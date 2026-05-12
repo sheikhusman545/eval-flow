@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trainees - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./assets/styles/global.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-trainees">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="./index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill is-active" href="./index.html">
+            <i data-lucide="users" width="18" height="18"></i>
+            Trainees
+          </a>
+          <a class="app-nav-pill" href="./coach-clips/index.html">
+            <i data-lucide="video" width="18" height="18"></i>
+            Coach Clips
+          </a>
+          <a class="app-nav-pill" href="./player-library/index.html">
+            <i data-lucide="library-big" width="18" height="18"></i>
+            Player Library
+          </a>
+          <a class="app-nav-pill" href="./pro-library/index.html">
+            <i data-lucide="trophy" width="18" height="18"></i>
+            Pro Library
+          </a>
+          <a class="app-nav-pill" href="./performance-comparison/index.html">
+            <i data-lucide="line-chart" width="18" height="18"></i>
+            Compare
+          </a>
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <!-- Mobile nav (Bootstrap offcanvas; desktop uses .app-nav-main) -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill is-active" href="./index.html">
+          <i data-lucide="users" width="18" height="18"></i>
+          Trainees
+        </a>
+        <a class="app-nav-pill" href="./coach-clips/index.html">
+          <i data-lucide="video" width="18" height="18"></i>
+          Coach Clips
+        </a>
+        <a class="app-nav-pill" href="./player-library/index.html">
+          <i data-lucide="library-big" width="18" height="18"></i>
+          Player Library
+        </a>
+        <a class="app-nav-pill" href="./pro-library/index.html">
+          <i data-lucide="trophy" width="18" height="18"></i>
+          Pro Library
+        </a>
+        <a class="app-nav-pill" href="./performance-comparison/index.html">
+          <i data-lucide="line-chart" width="18" height="18"></i>
+          Compare
+        </a>
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <div
+        class="d-flex flex-row align-items-center justify-content-between gap-4"
+      >
+        <div>
+          <h1 class="app-page-title">Trainees</h1>
+          <p class="app-page-subtitle mb-0">
+            Track And Evaluate Player Performance Over Time
+          </p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-secondary add-btn"
+          id="btnAddTrainee"
+        >
+          <i data-lucide="user-plus" width="20" height="20"></i>
+          Add Trainee
+        </button>
+      </div>
+
+      <div class="app-search-strip">
+        <div class="app-search-field">
+          <i
+            data-lucide="search"
+            class="icon-primary"
+            width="20"
+            height="20"
+          ></i>
+          <input
+            id="traineeSearchInput"
+            type="text"
+            placeholder="Search By Name Or Tags...."
+            autocomplete="off"
+            aria-label="Search trainees by name or tags"
+          />
+          <button type="button" class="btn btn-primary" id="traineeSearchBtn">
+            Search
+          </button>
+        </div>
+        <div
+          class="d-flex flex-shrink-0 align-items-center justify-content-end gap-2 ms-md-auto"
+        >
+          <!-- Sort button + Bootstrap dropdown -->
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn btn-primary-outline filter-btns"
+              aria-label="Sort"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i data-lucide="arrow-up-down" width="20" height="20"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end app-sort-menu">
+              <li>
+                <button
+                  class="dropdown-item active"
+                  type="button"
+                  data-sort="name-asc"
+                >
+                  Name (A-Z)
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" data-sort="level">
+                  Level
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  data-sort="joined-desc"
+                >
+                  Recently Added
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  data-sort="eval-desc"
+                >
+                  Last Evaluation
+                </button>
+              </li>
+            </ul>
+          </div>
+          <!-- Filter button -->
+          <button
+            type="button"
+            class="btn btn-primary filter-btns"
+            aria-label="Filter"
+            id="btnFilter"
+          >
+            <i data-lucide="filter" width="20" height="20"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="app-trainee-grid" id="traineeGrid">
+        <a
+          class="app-trainee-card"
+          href="./trainee/index.html"
+          tabindex="0"
+          data-name="Sarah Johnson"
+          data-level-rank="3"
+          data-joined="2025-01-15"
+          data-last-eval="2025-03-01"
+          data-search="sarah johnson intermediate 14 focus footwork timing"
+        >
+          <div class="d-flex gap-3 app-trainee-card_content">
+            <div class="app-trainee-card__avatar">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                alt="Sarah Johnson"
+              />
+            </div>
+            <div
+              class="d-flex flex-column justify-content-center flex-grow-1 gap-2"
+            >
+              <h2 class="app-trainee-card__name text-truncate mb-0">
+                Sarah Johnson
+              </h2>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="app-trainee-card__age">Age : 14</span>
+                <div class="app-stars" aria-label="4 out of 5 stars">
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-off" stroke-width="1.5"></i>
+                </div>
+              </div>
+              <span class="badge-tag badge-tag--blue">Intermediate</span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-auto">
+            <span class="app-trainee-card__joined">Joined</span>
+            <span class="app-trainee-card__joined-date">1/15/2025</span>
+          </div>
+        </a>
+
+        <a
+          class="app-trainee-card"
+          href="./trainee/index.html"
+          tabindex="0"
+          data-name="Michael Chen"
+          data-level-rank="4"
+          data-joined="2024-11-20"
+          data-last-eval="2024-12-01"
+          data-search="michael chen advanced 31 power serve baseline"
+        >
+          <div class="d-flex gap-3 app-trainee-card_content">
+            <div class="app-trainee-card__avatar">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                alt="Michael Chen"
+              />
+            </div>
+            <div
+              class="d-flex flex-column justify-content-center flex-grow-1 gap-2"
+            >
+              <h2 class="app-trainee-card__name text-truncate mb-0">
+                Michael Chen
+              </h2>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="app-trainee-card__age">Age : 31</span>
+                <div class="app-stars" aria-label="4 out of 5 stars">
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-off" stroke-width="1.5"></i>
+                </div>
+              </div>
+              <span class="badge-tag badge-tag--green">Advanced</span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-auto">
+            <span class="app-trainee-card__joined">Joined</span>
+            <span class="app-trainee-card__joined-date">11/20/2024</span>
+          </div>
+        </a>
+
+        <a
+          class="app-trainee-card"
+          href="./trainee/index.html"
+          tabindex="0"
+          data-name="Emma Rodriguez"
+          data-level-rank="1"
+          data-joined="2026-02-01"
+          data-last-eval="2026-02-15"
+          data-search="emma rodriguez beginner 25 balance agility recovery"
+        >
+          <div class="d-flex gap-3 app-trainee-card_content">
+            <div class="app-trainee-card__avatar">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                alt="Emma Rodriguez"
+              />
+            </div>
+            <div
+              class="d-flex flex-column justify-content-center flex-grow-1 gap-2"
+            >
+              <h2 class="app-trainee-card__name text-truncate mb-0">
+                Emma Rodriguez
+              </h2>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="app-trainee-card__age">Age : 25</span>
+                <div class="app-stars" aria-label="4 out of 5 stars">
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-off" stroke-width="1.5"></i>
+                </div>
+              </div>
+              <span class="badge-tag badge-tag--yellow">Beginner</span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-auto">
+            <span class="app-trainee-card__joined">Joined</span>
+            <span class="app-trainee-card__joined-date">2/1/2026</span>
+          </div>
+        </a>
+
+        <a
+          class="app-trainee-card"
+          href="./trainee/index.html"
+          tabindex="0"
+          data-name="James Wilson"
+          data-level-rank="3"
+          data-joined="2025-09-10"
+          data-last-eval="2025-08-01"
+          data-search="james wilson intermediate 11 backhand cardio endurance"
+        >
+          <div class="d-flex gap-3 app-trainee-card_content">
+            <div class="app-trainee-card__avatar">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=200&amp;q=80"
+                alt="James Wilson"
+              />
+            </div>
+            <div
+              class="d-flex flex-column justify-content-center flex-grow-1 gap-2"
+            >
+              <h2 class="app-trainee-card__name text-truncate mb-0">
+                James Wilson
+              </h2>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="app-trainee-card__age">Age : 11</span>
+                <div class="app-stars" aria-label="4 out of 5 stars">
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-on" stroke-width="1.5"></i>
+                  <i data-lucide="star" class="star-off" stroke-width="1.5"></i>
+                </div>
+              </div>
+              <span class="badge-tag badge-tag--blue">Intermediate</span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-auto">
+            <span class="app-trainee-card__joined">Joined</span>
+            <span class="app-trainee-card__joined-date">9/10/2025</span>
+          </div>
+        </a>
+      </div>
+      <p
+        class="app-trainee-grid-empty text-muted text-center py-4 mb-0"
+        id="traineeSearchEmpty"
+        hidden
+        role="status"
+      >
+        No trainees match your search.
+      </p>
+    </main>
+
+    <!-- ============================================
+         FILTER SIDE PANEL
+    ============================================= -->
+    <div class="app-side-panel__backdrop" id="filterBackdrop"></div>
+    <aside class="app-side-panel" id="filterPanel">
+      <div class="app-side-panel__header">
+        <button
+          class="app-side-panel__close app-modal-close-btn"
+          id="filterClose"
+          aria-label="Close filter"
+        >
+          <i data-lucide="x" width="18" height="18"></i>
+        </button>
+        <h2 class="app-side-panel__title">Filter</h2>
+      </div>
+
+      <div class="app-side-panel__content">
+        <!-- Skill Level multi-select (autocomplete + clear) -->
+        <div class="app-form-group">
+          <label class="app-form-label" for="filterLevelInput"
+            >Skill Level</label
+          >
+          <div
+            class="app-multiselect app-multiselect--autocomplete"
+            id="filterLevel"
+          >
+            <div class="app-multiselect__trigger">
+              <input
+                type="text"
+                class="app-multiselect__input"
+                id="filterLevelInput"
+                placeholder="Select level..."
+                autocomplete="off"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="filterLevelMenu"
+              />
+            </div>
+            <div class="app-multiselect__actions">
+              <button
+                type="button"
+                class="app-multiselect__toggle"
+                aria-label="Open options"
+                aria-expanded="false"
+                aria-controls="filterLevelMenu"
+              >
+                <i
+                  data-lucide="chevron-down"
+                  width="16"
+                  height="16"
+                  class="app-multiselect__chevron"
+                ></i>
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__clear"
+                aria-label="Clear all"
+                hidden
+              >
+                <i data-lucide="x" width="14" height="14"></i>
+              </button>
+            </div>
+            <div
+              class="app-multiselect__menu"
+              id="filterLevelMenu"
+              role="listbox"
+            >
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Adult Beginner"
+                data-tag="red"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Adult Beginner
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Intermediate"
+                data-tag="blue"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Intermediate
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Beginner"
+                data-tag="yellow"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Beginner
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Advanced"
+                data-tag="green"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Advanced
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Training Group multi-select (autocomplete + clear) -->
+        <div class="app-form-group">
+          <label class="app-form-label" for="filterGroupInput"
+            >Training Group</label
+          >
+          <div
+            class="app-multiselect app-multiselect--autocomplete"
+            id="filterGroup"
+          >
+            <div class="app-multiselect__trigger">
+              <input
+                type="text"
+                class="app-multiselect__input"
+                id="filterGroupInput"
+                placeholder="Select group..."
+                autocomplete="off"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="filterGroupMenu"
+              />
+            </div>
+            <div class="app-multiselect__actions">
+              <button
+                type="button"
+                class="app-multiselect__toggle"
+                aria-label="Open options"
+                aria-expanded="false"
+                aria-controls="filterGroupMenu"
+              >
+                <i
+                  data-lucide="chevron-down"
+                  width="16"
+                  height="16"
+                  class="app-multiselect__chevron"
+                ></i>
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__clear"
+                aria-label="Clear all"
+                hidden
+              >
+                <i data-lucide="x" width="14" height="14"></i>
+              </button>
+            </div>
+            <div
+              class="app-multiselect__menu"
+              id="filterGroupMenu"
+              role="listbox"
+            >
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Mon &amp; Thu, 3-5 PM"
+                data-tag="blue"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Mon &amp; Thu, 3-5 PM
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Sun &amp; Wed, 3-5 PM"
+                data-tag="green"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Sun &amp; Wed, 3-5 PM
+              </button>
+              <button
+                type="button"
+                class="app-multiselect__option"
+                data-value="Sat &amp; Tue, 3-5 PM"
+                data-tag="red"
+              >
+                <span class="app-multiselect__option-check"
+                  ><i data-lucide="check" width="12" height="12"></i
+                ></span>
+                Sat &amp; Tue, 3-5 PM
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column gap-3">
+        <button type="button" class="btn btn-secondary w-100" id="filterApply">
+          <span class="btn-text">Apply</span>
+          <i
+            data-lucide="circle-check-big"
+            class="add-btn-icon"
+            width="20"
+            height="20"
+          ></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-orange-outline w-100"
+          id="filterReset"
+        >
+          <span class="btn-text">Reset</span>
+          <i data-lucide="refresh-cw" width="18" height="18"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============================================
+         ADD PLAYER MODAL
+    ============================================= -->
+    <div class="app-overlay" id="addPlayerOverlay">
+      <div class="app-modal">
+        <div class="app-modal__header">
+          <button
+            class="app-modal-close-btn"
+            id="addPlayerClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title">Add New Player</h2>
+        </div>
+        <form id="addPlayerForm" class="app-form--validate" autocomplete="off">
+          <div class="app-modal__content">
+            <div class="app-form-group">
+              <label class="app-form-label" for="playerName">Full Name</label>
+              <input
+                class="app-form-input"
+                id="playerName"
+                name="playerName"
+                type="text"
+                required
+                data-invalid-msg="Please enter the player's full name."
+                placeholder="Enter Trainee's Full Name"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label" for="playerEmail"
+                >Email Address</label
+              >
+              <input
+                class="app-form-input"
+                id="playerEmail"
+                name="playerEmail"
+                type="email"
+                required
+                data-invalid-msg="Please enter a valid email address."
+                placeholder="Enter Email Address"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label" for="playerPhone"
+                >Phone Number</label
+              >
+              <input
+                class="app-form-input"
+                id="playerPhone"
+                name="playerPhone"
+                type="tel"
+                required
+                data-invalid-msg="Please enter a valid phone number."
+                placeholder="Enter Phone Number"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label">Player Level</label>
+              <div class="app-badge-tag-row" id="playerLevel">
+                <button
+                  type="button"
+                  class="badge-tag badge-tag--green is-selected"
+                  data-value="2.0"
+                  data-level-color="green"
+                >
+                  <span class="badge-tag__check">
+                    <i data-lucide="check" width="12" height="12"></i>
+                  </span>
+                  2.0
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="2.5"
+                  data-level-color="dark-green"
+                >
+                  2.5
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="3.0"
+                  data-level-color="blue"
+                >
+                  3.0
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="3.5"
+                  data-level-color="purple"
+                >
+                  3.5
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="4.0"
+                  data-level-color="orange"
+                >
+                  4.0
+                </button>
+              </div>
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label">Training Group</label>
+              <div class="app-badge-tag-row" id="playerGroup">
+                <button
+                  type="button"
+                  class="badge-tag badge-tag--orange is-selected"
+                  data-value="mon-thu"
+                  data-group-color="orange"
+                  data-label="Mon &amp; Thu, 3-5 PM"
+                >
+                  <span class="badge-tag__check">
+                    <i data-lucide="check" width="12" height="12"></i>
+                  </span>
+                  Mon &amp; Thu, 3-5 PM
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="sun-wed"
+                  data-group-color="blue"
+                  data-label="Sun &amp; Wed, 3-5 PM"
+                >
+                  Sun &amp; Wed, 3-5 PM
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="sat-tue"
+                  data-group-color="purple"
+                  data-label="Sat &amp; Tue, 3-5 PM"
+                >
+                  Sat &amp; Tue, 3-5 PM
+                </button>
+              </div>
+            </div>
+
+            <div class="alert alert-info mb-4">
+              <i
+                data-lucide="info"
+                width="18"
+                height="18"
+                class="flex-shrink-0 icon-info alert__icon"
+              ></i>
+              <p class="alert__text">
+                Players Will Automatically Be Added To Email And Text Groups
+                Based On Their Level And Training Group.
+              </p>
+            </div>
+          </div>
+          <div class="app-modal__footer">
+            <button type="submit" class="btn btn-orange add-btn">
+              <i
+                data-lucide="circle-check-big"
+                class="add-btn-icon"
+                width="20"
+                height="20"
+              ></i>
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================
+         SUCCESS TOAST
+    ============================================= -->
+    <div class="app-overlay" id="successOverlay">
+      <div class="app-toast">
+        <div class="app-toast__icon">
+          <i data-lucide="check" width="28" height="28"></i>
+        </div>
+        <p class="app-toast__text mb-0">Player Added Successfully!</p>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/scripts/app-shared.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

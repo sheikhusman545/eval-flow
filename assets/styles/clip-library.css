@@ -1,0 +1,387 @@
+/**************************************************
+ * Clip library page UI (Coach / Player / Pro)
+ * Card grid + .cc-card live in ui-shared.css (global import).
+ **************************************************/
+
+.cc-upload-btn {
+  border-radius: var(--radius-xl);
+  font-family: var(--font-family-bold);
+}
+
+/* Same shell as index .app-search-field (light gray pill, icon + input + primary btn) */
+.cc-tags-search-field.app-search-field {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.cc-tags-search-field.app-search-field input {
+  padding-right: 6rem;
+}
+.cc-tags-search-field.app-search-field .btn {
+  min-width: unset;
+  padding: 0.3rem 0.75rem;
+}
+.cc-tags-search-field.app-search-field .btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 1.5px;
+}
+
+.cc-tags-search-field.app-search-field > .icon-primary,
+.cc-tags-search-field.app-search-field > svg:first-of-type {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.cc-tags-sub {
+  font-family: var(--font-family-bold);
+  font-size: 0.75rem;
+  color: var(--color-gray);
+  margin-bottom: 0.375rem;
+}
+
+.cc-tags-suggested {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.cc-tags-added {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+  min-height: 0;
+}
+
+/* Added tags (bindTagSection): colored chip + check + .badge-tag-remove */
+.cc-tags-added .badge-tag.badge-tag-chip {
+  max-height: none;
+  align-items: center;
+}
+
+.cc-upload-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.cc-form-label {
+  font-family: var(--font-family-bold);
+  font-size: 0.875rem;
+  color: var(--color-black);
+  margin-bottom: 0.375rem;
+  display: block;
+}
+
+.cc-dropzone {
+  position: relative;
+  border: 2px dashed var(--color-secondary);
+  border-radius: var(--radius-btn);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: var(--color-light-gray);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cc-dropzone__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family-bold);
+}
+.cc-dropzone__or-text {
+  font-size: var(--font-size-small);
+  color: var(--color-gray);
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+.cc-dropzone__or-text::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  width: 5rem;
+  height: 1px;
+  background: var(--color-gray-2);
+  z-index: 2;
+}
+
+.cc-dropzone__or-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  width: 5rem;
+  height: 1px;
+  background: var(--color-gray-2);
+  z-index: 2;
+}
+
+.cc-dropzone.is-dragging {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--color-secondary);
+  background: #edf2f7;
+}
+
+.cc-dropzone.is-invalid:not(.has-file) {
+  border-color: var(--color-orange);
+  border-style: dashed;
+  border-width: 2px;
+}
+
+.cc-dropzone.has-file {
+  border: none;
+}
+
+.cc-dropzone.has-file.is-dragging {
+  border: 2px solid var(--color-secondary);
+  background: #edf2f7;
+}
+
+.cc-dropzone.is-uploading {
+  border: 1px solid var(--color-secondary);
+  background: var(--color-white);
+  cursor: default;
+}
+
+.cc-dropzone__uploading {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 0.25rem 0;
+}
+
+.cc-dropzone__uploading-title {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-caption);
+  color: var(--color-black);
+  margin: 0;
+}
+
+.cc-dropzone__progress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.cc-dropzone__progress-track {
+  flex: 1;
+  min-width: 0;
+  height: 0.5rem;
+  border-radius: var(--radius-3xl);
+  background: var(--color-gray-2);
+  overflow: hidden;
+}
+
+.cc-dropzone__progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--radius-3xl);
+  background: var(--color-primary);
+  transition: width 0.08s linear;
+}
+
+.cc-dropzone__progress-pct {
+  flex-shrink: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-gray);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+.cc-dropzone__cancel-upload {
+  min-width: 6.5rem;
+}
+
+.cc-dropzone__drag-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.cc-dropzone.is-dragging .cc-dropzone__drag-layer {
+  opacity: 1;
+}
+
+.cc-dropzone__drag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-3xl);
+  background: var(--color-secondary);
+  color: var(--color-white);
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-small);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.18);
+}
+
+.cc-dropzone__drag-badge .lucide,
+.cc-dropzone__drag-badge svg {
+  flex-shrink: 0;
+  color: var(--color-white);
+}
+
+.cc-dropzone__drag-badge-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Long file names: ellipsis needs a shrinkable flex track */
+.cc-dropzone__done > .d-flex.justify-content-between > .d-flex:first-child {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.cc-dropzone input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.upload-file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1 1 0%;
+}
+.upload-icon {
+  flex-shrink: 0;
+  color: var(--color-gray);
+}
+.upload-file-name {
+  display: block;
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-caption);
+  color: var(--color-black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.upload-file-size {
+  font-size: var(--font-size-small);
+  color: var(--color-gray);
+}
+/* Upload modal: Stroke Type — tennis icon in trigger + single-select multiselect */
+.cc-stroke-dd {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cc-stroke-dd .app-multiselect {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-multiselect__trigger .app-multiselect__option-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.cc-stroke-dd__icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.cc-skill-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cc-skill-row .cc-form-label {
+  margin-bottom: 0;
+}
+
+/* Sliding pill — matches session evaluation camera control */
+.cc-angle-group {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  height: 2rem;
+  border-radius: var(--radius-3xl);
+  background: var(--color-light-gray);
+  width: 100%;
+  max-width: 100%;
+}
+
+.cc-angle__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2rem;
+  border-radius: var(--radius-3xl);
+  background: var(--color-secondary);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cc-angle-btn {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.5rem;
+  border-radius: var(--radius-3xl);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-black);
+  cursor: pointer;
+  transition: color 0.25s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cc-angle-btn.is-active {
+  font-family: var(--font-family-bold);
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.cc-modal-actions {
+  flex-shrink: 0;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+
+  display: flex;
+  justify-content: flex-end;
+}

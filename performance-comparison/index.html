@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Performance Comparison - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="stylesheet" href="../assets/styles/ui-shared.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-comparison">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill" href="../index.html">
+            <i data-lucide="users" width="18" height="18"></i>
+            Trainees
+          </a>
+          <a class="app-nav-pill" href="../coach-clips/index.html">
+            <i data-lucide="video" width="18" height="18"></i>
+            Coach Clips
+          </a>
+          <a class="app-nav-pill" href="../player-library/index.html">
+            <i data-lucide="library-big" width="18" height="18"></i>
+            Player Library
+          </a>
+          <a class="app-nav-pill" href="../pro-library/index.html">
+            <i data-lucide="trophy" width="18" height="18"></i>
+            Pro Library
+          </a>
+          <a class="app-nav-pill is-active" href="./index.html">
+            <i data-lucide="line-chart" width="18" height="18"></i>
+            Compare
+          </a>
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill" href="../index.html">
+          <i data-lucide="users" width="18" height="18"></i>
+          Trainees
+        </a>
+        <a class="app-nav-pill" href="../coach-clips/index.html">
+          <i data-lucide="video" width="18" height="18"></i>
+          Coach Clips
+        </a>
+        <a class="app-nav-pill" href="../player-library/index.html">
+          <i data-lucide="library-big" width="18" height="18"></i>
+          Player Library
+        </a>
+        <a class="app-nav-pill" href="../pro-library/index.html">
+          <i data-lucide="trophy" width="18" height="18"></i>
+          Pro Library
+        </a>
+        <a class="app-nav-pill is-active" href="./index.html">
+          <i data-lucide="line-chart" width="18" height="18"></i>
+          Compare
+        </a>
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <!-- Title Row -->
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3 mb-2"
+      >
+        <div>
+          <h1 class="app-page-title">Performance Comparison</h1>
+          <p class="app-page-subtitle">
+            Compare Two Evaluations Side-By-Side To Track Progress Over Time
+          </p>
+        </div>
+        <button type="button" class="btn btn-secondary" id="btnNewComparison">
+          <i
+            data-lucide="circle-plus"
+            class="add-btn-icon"
+            width="20"
+            height="20"
+          ></i>
+          Create New Comparison
+        </button>
+      </div>
+
+      <!-- Empty state (same structure / width as trainee profile timeline) -->
+      <div id="emptyState" class="app-empty-panel w-100">
+        <div
+          class="trainee-empty-icon mx-auto mb-4 d-flex align-items-center justify-content-center"
+        >
+          <i data-lucide="video" width="40" height="40" stroke-width="1.25"></i>
+        </div>
+        <h3 class="trainee-empty-title mb-3">No Comparisons Yet</h3>
+        <p class="trainee-empty-lead text-muted-app mx-auto mb-4">
+          Start Tracking Sarah Johnson's Progress By Creating The First
+          Comparison.
+        </p>
+        <button
+          type="button"
+          class="trainee-empty-cta btn btn-secondary"
+          id="btnStartWizard"
+        >
+          <i data-lucide="circle-plus" width="18" height="18"></i>
+          Create New Comparison
+        </button>
+      </div>
+
+      <!-- ==================== COMPARISON RESULT ==================== -->
+      <section id="comparisonResult" class="d-none mt-4">
+        <!-- Side-by-Side Evaluations -->
+        <div class="row g-4 mb-5 align-items-stretch position-relative">
+          <div class="col-lg-6">
+            <div class="pc-eval-panel" id="earlierPanel">
+              <p class="pc-col-label mb-0">
+                Earlier Evaluation
+                <span class="pc-col-date ms-auto" id="earlierDate"></span>
+              </p>
+              <div class="pc-eval-panel__video" id="earlierVideoWrap">
+                <video
+                  id="earlierVideo"
+                  class="pc-video-player"
+                  controls
+                  playsinline
+                  src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+                  poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80"
+                ></video>
+                <div class="pc-video-actions">
+                  <button
+                    type="button"
+                    class="pc-video-action"
+                    data-action="pip"
+                    title="Picture in Picture"
+                  >
+                    <i data-lucide="maximize-2" width="16" height="16"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="pc-video-action"
+                    data-action="expand"
+                    data-target="earlierVideo"
+                    title="Expand"
+                  >
+                    <i data-lucide="expand" width="16" height="16"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pc-eval-panel__body">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="subtitle mb-0">Trainer Evaluation</span>
+                  <div class="app-stars" id="earlierStars"></div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <h4 class="subtitle subtitle--green">
+                      <i data-lucide="check" width="19" height="19"></i>
+                      What's Good
+                    </h4>
+                    <div id="earlierGood"></div>
+                  </div>
+                  <div class="col-sm-6">
+                    <h4 class="subtitle subtitle--orange">
+                      <i data-lucide="alert-circle" width="19" height="19"></i>
+                      Needs Attention
+                    </h4>
+                    <div id="earlierAttention"></div>
+                  </div>
+                </div>
+                <h4 class="subtitle">Coach's Notes</h4>
+                <p class="pc-body-text" id="earlierNotes"></p>
+                <h4 class="subtitle subtitle--orange">How To Fix</h4>
+                <ul class="pc-fix-list" id="earlierFix"></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chevron divider -->
+          <div class="pc-chevron-divider d-none d-lg-flex">
+            <div class="pc-chevron-circle">
+              <i data-lucide="chevron-right" width="20" height="20"></i>
+            </div>
+          </div>
+
+          <div class="col-lg-6 position-relative">
+            <div class="pc-eval-panel" id="laterPanel">
+              <p class="pc-col-label mb-0">
+                Later Evaluation
+                <span class="pc-col-date ms-auto" id="laterDate"></span>
+              </p>
+              <div class="pc-eval-panel__video" id="laterVideoWrap">
+                <video
+                  id="laterVideo"
+                  class="pc-video-player"
+                  controls
+                  playsinline
+                  src="./../assets/videos/milesahead.mp4"
+                  poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                ></video>
+                <div class="pc-video-actions">
+                  <button
+                    type="button"
+                    class="pc-video-action"
+                    data-action="pip"
+                    title="Picture in Picture"
+                  >
+                    <i data-lucide="maximize-2" width="16" height="16"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="pc-video-action"
+                    data-action="expand"
+                    data-target="laterVideo"
+                    title="Expand"
+                  >
+                    <i data-lucide="expand" width="16" height="16"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pc-eval-panel__body">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <span class="fw-bold">Trainer Evaluation</span>
+                  <div class="app-stars" id="laterStars"></div>
+                </div>
+                <div class="row g-3 mb-4">
+                  <div class="col-sm-6">
+                    <h4 class="pc-check-title pc-check-title--green">
+                      <i data-lucide="check-circle" width="16" height="16"></i>
+                      What's Good
+                    </h4>
+                    <div id="laterGood"></div>
+                  </div>
+                  <div class="col-sm-6">
+                    <h4 class="pc-check-title pc-check-title--orange">
+                      <i data-lucide="alert-circle" width="16" height="16"></i>
+                      Needs Attention
+                    </h4>
+                    <div id="laterAttention"></div>
+                  </div>
+                </div>
+                <h4 class="fw-bold mb-2">Coach's Notes</h4>
+                <p class="pc-body-text mb-0" id="laterNotes"></p>
+                <h4 class="fw-bold pc-fix-title mb-2">How To Fix</h4>
+                <ul class="pc-fix-list" id="laterFix"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance Timeline Banner -->
+        <section class="pc-timeline-banner mb-5">
+          <div class="row g-4 align-items-start">
+            <div class="col-lg-5">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <h2 class="pc-timeline-title mb-0">Performance Timeline</h2>
+              </div>
+              <div class="pc-timeline-meta">
+                <p class="mb-1">
+                  Comparing Evaluations From <strong id="tlFrom"></strong> To
+                  <strong id="tlTo"></strong>
+                </p>
+                <p class="mb-0">
+                  Time Between Evaluations <strong id="tlDays"></strong>
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div
+                class="app-segmented-tabs pc-timeline-seg mb-3 w-100"
+                id="pcTimelineTabs"
+                role="tablist"
+                aria-label="Timeline focus"
+              >
+                <div class="app-segmented-tabs__track" aria-hidden="true"></div>
+                <button
+                  type="button"
+                  class="app-segmented-tabs__tab is-active"
+                  data-tab="improvements"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  Improvements
+                </button>
+                <button
+                  type="button"
+                  class="app-segmented-tabs__tab"
+                  data-tab="working-on"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  Still Working On
+                </button>
+              </div>
+              <div class="pc-timeline-content" id="tlImprovements">
+                <h4 class="fw-bold mb-2">Improvements</h4>
+                <ul class="pc-timeline-list" id="tlImprovementsList"></ul>
+              </div>
+              <div class="pc-timeline-content d-none" id="tlWorkingOn">
+                <h4 class="fw-bold mb-2">Still Working On</h4>
+                <ul class="pc-timeline-list" id="tlWorkingOnList"></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Reference Clips Used -->
+        <section class="mb-5">
+          <h2 class="app-section-title mb-4">Reference Clips Used</h2>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <p class="fw-bold text-muted-app mb-3">Earlier Session</p>
+              <div class="pc-ref-card" id="earlierRefCard"></div>
+            </div>
+            <div class="col-md-6">
+              <p class="fw-bold text-muted-app mb-3">Later Session</p>
+              <div class="pc-ref-card" id="laterRefCard"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- ==================== VIDEO EXPAND MODAL ==================== -->
+    <div class="app-overlay" id="videoExpandOverlay">
+      <div class="pc-video-modal">
+        <button
+          type="button"
+          class="pc-video-modal__close"
+          id="videoExpandClose"
+          aria-label="Close"
+        >
+          <i data-lucide="x" width="20" height="20"></i>
+        </button>
+        <video
+          id="videoExpandPlayer"
+          class="pc-video-modal__player"
+          controls
+          playsinline
+        ></video>
+      </div>
+    </div>
+
+    <!-- ==================== WIZARD OVERLAY ==================== -->
+    <div class="app-overlay" id="wizardOverlay">
+      <div class="app-modal pc-wizard" id="wizardModal">
+        <!-- Step 1 — Trainee + Stroke Type (layout mirrors session-evaluation clips modal) -->
+        <div class="pc-wizard__step is-active" data-step="1">
+          <div class="app-modal__header">
+            <button
+              type="button"
+              class="app-modal-close-btn"
+              id="wizardClose1"
+              aria-label="Close"
+            >
+              <i data-lucide="x" width="18" height="18"></i>
+            </button>
+          </div>
+          <div>
+            <div class="app-modal__content pc-wizard__scroll">
+              <div
+                id="pcTraineeSelectRow"
+                class="pc-trainee-step-row d-flex gap-2 align-items-stretch mt-5"
+              >
+                <div
+                  class="pc-trainee-combo flex-grow-1 min-w-0 position-relative"
+                >
+                  <div
+                    class="app-multiselect app-multiselect--autocomplete app-multiselect--has-search-icon app-multiselect--fixed-menu"
+                    id="pcTraineeMultiselect"
+                  >
+                    <div class="app-multiselect__trigger">
+                      <i
+                        data-lucide="search"
+                        class="icon-primary app-multiselect__search-icon"
+                        width="18"
+                        height="18"
+                        aria-hidden="true"
+                      ></i>
+                      <input
+                        type="text"
+                        class="app-multiselect__input"
+                        id="pcTraineeSearch"
+                        placeholder="Search trainee..."
+                        autocomplete="off"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-controls="pcTraineeDropdown"
+                      />
+                    </div>
+                    <div class="app-multiselect__actions">
+                      <button
+                        type="button"
+                        class="app-multiselect__toggle"
+                        id="pcTraineeChevron"
+                        aria-label="Show trainees"
+                        aria-expanded="false"
+                        aria-controls="pcTraineeDropdown"
+                      >
+                        <i
+                          data-lucide="chevron-down"
+                          width="16"
+                          height="16"
+                          class="app-multiselect__chevron"
+                        ></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="app-multiselect__clear"
+                        id="pcTraineeClear"
+                        aria-label="Clear trainee"
+                        hidden
+                      >
+                        <i data-lucide="x" width="14" height="14"></i>
+                      </button>
+                    </div>
+                    <div
+                      class="app-multiselect__menu"
+                      id="pcTraineeDropdown"
+                      role="listbox"
+                    ></div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary pc-btn-add-trainee"
+                  id="pcBtnAddTrainee"
+                  aria-label="Add new player"
+                >
+                  <i data-lucide="user-plus" width="20" height="20"></i>
+                </button>
+              </div>
+              <div
+                id="pcWizardStrokeSection"
+                class="flex flex-column gap-3 mb-5"
+              >
+                <h3 class="text-start small app-form-label mb-3">
+                  Choose stroke type
+                </h3>
+                <div class="app-badge-tag-row" id="strokeChips">
+                  <button
+                    type="button"
+                    class="badge-tag pc-stroke-badge"
+                    data-stroke="Forehand"
+                  >
+                    Forehand
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag pc-stroke-badge"
+                    data-stroke="Backhand"
+                  >
+                    Backhand
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag pc-stroke-badge"
+                    data-stroke="Serve"
+                  >
+                    Serve
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag pc-stroke-badge"
+                    data-stroke="Volley"
+                  >
+                    Volley
+                  </button>
+                  <button
+                    type="button"
+                    class="badge-tag pc-stroke-badge"
+                    data-stroke="Smash"
+                  >
+                    Smash
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="app-modal__footer">
+              <button
+                type="button"
+                class="btn btn-orange"
+                id="step1Next"
+                disabled
+              >
+                Next
+                <i
+                  data-lucide="chevron-right"
+                  class="add-btn-icon"
+                  width="20"
+                  height="20"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 — Before selection -->
+        <div class="pc-wizard__step" data-step="2">
+          <div class="app-modal__header">
+            <button
+              type="button"
+              class="app-modal-close-btn"
+              id="wizardClose2"
+              aria-label="Close"
+            >
+              <i data-lucide="x" width="18" height="18"></i>
+            </button>
+          </div>
+          <div>
+            <div class="app-modal__content pc-wizard__scroll mt-5">
+              <div class="d-flex flex-column gap-2">
+                <label class="app-form-label" for="beforeDateRange"
+                  >Date range</label
+                >
+                <div class="mb-3">
+                  <div class="pc-date-input">
+                    <i
+                      data-lucide="calendar"
+                      width="16"
+                      height="16"
+                      class="pc-date-input__icon"
+                    ></i>
+                    <input
+                      type="text"
+                      class="app-form-input pc-date-input__field"
+                      id="beforeDateRange"
+                      placeholder="Date range"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="rc-clip-list" id="beforeEvalList"></div>
+            </div>
+            <div class="app-modal__footer">
+              <button type="button" class="btn btn-secondary" id="step2Back">
+                <i data-lucide="chevron-left" width="18" height="18"></i>
+                Back
+              </button>
+              <button
+                type="button"
+                class="btn btn-orange"
+                id="step2Next"
+                disabled
+              >
+                Next
+                <i
+                  data-lucide="chevron-right"
+                  class="add-btn-icon"
+                  width="20"
+                  height="20"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 — Split (before detail + after selection) -->
+        <div class="pc-wizard__step pc-wizard__step--wide" data-step="3">
+          <div class="app-modal__header">
+            <button
+              type="button"
+              class="app-modal-close-btn"
+              id="wizardClose3"
+              aria-label="Close"
+            >
+              <i data-lucide="x" width="18" height="18"></i>
+            </button>
+          </div>
+          <div>
+            <div
+              class="app-modal__content pc-wizard__scroll pc-wizard__scroll--split"
+            >
+              <div class="pc-split">
+                <div class="pc-split__before">
+                  <h3 class="fw-bold mb-0 text-center">Before</h3>
+                  <button
+                    type="button"
+                    class="pc-split__arrow btn"
+                    id="step3BackArrow"
+                    aria-label="Back to date range"
+                  >
+                    <i data-lucide="chevron-left" width="24" height="24"></i>
+                  </button>
+                  <div id="beforeDetail" class="pc-before-detail"></div>
+                </div>
+                <div class="pc-split__after">
+                  <h3 class="fw-bold mb-0 text-center">After</h3>
+                  <label class="app-form-label" for="afterDateRange"
+                    >Date range</label
+                  >
+                  <div class="mb-3">
+                    <div class="pc-date-input">
+                      <i
+                        data-lucide="calendar"
+                        width="16"
+                        height="16"
+                        class="pc-date-input__icon"
+                      ></i>
+                      <input
+                        type="text"
+                        class="app-form-input pc-date-input__field"
+                        id="afterDateRange"
+                        placeholder="Date range"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="rc-clip-list" id="afterEvalList"></div>
+                </div>
+              </div>
+            </div>
+            <div class="app-modal__footer">
+              <button type="button" class="btn btn-secondary" id="step3Back">
+                <i data-lucide="chevron-left" width="18" height="18"></i>
+                Back
+              </button>
+              <button
+                type="button"
+                class="btn btn-orange"
+                id="step3Next"
+                disabled
+              >
+                Compare
+                <i
+                  data-lucide="chevron-right"
+                  class="add-btn-icon"
+                  width="20"
+                  height="20"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add New Player (same flow as trainees list — opened from comparison wizard) -->
+    <div class="app-overlay pc-overlay-nested" id="pcAddPlayerOverlay">
+      <div class="app-modal">
+        <div class="app-modal__header">
+          <button
+            class="app-modal-close-btn"
+            id="pcAddPlayerClose"
+            type="button"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title">Add New Player</h2>
+        </div>
+
+        <form
+          id="pcAddPlayerForm"
+          class="app-form--validate"
+          autocomplete="off"
+        >
+          <div class="app-modal__content">
+            <div class="app-form-group">
+              <label class="app-form-label" for="pcApName">Full Name</label>
+              <input
+                class="app-form-input"
+                id="pcApName"
+                name="pcApName"
+                type="text"
+                required
+                data-invalid-msg="Please enter the player's full name."
+                placeholder="Enter Trainee's Full Name"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label" for="pcApEmail"
+                >Email Address</label
+              >
+              <input
+                class="app-form-input"
+                id="pcApEmail"
+                name="pcApEmail"
+                type="email"
+                required
+                data-invalid-msg="Please enter a valid email address."
+                placeholder="Enter Email Address"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label" for="pcApPhone">Phone Number</label>
+              <input
+                class="app-form-input"
+                id="pcApPhone"
+                name="pcApPhone"
+                type="tel"
+                required
+                data-invalid-msg="Please enter a valid phone number."
+                placeholder="Enter Phone Number"
+              />
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label">Player Level</label>
+              <div class="app-badge-tag-row" id="pcApLevel">
+                <button
+                  type="button"
+                  class="badge-tag badge-tag--green is-selected"
+                  data-value="2.0"
+                  data-level-color="green"
+                >
+                  <span class="badge-tag__check">
+                    <i data-lucide="check" width="12" height="12"></i>
+                  </span>
+                  2.0
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="2.5"
+                  data-level-color="dark-green"
+                >
+                  2.5
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="3.0"
+                  data-level-color="blue"
+                >
+                  3.0
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="3.5"
+                  data-level-color="purple"
+                >
+                  3.5
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="4.0"
+                  data-level-color="orange"
+                >
+                  4.0
+                </button>
+              </div>
+            </div>
+
+            <div class="app-form-group">
+              <label class="app-form-label">Training Group</label>
+              <div class="app-badge-tag-row" id="pcApGroup">
+                <button
+                  type="button"
+                  class="badge-tag badge-tag--orange is-selected"
+                  data-value="mon-thu"
+                  data-group-color="orange"
+                  data-label="Mon &amp; Thu, 3-5 PM"
+                >
+                  <span class="badge-tag__check">
+                    <i data-lucide="check" width="12" height="12"></i>
+                  </span>
+                  Mon &amp; Thu, 3-5 PM
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="sun-wed"
+                  data-group-color="blue"
+                  data-label="Sun &amp; Wed, 3-5 PM"
+                >
+                  Sun &amp; Wed, 3-5 PM
+                </button>
+                <button
+                  type="button"
+                  class="badge-tag"
+                  data-value="sat-tue"
+                  data-group-color="purple"
+                  data-label="Sat &amp; Tue, 3-5 PM"
+                >
+                  Sat &amp; Tue, 3-5 PM
+                </button>
+              </div>
+            </div>
+
+            <div class="alert alert-info mb-4">
+              <i
+                data-lucide="info"
+                width="18"
+                height="18"
+                class="flex-shrink-0 icon-info alert__icon"
+              ></i>
+              <p class="alert__text">
+                Players Will Automatically Be Added To Email And Text Groups
+                Based On Their Level And Training Group.
+              </p>
+            </div>
+          </div>
+
+          <div class="app-modal__footer">
+            <button type="submit" class="btn btn-orange add-btn">
+              <i
+                data-lucide="circle-check-big"
+                class="add-btn-icon"
+                width="20"
+                height="20"
+              ></i>
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="app-overlay pc-overlay-nested" id="pcApSuccessOverlay">
+      <div class="app-toast se-clip-video-success" role="alert">
+        <div class="app-toast__icon">
+          <i data-lucide="check" width="28" height="28"></i>
+        </div>
+        <p class="app-toast__text mb-0 fw-bold">Player Added Successfully!</p>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

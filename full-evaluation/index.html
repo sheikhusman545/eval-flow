@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="en" data-bs-theme="custom">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Full Evaluation - Performance Coach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/styles/global.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="page-full-eval">
+    <header class="app-header">
+      <div
+        class="container app-header-inner d-flex align-items-center justify-content-between"
+      >
+        <a class="app-brand" href="../index.html">Performance Coach</a>
+        <nav class="app-nav-main" aria-label="Primary">
+          <a class="app-nav-pill is-active" href="../index.html"
+            ><i data-lucide="users" width="18" height="18"></i> Trainees</a
+          >
+          <a class="app-nav-pill" href="../coach-clips/index.html"
+            ><i data-lucide="video" width="18" height="18"></i> Coach Clips</a
+          >
+          <a class="app-nav-pill" href="../player-library/index.html"
+            ><i data-lucide="library-big" width="18" height="18"></i> Player
+            Library</a
+          >
+          <a class="app-nav-pill" href="../pro-library/index.html"
+            ><i data-lucide="trophy" width="18" height="18"></i> Pro Library</a
+          >
+          <a class="app-nav-pill" href="../performance-comparison/index.html"
+            ><i data-lucide="line-chart" width="18" height="18"></i> Compare</a
+          >
+        </nav>
+        <div class="d-lg-none">
+          <button
+            type="button"
+            class="btn btn-primary-outline"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#appNavOffcanvas"
+            aria-controls="appNavOffcanvas"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
+        <div class="d-none d-lg-block trainees-header-spacer"></div>
+      </div>
+    </header>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="appNavOffcanvas"
+      aria-labelledby="appNavOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close menu"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2 app-nav-offcanvas">
+        <a class="app-nav-pill is-active" href="../index.html"
+          ><i data-lucide="users" width="18" height="18"></i> Trainees</a
+        >
+        <a class="app-nav-pill" href="../coach-clips/index.html"
+          ><i data-lucide="video" width="18" height="18"></i> Coach Clips</a
+        >
+        <a class="app-nav-pill" href="../player-library/index.html"
+          ><i data-lucide="library-big" width="18" height="18"></i> Player
+          Library</a
+        >
+        <a class="app-nav-pill" href="../pro-library/index.html"
+          ><i data-lucide="trophy" width="18" height="18"></i> Pro Library</a
+        >
+        <a class="app-nav-pill" href="../performance-comparison/index.html"
+          ><i data-lucide="line-chart" width="18" height="18"></i> Compare</a
+        >
+      </div>
+    </div>
+
+    <main class="app-main container">
+      <nav class="app-breadcrumb mb-2" aria-label="Breadcrumb">
+        <a href="../index.html">Trainees</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <a href="../trainee/index.html">Player Profile</a>
+        <i data-lucide="chevron-right" width="16" height="16"></i>
+        <span class="current">Full Evaluation</span>
+      </nav>
+
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3 mb-4"
+      >
+        <div>
+          <h1 class="app-page-title">Full Player Evaluation</h1>
+          <p class="app-page-subtitle">
+            Comprehensive stroke-by-stroke analysis of the trainee
+          </p>
+        </div>
+        <a
+          href="./create.html"
+          class="btn btn-primary-outline d-none border-0"
+          id="btnCreateNew"
+        >
+          <i data-lucide="square-pen" width="18" height="18"></i> Edit
+        </a>
+      </div>
+
+      <!-- ==================== EMPTY STATE ==================== -->
+      <section id="emptyState" class="app-empty-panel mx-auto mt-5">
+        <i
+          data-lucide="clipboard-list"
+          width="48"
+          height="48"
+          class="text-muted-app d-block mx-auto mb-3"
+        ></i>
+        <h2 class="h4 fw-bold mb-2">No Full Evaluation Yet</h2>
+        <p class="text-muted-app fw-bold mb-4">
+          Create a comprehensive stroke-by-stroke evaluation for this player
+        </p>
+        <a href="./create.html" class="btn btn-secondary px-4 mx-auto">
+          <i data-lucide="plus" width="18" height="18"></i> Create Full
+          Evaluation
+        </a>
+      </section>
+
+      <!-- ==================== EVALUATION VIEW (shown when eval exists) ==================== -->
+      <section id="evalView" class="d-none">
+        <div class="app-segmented mb-5">
+          <a href="../session-evaluation/index.html">Session Evaluation</a>
+          <a class="is-active" href="./index.html">Full Evaluation</a>
+        </div>
+
+        <!-- Stroke sections -->
+        <div class="app-eval-stepper app-eval-stepper--view-nav">
+          <div class="app-eval-stepper__line"></div>
+
+          <section
+            id="feStepStroke"
+            class="app-eval-stepper__section app-eval-stepper__section--view"
+          >
+            <div class="app-eval-stepper__track">
+              <button
+                type="button"
+                class="app-eval-stepper__dot app-eval-stepper__dot--nav app-eval-stepper__dot--hollow"
+                data-fe-step="0"
+                aria-current="step"
+                aria-label="Go to stroke evaluation"
+              >
+                1
+              </button>
+            </div>
+            <div class="app-eval-stepper__main">
+              <h2 class="app-eval-section-title">Stroke Evaluation</h2>
+              <p class="text-muted-app mb-4 fs-6">
+                Evaluate each stroke type with video, rating, and feedback
+              </p>
+
+              <h3 class="app-eval-stroke-card__title">Forehands</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeForehands"
+                data-stroke="forehands"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div>
+                      <h3 class="app-eval-stroke-card__stroke">
+                        Stroke Evaluation
+                      </h3>
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold se-rate-head__right">8.0</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="8"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="./../assets/videos/milesahead.mp4"
+                      data-video-poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Ball Toss</li>
+                          <li>Arm Swing</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Leg Drive</li>
+                          <li>Toss Position</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Malesuada Ac
+                      Condimentum Curabitur Vel Odio Tortor Egestas. Cursus
+                      Volutpat Tincidunt Tellus In Blandit.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Backhands</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeBackhands"
+                data-stroke="backhands"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div>
+                      <h3 class="app-eval-stroke-card__stroke">
+                        Stroke Evaluation
+                      </h3>
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold se-rate-head__right">7.5</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="7.5"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="./../assets/videos/milesahead.mp4"
+                      data-video-poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Follow Through</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Racquet Back Late</li>
+                          <li>Contact Point</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Netus In Maximus
+                      In Venenatis Efficitur Cursus.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Volleys</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeVolleys"
+                data-stroke="volleys"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div>
+                      <h3 class="app-eval-stroke-card__stroke">
+                        Stroke Evaluation
+                      </h3>
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold se-rate-head__right">8.5</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="8.5"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="./../assets/videos/milesahead.mp4"
+                      data-video-poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Net Position</li>
+                          <li>Reaction Time</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Split Step</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Dignissim Ac
+                      Consequat Morbi Tellus Fusce Vel.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Serves</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeServes"
+                data-stroke="serves"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div>
+                      <h3 class="app-eval-stroke-card__stroke">
+                        Stroke Evaluation
+                      </h3>
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold se-rate-head__right">7.0</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="7"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="./../assets/videos/milesahead.mp4"
+                      data-video-poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Ball Toss</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Leg Drive</li>
+                          <li>Follow Through</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Malesuada Ac Porto
+                      Finilius Ringilla.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Footwork</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeFootwork"
+                data-stroke="footwork"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div>
+                      <h3 class="app-eval-stroke-card__stroke">
+                        Stroke Evaluation
+                      </h3>
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold se-rate-head__right">8.0</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="8"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+                      data-video-poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=400&q=80"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Recovery Steps</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Lateral Movement</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Scelerisque
+                      Volutpate Nec Insignis.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Fitness</h3>
+              <div
+                class="app-eval-stroke-card"
+                id="strokeFitness"
+                data-stroke="fitness"
+              >
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div class="mb-3">
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold">Speed</span>
+                        <span class="fw-bold se-rate-head__right">8.0</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="8"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold">Explosiveness</span>
+                        <span class="fw-bold se-rate-head__right">7.5</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="7.5"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <div class="se-rate-head mb-1">
+                        <span class="fw-bold">Endurances</span>
+                        <span class="fw-bold se-rate-head__right">7.5</span>
+                      </div>
+                      <input
+                        type="range"
+                        class="se-range se-range--preview"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="7.5"
+                        aria-hidden="true"
+                        tabindex="-1"
+                      />
+                      <div
+                        class="se-rate-labels-container d-flex align-items-center justify-content-between"
+                      >
+                        <span class="se-rate-labels text-muted-app"
+                          >Needs Focus</span
+                        >
+                        <span class="se-rate-labels text-muted-app"
+                          >Excellent</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="app-eval-video-done mb-3 mt-3"
+                      data-video-src="./../assets/videos/milesahead.mp4"
+                      data-video-poster="https://static.wixstatic.com/media/a7a51b_63c79487e8644816bb03286a9ad652c1~mv2.avif/v1/fill/w_1200,h_890,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4e245d_8a3c05ea49814b219d367e7f8dd7397e~mv2.avif"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap"
+                      >
+                        <div
+                          class="d-flex align-items-center gap-2 min-w-0 flex-grow-1"
+                        >
+                          <i
+                            data-lucide="video"
+                            class="app-eval-video-done__lucide"
+                            width="40"
+                            height="40"
+                            aria-hidden="true"
+                          ></i>
+                          <div class="min-w-0">
+                            <div class="app-eval-video-done__name">
+                              Video-name.mp4
+                            </div>
+                            <div class="app-eval-video-done__status">
+                              <span>94 MB of 94 MB</span>
+                              <span
+                                class="app-eval-video-done__sep"
+                                aria-hidden="true"
+                                >•</span
+                              >
+                              <span class="app-eval-video-done__complete">
+                                <i
+                                  data-lucide="check-circle"
+                                  width="16"
+                                  height="16"
+                                  aria-hidden="true"
+                                ></i>
+                                Completed
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-primary-outline btn-sm flex-shrink-0 app-eval-video-done__view"
+                        >
+                          View video
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--green"
+                        >
+                          <i data-lucide="check" width="16" height="16"></i>
+                          What's Good
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Endurance</li>
+                          <li>Speed</li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6">
+                        <h4
+                          class="app-eval-check-label app-eval-check-label--orange"
+                        >
+                          <i
+                            data-lucide="alert-circle"
+                            width="16"
+                            height="16"
+                          ></i>
+                          Needs Attention
+                        </h4>
+                        <ul class="app-eval-points">
+                          <li>Core Stability</li>
+                          <li>Flexibility</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label class="fw-bold mb-2 d-block fs-6">Notes</label>
+                    <p class="app-eval-body-text">
+                      Lorem Ipsum Dolor Sit Amet Consectetur. Fusce Vel A
+                      Posuere Viverra.
+                    </p>
+                  </div>
+                </div>
+
+              <div class="fe-stroke-ref-clips mt-3">
+                <span class="fw-bold fs-6 d-block mb-2">Reference Clips</span>
+                <div class="clip-row fe-stroke-clips-row">
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                  <div class="clip-thumb">
+                    <video src="./../assets/videos/milesahead.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Overall Feedback -->
+          <section
+            id="feStepFeedback"
+            class="app-eval-stepper__section app-eval-stepper__section--view"
+          >
+            <div class="app-eval-stepper__track">
+              <button
+                type="button"
+                class="app-eval-stepper__dot app-eval-stepper__dot--nav"
+                data-fe-step="1"
+                aria-label="Go to overall feedback"
+              >
+                2
+              </button>
+            </div>
+            <div class="app-eval-stepper__main">
+              <h2 class="app-eval-section-title">Overall Feedback</h2>
+              <p class="text-muted-app mb-4 fs-6">
+                Provide overall observations, suggestions, and class
+                recommendations
+              </p>
+
+              <h3 class="app-eval-stroke-card__title">Coach Feedback</h3>
+              <div class="app-eval-feedback-block mb-4">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">Observation</h4>
+                    <p class="app-eval-body-text" id="feHydrateCoachObs">
+                      Lorem ipsum dolor sit amet consectetur. Malesuada ac
+                      condimentum curabitur vel odio tortor egestas. Cursus
+                      volutpat tincidunt tellus in blandit sociis nunc eu
+                      scelerisque purus morbi vel phasellus dolor vel proin sed.
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">Suggestions</h4>
+                    <p class="app-eval-body-text" id="feHydrateCoachSuggest">
+                      Focus on improving footwork and lateral movement.
+                      Incorporate more drills for leg drive and follow-through
+                      consistency.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Class Recommendations</h3>
+              <div class="app-eval-feedback-block mb-4">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">Based On Performance</h4>
+                    <p class="app-eval-body-text">
+                      Lorem ipsum dolor sit amet consectetur. Malesuada ac
+                      condimentum curabitur vel odio tortor egestas. Cursus
+                      volutpat tincidunt.
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">Suggestions</h4>
+                    <p class="app-eval-body-text">
+                      Advanced footwork drills class recommended. Consider
+                      intermediate volleys workshop for net play improvement.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="app-eval-stroke-card__title">Add A Certificate</h3>
+              <div class="app-eval-feedback-block">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">
+                      Select The Type You Want To Issue
+                    </h4>
+                    <p class="app-eval-body-text">
+                      Performance Achievement Certificate
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <h4 class="app-eval-feedback-sub">Notes</h4>
+                    <p class="app-eval-body-text">
+                      Demonstrated consistent improvement across all stroke
+                      categories. Strong fundamentals with clear potential for
+                      advanced development.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Recommendations -->
+          <section
+            id="feStepRecommendations"
+            class="app-eval-stepper__section app-eval-stepper__section--view"
+          >
+            <div class="app-eval-stepper__track">
+              <button
+                type="button"
+                class="app-eval-stepper__dot app-eval-stepper__dot--nav"
+                data-fe-step="2"
+                aria-label="Go to recommendations"
+              >
+                3
+              </button>
+            </div>
+            <div class="app-eval-stepper__main">
+              <h2 class="app-eval-section-title mb-4">Recommendations</h2>
+              <p class="text-muted-app mb-4 fs-6">
+                Suggested classes for the trainee based on their performance and
+                preferences
+              </p>
+
+              <div class="recommendations-row">
+                <div class="row">
+                  <section class="col-xl-6 col-12 mb-5 mb-lg-0">
+                    <h2 class="recommendations-title">Recommended Classes</h2>
+                    <div class="row g-4">
+                      <div class="col-md-6 col-12">
+                        <article class="app-class-card h-100">
+                          <div
+                            class="app-class-card__media se-class-media-round"
+                          >
+                            <img
+                              src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                              alt=""
+                            />
+                          </div>
+                          <div class="app-class-card__body">
+                            <h4 class="fw-bold h6 mb-3">
+                              Advanced Footwork Drills
+                            </h4>
+                            <p class="small text-muted-app mb-2">
+                              <i
+                                data-lucide="map-pin"
+                                width="14"
+                                height="14"
+                                class="icon-secondary"
+                              ></i>
+                              Manhattan, NY
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                              <span class="badge-tag badge-tag--green"
+                                >Intermediate</span
+                              >
+                              <span class="badge-tag badge-tag--orange"
+                                >Footwork</span
+                              >
+                            </div>
+                            <div class="row app-class-card__coach mb-3">
+                              <p
+                                class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                              >
+                                <span
+                                  class="fw-bold mb-0 app-class-card__coach-label"
+                                  >Coach</span
+                                >
+                                <span class="mb-0 app-class-card__coach-name"
+                                  >Mike R.</span
+                                >
+                              </p>
+                              <div
+                                class="app-stars col-md-6 col-4"
+                                aria-label="4 out of 5 stars"
+                              >
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-off"
+                                  stroke-width="1.5"
+                                ></i>
+                              </div>
+                            </div>
+                            <div
+                              class="mt-auto small text-muted-app d-flex justify-content-between"
+                            >
+                              <p class="d-flex align-items-center gap-2 mb-0">
+                                <i
+                                  data-lucide="clock"
+                                  class="icon-secondary"
+                                  width="16"
+                                  height="16"
+                                ></i>
+                                <span class="app-class-card__time"
+                                  >4:00-5:30 PM</span
+                                >
+                              </p>
+                              <p class="d-flex align-items-center gap-2 mb-0">
+                                <i
+                                  data-lucide="calendar"
+                                  class="icon-secondary"
+                                  width="16"
+                                  height="16"
+                                ></i>
+                                <span class="app-class-card__time"
+                                  >2026-03-17</span
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                      <div class="col-md-6 col-12">
+                        <article class="app-class-card h-100">
+                          <div
+                            class="app-class-card__media se-class-media-round"
+                          >
+                            <img
+                              src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                              alt=""
+                            />
+                          </div>
+                          <div class="app-class-card__body">
+                            <h4 class="fw-bold h6 mb-3">
+                              Net Play Masterclass
+                            </h4>
+                            <p class="small text-muted-app mb-2">
+                              <i
+                                data-lucide="map-pin"
+                                width="14"
+                                height="14"
+                                class="icon-secondary"
+                              ></i>
+                              Brooklyn, NY
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                              <span class="badge-tag badge-tag--green"
+                                >Advanced</span
+                              >
+                              <span class="badge-tag badge-tag--orange"
+                                >Volley</span
+                              >
+                            </div>
+                            <div class="row app-class-card__coach mb-3">
+                              <p
+                                class="text-muted-app d-flex flex-column gap-1 col-12 col-md-6 mb-0"
+                              >
+                                <span
+                                  class="fw-bold mb-0 app-class-card__coach-label"
+                                  >Coach</span
+                                >
+                                <span class="mb-0 app-class-card__coach-name"
+                                  >Sarah L.</span
+                                >
+                              </p>
+                              <div
+                                class="app-stars col-md-6 col-4"
+                                aria-label="5 out of 5 stars"
+                              >
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                                <i
+                                  data-lucide="star"
+                                  class="star-on"
+                                  stroke-width="1.5"
+                                ></i>
+                              </div>
+                            </div>
+                            <div
+                              class="mt-auto small text-muted-app d-flex justify-content-between"
+                            >
+                              <p class="d-flex align-items-center gap-2 mb-0">
+                                <i
+                                  data-lucide="clock"
+                                  class="icon-secondary"
+                                  width="16"
+                                  height="16"
+                                ></i>
+                                <span class="app-class-card__time"
+                                  >6:00-7:30 PM</span
+                                >
+                              </p>
+                              <p class="d-flex align-items-center gap-2 mb-0">
+                                <i
+                                  data-lucide="calendar"
+                                  class="icon-secondary"
+                                  width="16"
+                                  height="16"
+                                ></i>
+                                <span class="app-class-card__time"
+                                  >2026-03-18</span
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="col-xl-6 col-12">
+                    <h2 class="recommendations-title">Recommended Coaches</h2>
+                    <article class="app-coach-compact mb-3">
+                      <img
+                        src="../assets/images/coaches/miles.png"
+                        alt="Miles B."
+                      />
+                      <div class="app-recommended-coach">
+                        <h4 class="text-truncate coach-name">Miles B.</h4>
+                        <p class="coach-description">Footwork Specialist</p>
+                        <div class="app-stars coach-rating">
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="app-coach-compact">
+                      <img
+                        src="../assets/images/coaches/vijay.png"
+                        alt="Coach Vijay"
+                      />
+                      <div class="app-recommended-coach">
+                        <h4 class="text-truncate coach-name">Coach Vijay</h4>
+                        <p class="coach-description">
+                          Serve &amp; Volley Expert
+                        </p>
+                        <div class="app-stars coach-rating">
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                          <i
+                            data-lucide="star"
+                            class="star-on"
+                            width="14"
+                            height="14"
+                          ></i>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="app-overlay" id="feVideoModalOverlay" aria-hidden="true">
+      <div
+        class="app-modal app-eval-video-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="feVideoModalTitle"
+      >
+        <div class="app-modal__header">
+          <button
+            type="button"
+            class="app-modal-close-btn"
+            id="feVideoModalClose"
+            aria-label="Close"
+          >
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+          <h2 class="app-modal__title" id="feVideoModalTitle">Video</h2>
+        </div>
+        <div class="app-modal__content app-eval-video-modal__content">
+          <video
+            id="feVideoModalPlayer"
+            class="app-eval-video-modal__player"
+            controls
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../assets/scripts/app-shared.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

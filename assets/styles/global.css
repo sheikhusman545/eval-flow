@@ -1,0 +1,208 @@
+@import url("./ui-shared.css");
+@import url("./typography.css");
+@import url("./variables.css");
+
+/************************************************** start global styles **************************************************/
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  color: var(--color-black);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+input::placeholder {
+  color: var(--color-gray);
+}
+
+/* scroll */
+/* width */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-light-gray);
+  border-radius: 2rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray);
+  border-radius: 2rem;
+}
+svg[data-lucide] {
+  stroke-width: 2px;
+}
+
+/************************************************** end global styles **************************************************/
+
+/************************************************** start layout & chrome **************************************************/
+.app-header {
+  backdrop-filter: blur(8px);
+
+  border: 1px solid var(--color-light-gray);
+}
+
+.app-header--shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.app-header-inner {
+  height: 6.25rem;
+}
+
+.app-brand {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-subtitle);
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+}
+
+.app-nav-main {
+  display: none;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Inline primary nav from lg (992px); below that use hamburger + offcanvas (tablet ~768px included) */
+@media (min-width: 992px) {
+  .app-nav-main {
+    display: flex;
+  }
+}
+
+.app-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-btn);
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family-bold);
+  color: var(--color-gray);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.app-nav-pill:hover {
+  background: var(--color-light-gray);
+  color: var(--color-black);
+}
+
+.app-nav-pill.is-active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
+.app-nav-pill.is-active svg {
+  color: rgb(255 255 255 / 0.92);
+}
+
+/* Mobile offcanvas: stack primary nav links */
+.app-nav-offcanvas .app-nav-pill {
+  width: 100%;
+  justify-content: flex-start;
+}
+.offcanvas.offcanvas-end {
+  background-color: var(--color-white);
+  opacity: 1;
+  backdrop-filter: none;
+}
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.app-page-title {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-h3);
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+  margin-bottom: 0.5rem;
+}
+
+.app-page-subtitle {
+  font-size: var(--font-size-body);
+  color: var(--color-gray);
+  font-family: var(--font-family);
+}
+
+.app-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-gray);
+  margin-bottom: 1.5rem;
+}
+
+.app-breadcrumb a:hover {
+  color: var(--color-black);
+}
+
+.app-breadcrumb .current {
+  font-family: var(--font-family-bold);
+  color: var(--color-black);
+}
+
+/************************************************** end layout & chrome **************************************************/
+
+/************************************************** start layout & chrome **************************************************/
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  :root {
+    /* Typography (rem = 16px root) */
+    --font-size-h1: 2.4375rem; /* 55px */
+    --font-size-h2: 2.125rem; /* 50px */
+    --font-size-h3: 1.875rem; /* 40px */
+    --font-size-subtitle: 1.375rem; /* 26px */
+    --font-size-body: 1rem; /* 20px */
+    --font-size-caption: 0.875rem; /* 16px */
+    --font-size-small: 0.75rem; /* 14px */
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/************************************************** end layout & chrome **************************************************/
