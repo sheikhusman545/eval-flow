@@ -94,16 +94,16 @@ export default function TraineesClient({ trainees }: TraineesClientProps) {
       </div>
 
       {/* Search + Controls */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="flex flex-col md:flex-row items-center gap-4 py-[1.9rem] px-8 bg-white rounded-[2rem] shadow-[0_1.4rem_3.063rem_0_rgba(0,0,0,0.04)] mb-6">
         {/* Search */}
-        <div className="flex items-center gap-2 flex-1 bg-white border border-gray-300 rounded-xl px-3 py-2 focus-within:border-[#365c8e] transition-colors">
-          <Search size={18} className="text-[#365c8e] shrink-0" />
+        <div className="flex items-center flex-1 bg-[#f8f9fb] rounded-xl px-3 py-2 w-full relative">
+          <Search size={20} className="text-[#365c8e] shrink-0 relative z-10" />
           <input
             type="text"
             placeholder="Search By Name Or Tags...."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 text-sm outline-none bg-transparent placeholder:text-gray-400"
+            className="flex-1 text-sm outline-none border-0 bg-transparent placeholder:text-gray-400 px-3 py-0.5"
             aria-label="Search trainees"
           />
           <Button variant="primary" size="sm" onClick={() => {}}>

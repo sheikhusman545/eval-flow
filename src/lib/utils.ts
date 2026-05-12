@@ -11,40 +11,48 @@ export function formatDate(dateStr: string): string {
   return d.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })
 }
 
+// Colors match original CSS variables exactly:
+// --color-info-bg: #dbeafe; --color-info-text: #1d4ed8
+// --color-success-chip-bg: #dcfce7; --color-success-chip-text: #166534
+// --color-warning-chip-bg: #fef9c3; --color-warning-chip-text: #a16207
+// --color-danger-chip-bg: #fff1f2; --color-danger-chip-text: #e11d48
+// --color-purple-chip-bg: #e8eaf6; --color-purple-chip-text: #5c6bc0
+// --color-green-chip-bg: #e0f2f1; --color-green-chip-text: #26a69a
+// --color-light-orange: #fcf0dc; --color-orange: #fd5303
 export const BADGE_COLOR_CLASSES: Record<BadgeColor, { bg: string; text: string; border: string }> = {
   blue: {
-    bg: 'bg-blue-50',
-    text: 'text-[#365c8e]',
-    border: 'border-[#365c8e]/20',
+    bg: 'bg-[#dbeafe]',
+    text: 'text-[#1d4ed8]',
+    border: 'border-[#1d4ed8]',
   },
   green: {
-    bg: 'bg-green-50',
-    text: 'text-[#6fbf45]',
-    border: 'border-[#6fbf45]/20',
+    bg: 'bg-[#dcfce7]',
+    text: 'text-[#166534]',
+    border: 'border-[#166534]',
   },
   yellow: {
-    bg: 'bg-amber-50',
-    text: 'text-amber-600',
-    border: 'border-amber-200',
+    bg: 'bg-[#fef9c3]',
+    text: 'text-[#a16207]',
+    border: 'border-[#a16207]',
   },
   red: {
-    bg: 'bg-red-50',
-    text: 'text-red-500',
-    border: 'border-red-200',
+    bg: 'bg-[#fff1f2]',
+    text: 'text-[#e11d48]',
+    border: 'border-[#e11d48]',
   },
   orange: {
-    bg: 'bg-orange-50',
+    bg: 'bg-[#fcf0dc]',
     text: 'text-[#fd5303]',
-    border: 'border-[#fd5303]/20',
+    border: 'border-[#fd5303]',
   },
   purple: {
-    bg: 'bg-purple-50',
-    text: 'text-purple-600',
-    border: 'border-purple-200',
+    bg: 'bg-[#e8eaf6]',
+    text: 'text-[#5c6bc0]',
+    border: 'border-[#5c6bc0]',
   },
   'dark-green': {
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-700',
-    border: 'border-emerald-200',
+    bg: 'bg-[#e0f2f1]',
+    text: 'text-[#26a69a]',
+    border: 'border-[#26a69a]',
   },
 }
