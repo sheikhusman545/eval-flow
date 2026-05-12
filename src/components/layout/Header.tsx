@@ -19,10 +19,10 @@ function NavPill({ href, label, icon: Icon, active }: { href: string; label: str
     <Link
       href={href}
       className={cn(
-        'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-colors',
+        'flex items-center gap-2.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors',
         active
-          ? 'bg-[#365c8e] text-white'
-          : 'text-[#365c8e] hover:bg-[#365c8e]/10',
+          ? 'bg-[#365c8e] text-white shadow-sm'
+          : 'text-[#868686] hover:bg-[#f8f9fb] hover:text-black',
       )}
     >
       <Icon size={18} />
@@ -42,27 +42,26 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-white/90 border-b border-gray-200 sticky top-0 z-40 backdrop-blur-sm">
+      <header className="bg-white/90 border border-[#f0f0f0] sticky top-0 z-40 backdrop-blur-sm">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex items-center justify-between h-[6.25rem] gap-6">
             {/* Brand */}
-            <Link href="/" className="font-bold text-lg text-gray-900 flex items-center gap-2 shrink-0">
+            <Link href="/" className="font-bold text-lg text-black shrink-0 tracking-tight" style={{ letterSpacing: '-0.02em' }}>
               Performance Coach
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
+            <nav className="hidden lg:flex items-center gap-4 flex-1 justify-end" aria-label="Primary">
               {NAV_ITEMS.map((item) => (
                 <NavPill key={item.href} {...item} active={isActive(item.href)} />
               ))}
             </nav>
 
-            {/* Spacer / Mobile Menu Button */}
-            <div className="hidden lg:block w-32" />
+            {/* Mobile Menu Button */}
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden p-2 rounded-lg border border-[#365c8e] text-[#365c8e] hover:bg-[#365c8e]/10 transition-colors"
+              className="lg:hidden p-2 rounded-lg border border-[#365c8e] text-[#365c8e] hover:bg-[#f8f9fb] transition-colors"
               aria-label="Open menu"
             >
               <Menu size={22} />
@@ -79,11 +78,11 @@ export default function Header() {
             onClick={() => setMobileOpen(false)}
           />
           <div className="absolute right-0 top-0 bottom-0 w-72 bg-white shadow-xl flex flex-col">
-            <div className="flex items-center justify-end p-4 border-b border-gray-200">
+            <div className="flex items-center justify-end p-4 border-b border-[#f0f0f0]">
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-lg hover:bg-[#f8f9fb] transition-colors"
                 aria-label="Close menu"
               >
                 <X size={20} />
